@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5ce378c-e69c-4751-96b5-559a6a82ebbe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/Fullname.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/Fullname.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/OnlineTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/OnlineTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/UserSecretDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/user/valueobject/UserSecretDetails.java" afterDir="false" />
+    <list default="true" id="e5ce378c-e69c-4751-96b5-559a6a82ebbe" name="Changes" comment="deleted ChatStatus.java enum object">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/statuses/AdvertisementStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Description.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Title.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/category/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/Advertisement/Advertisement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/Advertisement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/shared/ActivityDateTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/shared/ActivityDateTime.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +22,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -24,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="ca97bd293f1d0e89c8083888cb8837b2a06683a5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,24 +52,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MTConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Eugene/IdeaProjects/adservice-project/src/main/java/com/evgeniykudashov/adservice/model/user",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MTConfigurable",
+    "spring.configuration.checksum": "b937dc43c12b159094354324a65d184c",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.evgeniykudashov.adservice.model.Advertisement.valueobject" />
+      <recent name="com.evgeniykudashov.adservice.model.shared" />
+      <recent name="com.evgeniykudashov.adservice.model.Advertisement.statuses" />
+      <recent name="com.evgeniykudashov.adservice.model.Advertisement.stt" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Eugene\IdeaProjects\adservice-project\src\main\java\com\evgeniykudashov\adservice\model\user" />
+      <recent name="C:\Users\Eugene\IdeaProjects\adservice-project\src\main\java\com\evgeniykudashov\adservice\model\Advertisement" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -74,6 +94,7 @@
       <updated>1681560794923</updated>
       <workItem from="1681560796026" duration="1268000" />
       <workItem from="1681562073709" duration="2194000" />
+      <workItem from="1681632997100" duration="4989000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore commit">
       <created>1681560817980</created>
@@ -117,11 +138,71 @@
       <option name="project" value="LOCAL" />
       <updated>1681563305910</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="deleted">
+      <created>1681572866091</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681572866091</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added Advertisement.java aggregate">
+      <created>1681572959310</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681572959310</updated>
+    </task>
+    <task id="LOCAL-00009" summary="deleted OnlineTime.java value object">
+      <created>1681634181825</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1681634181825</updated>
+    </task>
+    <task id="LOCAL-00010" summary="deleted ChatStatus.java enum object">
+      <created>1681634230548</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1681634230548</updated>
+    </task>
+    <task id="LOCAL-00011" summary="deleted MessageStatus.java enum object">
+      <created>1681634243292</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1681634243292</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added ActivityDateTime.java value object">
+      <created>1681634291611</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1681634291611</updated>
+    </task>
+    <task id="LOCAL-00013" summary="User.java updated implementation">
+      <created>1681634344865</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1681634344865</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -141,7 +222,14 @@
     <MESSAGE value="added and implemented UserSecretDetails.java value object" />
     <MESSAGE value="added and implemented FullName.java value object" />
     <MESSAGE value="updated User.java implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated User.java implementation" />
+    <MESSAGE value="deleted" />
+    <MESSAGE value="added Advertisement.java aggregate" />
+    <MESSAGE value="deleted OnlineTime.java value object" />
+    <MESSAGE value="deleted ChatStatus.java enum object" />
+    <MESSAGE value="deleted MessageStatus.java enum object" />
+    <MESSAGE value="added ActivityDateTime.java value object" />
+    <MESSAGE value="User.java updated implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="User.java updated implementation" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
