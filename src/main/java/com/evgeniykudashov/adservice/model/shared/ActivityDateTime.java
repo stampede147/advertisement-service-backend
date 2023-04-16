@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice.model.shared;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -22,6 +23,15 @@ public final class ActivityDateTime {
 
     public ActivityDateTime(LocalDateTime firstUpdateDateTime,
                             LocalDateTime lastUpdateDateTime) {
+        if (firstUpdateDateTime == null) {
+            throw new RuntimeException("firstUpdateDateTime can not be null");
+        }
+        if (lastUpdateDateTime == null) {
+            throw new RuntimeException("lastUpdateDateTime can not be null");
+        }
+        if (firstUpdateDateTime.compareTo(lastUpdateDateTime) < 0) {
+            throw new RuntimeException(("lastUpdateDatetime can not be earlier than firstUpdateDateTime"));
+        }
         this.firstUpdateDateTime = firstUpdateDateTime;
         this.lastUpdateDateTime = lastUpdateDateTime;
     }
