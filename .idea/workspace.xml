@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5ce378c-e69c-4751-96b5-559a6a82ebbe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/chat/statuses/ChatStatus.java" afterDir="false" />
+    <list default="true" id="e5ce378c-e69c-4751-96b5-559a6a82ebbe" name="Changes" comment="added ChatMessage.java">
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/chat/valueobject/ChatMessage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/chat/valueobject/MessageBody.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/shared/CreationDateTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/chat/Chat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,26 +48,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Eugene/IdeaProjects/adservice-project/src/main/java/com/evgeniykudashov/adservice/model/user",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MTConfigurable",
-    "spring.configuration.checksum": "b937dc43c12b159094354324a65d184c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Eugene/IdeaProjects/adservice-project/src/main/java/com/evgeniykudashov/adservice/model/user&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MTConfigurable&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b937dc43c12b159094354324a65d184c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.evgeniykudashov.adservice.model.chat.statuses" />
@@ -93,7 +91,7 @@
       <updated>1681560794923</updated>
       <workItem from="1681560796026" duration="1268000" />
       <workItem from="1681562073709" duration="2194000" />
-      <workItem from="1681632997100" duration="6567000" />
+      <workItem from="1681632997100" duration="6873000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore commit">
       <created>1681560817980</created>
@@ -242,7 +240,35 @@
       <option name="project" value="LOCAL" />
       <updated>1681643604379</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary=".idea update">
+      <created>1681644551994</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1681644551994</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added ChatStatus.java">
+      <created>1681644566767</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681644566767</updated>
+    </task>
+    <task id="LOCAL-00024" summary="added CreationDateTime.java">
+      <created>1681644586668</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1681644586668</updated>
+    </task>
+    <task id="LOCAL-00025" summary="idea update">
+      <created>1681644811315</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1681644811315</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +318,11 @@
     <MESSAGE value="added Title.java value object" />
     <MESSAGE value="added some logic and invariants to Advertisement.java" />
     <MESSAGE value="added chat object (in future aggregate)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added chat object (in future aggregate)" />
+    <MESSAGE value=".idea update" />
+    <MESSAGE value="added ChatStatus.java" />
+    <MESSAGE value="added CreationDateTime.java" />
+    <MESSAGE value="idea update" />
+    <option name="LAST_COMMIT_MESSAGE" value="idea update" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
