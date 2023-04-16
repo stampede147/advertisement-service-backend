@@ -9,8 +9,6 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Address.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Description.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/valueobject/Title.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/category/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/Advertisement/Advertisement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/advertisement/Advertisement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/shared/ActivityDateTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evgeniykudashov/adservice/model/shared/ActivityDateTime.java" afterDir="false" />
     </list>
@@ -94,7 +92,7 @@
       <updated>1681560794923</updated>
       <workItem from="1681560796026" duration="1268000" />
       <workItem from="1681562073709" duration="2194000" />
-      <workItem from="1681632997100" duration="4989000" />
+      <workItem from="1681632997100" duration="5312000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore commit">
       <created>1681560817980</created>
@@ -187,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681634344865</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="changed Category.java location">
+      <created>1681643278146</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681643278146</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +234,8 @@
     <MESSAGE value="deleted MessageStatus.java enum object" />
     <MESSAGE value="added ActivityDateTime.java value object" />
     <MESSAGE value="User.java updated implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="User.java updated implementation" />
+    <MESSAGE value="changed Category.java location" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed Category.java location" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
