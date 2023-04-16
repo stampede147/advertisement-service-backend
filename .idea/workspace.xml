@@ -72,11 +72,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.evgeniykudashov.adservice.model.chat.statuses" />
       <recent name="com.evgeniykudashov.adservice.model.chat.valueobject" />
       <recent name="com.evgeniykudashov.adservice.model.shared" />
       <recent name="com.evgeniykudashov.adservice.model.Advertisement.valueobject" />
       <recent name="com.evgeniykudashov.adservice.model.Advertisement.statuses" />
-      <recent name="com.evgeniykudashov.adservice.model.Advertisement.stt" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Eugene\IdeaProjects\adservice-project\src\main\java\com\evgeniykudashov\adservice\model\user" />
