@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.shared;
 
-import jakarta.annotation.Nonnull;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Immutable
+@Embeddable
 public final class ActivityDateTime {
 
     @Temporal(TemporalType.TIMESTAMP)

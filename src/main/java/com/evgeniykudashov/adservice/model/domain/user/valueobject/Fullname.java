@@ -1,22 +1,20 @@
-package com.evgeniykudashov.adservice.model.user.valueobject;
+package com.evgeniykudashov.adservice.model.domain.user.valueobject;
 
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
-@Immutable
 @Getter
+@NoArgsConstructor(onConstructor = @__({@Deprecated}))
+
+@Immutable
 @Embeddable
 public class Fullname {
 
-
     private String name;
     private String surname;
-
-    @Deprecated
-    public Fullname() {
-    }
 
     public Fullname(String name, String surname) {
         setName(name);

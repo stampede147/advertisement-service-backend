@@ -1,8 +1,10 @@
-package com.evgeniykudashov.adservice.model.user.valueobject;
+package com.evgeniykudashov.adservice.model.domain.user.valueobject;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,20 +12,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 
-@Immutable
 @Getter
+@NoArgsConstructor(onConstructor = @__({@Deprecated}))
+
+@Immutable
 @Embeddable
+@Access(AccessType.FIELD)
 public class UserSecretDetails implements UserDetails {
 
-    @Column(name = "username")
     private String username;
-    @Column(name = "password")
     private String password;
-
-
-    @Deprecated
-    public UserSecretDetails() {
-    }
 
     public UserSecretDetails(String username, String password) {
         this.username = username;
@@ -37,12 +35,12 @@ public class UserSecretDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
