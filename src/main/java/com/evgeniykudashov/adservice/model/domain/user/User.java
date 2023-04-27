@@ -1,29 +1,36 @@
 package com.evgeniykudashov.adservice.model.domain.user;
 
 
+import com.evgeniykudashov.adservice.model.domain.user.valueobject.Feedback;
 import com.evgeniykudashov.adservice.model.domain.user.valueobject.Fullname;
 import com.evgeniykudashov.adservice.model.domain.user.valueobject.UserSecretDetails;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+
+@Getter
+@NoArgsConstructor(onConstructor = @__({@Deprecated}))
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
     private Fullname fullname;
     private UserSecretDetails secretDetails;
 
-    public User() {
-    }
+    @ElementCollection
+    @CollectionTable(name = "users_feedbacks",
+            joinColumns = @JoinColumn(name = "user_id"))
+    private List<Feedback> feedbacks;
 
-    public User(Fullname fullname,
-                UserSecretDetails secretDetails) {
+    public User(Fullname fullname, UserSecretDetails secretDetails) {
         this.fullname = fullname;
         this.secretDetails = secretDetails;
     }
@@ -37,4 +44,11 @@ public class User {
     }
 
 
+    public void addFeedback(Feedback feedback) {
+        this.feedbacks.add(feedback);
+    }
+
+    public void removeFeedbackByIndex(int index) {
+        this.feedbacks.remove(index);
+    }
 }
