@@ -20,11 +20,6 @@ import java.io.Serializable;
 @Embeddable
 public class ChatMessage implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id")
-    @Immutable
-    private Chat chat;
-
     private MessageBody messageBody;
 
     @ManyToOne(fetch = FetchType.LAZY)
