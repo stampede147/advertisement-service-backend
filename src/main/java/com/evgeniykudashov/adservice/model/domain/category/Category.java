@@ -1,13 +1,17 @@
 package com.evgeniykudashov.adservice.model.domain.category;
 
-import com.evgeniykudashov.adservice.model.domain.advertisement.valueobject.Title;
+import com.evgeniykudashov.adservice.model.shared.Title;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
+
+@Entity
+@Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
