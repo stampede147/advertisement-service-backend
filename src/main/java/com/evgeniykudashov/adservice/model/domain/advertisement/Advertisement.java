@@ -2,15 +2,19 @@ package com.evgeniykudashov.adservice.model.domain.advertisement;
 
 import com.evgeniykudashov.adservice.model.domain.advertisement.statuses.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.domain.advertisement.valueobject.Address;
-import com.evgeniykudashov.adservice.model.domain.advertisement.valueobject.Description;
-import com.evgeniykudashov.adservice.model.domain.advertisement.valueobject.Title;
 import com.evgeniykudashov.adservice.model.domain.category.Category;
 import com.evgeniykudashov.adservice.model.domain.user.User;
+import com.evgeniykudashov.adservice.model.shared.Description;
+import com.evgeniykudashov.adservice.model.shared.Title;
 import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "advertisements")
 public class Advertisement {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertisement_id")
     private long id;
     private Title title;
@@ -18,11 +22,11 @@ public class Advertisement {
     @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @OneToOne
+    @JoinColumn(name = "user_owner_id")
     private User owner;
-    @Embedded
     @Enumerated(value = EnumType.STRING)
     private AdvertisementStatus status;
-    @Embedded
     private Address address;
 
 
