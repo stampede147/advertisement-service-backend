@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.advertisement.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

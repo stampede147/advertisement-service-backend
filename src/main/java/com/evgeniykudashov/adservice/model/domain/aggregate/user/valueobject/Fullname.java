@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.user.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
 
 
 import jakarta.persistence.Embeddable;

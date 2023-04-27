@@ -1,8 +1,8 @@
-package com.evgeniykudashov.adservice.model.domain.user.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
 
-import com.evgeniykudashov.adservice.model.domain.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.domain.user.User;
-import com.evgeniykudashov.adservice.model.domain.user.status.Mark;
+import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.status.Mark;
 import com.evgeniykudashov.adservice.model.shared.Description;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;

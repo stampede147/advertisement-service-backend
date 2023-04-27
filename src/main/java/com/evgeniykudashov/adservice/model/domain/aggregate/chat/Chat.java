@@ -1,11 +1,14 @@
-package com.evgeniykudashov.adservice.model.domain.chat;
+package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
-import com.evgeniykudashov.adservice.model.domain.chat.entity.ChatMessage;
-import com.evgeniykudashov.adservice.model.domain.user.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.ChatMessage;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
+@NoArgsConstructor(onConstructor = @__({@Deprecated}))
 
 // aggregate
 @Entity

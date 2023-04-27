@@ -1,9 +1,9 @@
-package com.evgeniykudashov.adservice.model.domain.user;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user;
 
 
-import com.evgeniykudashov.adservice.model.domain.user.valueobject.Feedback;
-import com.evgeniykudashov.adservice.model.domain.user.valueobject.Fullname;
-import com.evgeniykudashov.adservice.model.domain.user.valueobject.UserSecretDetails;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Feedback;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Fullname;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.UserSecretDetails;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
