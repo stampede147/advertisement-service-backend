@@ -17,30 +17,25 @@ import java.io.Serializable;
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @Builder
 
-@Immutable
-@Entity
-@Table(name = "chat_messages")
+@Embeddable
 public class ChatMessage implements Serializable {
-
-    @Id
-    @Column(name = "chat_message_id")
-    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_id")
+    @Immutable
     private Chat chat;
 
     private MessageBody messageBody;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_sender_id")
+    @Immutable
     private User sender;
 
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
 
-    public ChatMessage(long id, Chat chat, MessageBody messageBody, User sender, ChatStatus chatStatus) {
-        this.id = id;
+    public ChatMessage(Chat chat, MessageBody messageBody, User sender, ChatStatus chatStatus) {
         this.chat = chat;
         this.messageBody = messageBody;
         this.sender = sender;
@@ -49,7 +44,6 @@ public class ChatMessage implements Serializable {
 
     public ChatMessage withMessageBody(MessageBody messageBody) {
         return ChatMessage.builder()
-                .id(this.id)
                 .chat(this.chat)
                 .messageBody(messageBody)
                 .sender(this.sender)
