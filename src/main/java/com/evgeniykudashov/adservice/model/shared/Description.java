@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.advertisement.valueobject;
+package com.evgeniykudashov.adservice.model.shared;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
@@ -13,7 +13,6 @@ import org.hibernate.annotations.Immutable;
 @Embeddable
 public class Description {
 
-    @Getter
     private String data;
 
     public Description(String data) {
