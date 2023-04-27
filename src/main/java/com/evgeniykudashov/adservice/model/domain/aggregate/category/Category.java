@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.category;
 
-import com.evgeniykudashov.adservice.model.shared.Title;
+import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +17,13 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private Title title;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
     private Category parent;
+
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Category> childrens;
 

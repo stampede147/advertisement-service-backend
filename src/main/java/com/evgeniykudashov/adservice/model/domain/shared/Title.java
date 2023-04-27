@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.shared;
+package com.evgeniykudashov.adservice.model.domain.shared;
 
 
 import jakarta.persistence.Embeddable;
