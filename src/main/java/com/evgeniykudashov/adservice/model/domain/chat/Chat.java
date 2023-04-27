@@ -21,9 +21,10 @@ public class Chat {
             joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id", referencedColumnName = "chat_message_id")
+    @ElementCollection()
+    @CollectionTable(name = "chat_chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
     private List<ChatMessage> chatMessages;
+
 
     public void addChatMessage(ChatMessage chatMessage) {
         this.chatMessages.add(chatMessage);
