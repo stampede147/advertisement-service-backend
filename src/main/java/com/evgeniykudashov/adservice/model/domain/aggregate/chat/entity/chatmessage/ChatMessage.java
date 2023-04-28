@@ -1,8 +1,8 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity;
+package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.statuses.ChatStatus;
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.MessageBody;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.statuses.MessageStatus;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject.MessageBody;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,27 +27,26 @@ public class ChatMessage implements Serializable {
     private User sender;
 
     @Enumerated(EnumType.STRING)
-    private ChatStatus chatStatus;
+    private MessageStatus messageStatus;
 
 
     public ChatMessage(MessageBody messageBody, User sender) {
         this.messageBody = messageBody;
         this.sender = sender;
-        this.chatStatus = ChatStatus.CREATED;
-
+        this.messageStatus = MessageStatus.CREATED;
     }
 
-    protected ChatMessage(MessageBody messageBody, User sender, ChatStatus chatStatus) {
+    protected ChatMessage(MessageBody messageBody, User sender, MessageStatus chatStatus) {
         this.messageBody = messageBody;
         this.sender = sender;
-        this.chatStatus = chatStatus;
+        this.messageStatus = chatStatus;
     }
 
     public ChatMessage withMessageBody(MessageBody messageBody) {
-        return new ChatMessage(messageBody, this.sender, ChatStatus.MODIFIED);
+        return new ChatMessage(messageBody, this.sender, MessageStatus.MODIFIED);
     }
 
     public void makeDeleted() {
-        this.chatStatus = ChatStatus.DELETED;
+        this.messageStatus = MessageStatus.DELETED;
     }
 }
