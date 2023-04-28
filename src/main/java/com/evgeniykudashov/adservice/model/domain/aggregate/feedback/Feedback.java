@@ -1,8 +1,8 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.feedback;
 
+import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.status.Mark;
+import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark;
 import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -19,11 +19,11 @@ public class Feedback {
     private Advertisement advertisement;
 
     @OneToOne
-    @JoinColumn(name = "user_sender_id")
+    @JoinColumn(name = "sender_user_id")
     private User sender;
 
     @OneToOne
-    @JoinColumn(name = "user_sender_id")
+    @JoinColumn(name = "recipient_user_id")
     private User recipient;
 
     @Enumerated(EnumType.STRING)
