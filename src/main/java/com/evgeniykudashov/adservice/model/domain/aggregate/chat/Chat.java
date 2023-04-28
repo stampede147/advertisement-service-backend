@@ -1,33 +1,40 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.ChatMessage;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.ChatMessage;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 
-// aggregate
 @Entity
 @Table(name = "chats")
-public class Chat {
+public class Chat implements Serializable {
 
     @Id
     @Column(name = "chat_id")
     private long id;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "chat_participants",
-            joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "user_id"))
+    @JoinTable(name = "chats_users",
+            joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
     @ElementCollection()
-    @CollectionTable(name = "chat_chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
+    @CollectionTable(name = "chats_chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
     private List<ChatMessage> chatMessages;
 
+    public Chat(List<User> participants) {
+        this.participants = participants;
+        this.chatMessages = new ArrayList<>();
+
+    }
 
     public void addChatMessage(ChatMessage chatMessage) {
         this.chatMessages.add(chatMessage);
