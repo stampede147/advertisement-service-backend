@@ -14,9 +14,9 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 public class Title {
 
-    private String data;
+    private String title;
 
-    public Title(String data) {
-        this.data = data;
+    public Title(String title) {
+        this.title = title;
     }
 }
