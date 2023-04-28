@@ -28,18 +28,18 @@ public class Category {
     private List<Category> childrens;
 
 
-    public Category(long id, Title title, Category parent, List<Category> childrens) {
-        this.id = id;
+    public Category(Title title, Category parent, List<Category> childrens) {
         this.title = title;
         this.parent = parent;
         this.childrens = childrens;
     }
 
-    public void setParent(Category parent) {
+    private void setParent(Category parent) {
         this.parent = parent;
     }
 
     public void addChildren(Category category) {
+        category.setParent(this);
         this.childrens.add(category);
     }
 }
