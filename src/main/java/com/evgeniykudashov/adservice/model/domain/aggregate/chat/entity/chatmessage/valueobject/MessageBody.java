@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Embeddable
 public class MessageBody implements Serializable {
 
-    private String data;
+    private String body;
 
-    public MessageBody(String data) {
-        this.data = data;
+    public MessageBody(String body) {
+        this.body = body;
     }
 }
