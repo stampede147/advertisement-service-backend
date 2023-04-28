@@ -1,9 +1,9 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement;
 
+import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
@@ -26,12 +26,17 @@ public class Advertisement {
     @JoinColumn(name = "category_id")
     @Immutable
     private Category category;
+
     @OneToOne
-    @JoinColumn(name = "user_owner_id")
+    @JoinColumn(name = "owner_user_id")
     @Immutable
     private User owner;
+
     @Enumerated(value = EnumType.STRING)
     private AdvertisementStatus status;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     public Advertisement(Title title,
