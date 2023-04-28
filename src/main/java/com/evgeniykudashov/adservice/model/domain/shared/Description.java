@@ -13,9 +13,9 @@ import org.hibernate.annotations.Immutable;
 @Embeddable
 public class Description {
 
-    private String data;
+    private String description;
 
-    public Description(String data) {
-        this.data = data;
+    public Description(String description) {
+        this.description = description;
     }
 }
