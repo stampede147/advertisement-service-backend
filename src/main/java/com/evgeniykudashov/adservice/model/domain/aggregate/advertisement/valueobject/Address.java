@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
@@ -11,8 +11,15 @@ import java.io.Serializable;
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 
 @Immutable
-@Embeddable
+@Entity
+@Table(name = "addresses")
 public class Address implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id")
+    private long id;
+
     private int zipCode;
     private String city;
     private String street;
