@@ -24,10 +24,9 @@ public class Advertisement {
     private Description description;
     @OneToOne
     @JoinColumn(name = "category_id")
-    @Immutable
     private Category category;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_user_id")
     @Immutable
     private User owner;
@@ -35,7 +34,7 @@ public class Advertisement {
     @Enumerated(value = EnumType.STRING)
     private AdvertisementStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
