@@ -2,12 +2,14 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.Account;
 
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
-import com.evgeniykudashov.adservice.model.domain.aggregate.Account.valueobject.AccountAccessDetails;
+import com.evgeniykudashov.adservice.model.domain.aggregate.Account.valueobject.AccessDetails;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
 @Getter
 
 @Entity
@@ -23,15 +25,14 @@ public class Account {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private AccountAccessDetails accessDetails;
+    private AccessDetails accessDetails;
 
-    public Account(User user, AccountAccessDetails accessDetails) {
-        this.user = user;
+
+    public Account(AccessDetails accessDetails) {
         this.accessDetails = accessDetails;
     }
 
-
-    public void changeAccessDetails(AccountAccessDetails accessDetails) {
+    public void changeAccessDetails(AccessDetails accessDetails) {
         this.accessDetails = accessDetails;
     }
 
