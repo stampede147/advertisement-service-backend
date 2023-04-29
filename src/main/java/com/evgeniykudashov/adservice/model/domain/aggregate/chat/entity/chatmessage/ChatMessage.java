@@ -2,7 +2,7 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmes
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.statuses.MessageStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject.MessageBody;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.entity.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.user.entity;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user;
 
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Fullname;
