@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.statuses.MessageStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject.MessageBody;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

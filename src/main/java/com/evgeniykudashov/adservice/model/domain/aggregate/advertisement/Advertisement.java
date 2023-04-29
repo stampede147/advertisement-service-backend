@@ -1,9 +1,9 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.entity.User;
 import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;

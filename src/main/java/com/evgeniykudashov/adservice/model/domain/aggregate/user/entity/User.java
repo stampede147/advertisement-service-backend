@@ -1,7 +1,7 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user.entity;
 
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.Account.valueobject.Fullname;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Fullname;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
