@@ -7,10 +7,12 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
 import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
 
 @Entity
 @Table(name = "advertisements")
@@ -22,7 +24,7 @@ public class Advertisement {
     private long id;
     private Title title;
     private Description description;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

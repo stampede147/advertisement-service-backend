@@ -27,7 +27,6 @@ public class Account {
 
     private AccessDetails accessDetails;
 
-
     public Account(AccessDetails accessDetails) {
         this.accessDetails = accessDetails;
     }
