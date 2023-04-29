@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.Account.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
