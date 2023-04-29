@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 import com.evgeniykudashov.adservice.model.domain.aggregate.Account.entity.User;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.ChatMessage;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
 
 @Entity
 @Table(name = "chats")
@@ -20,20 +22,19 @@ public class Chat implements Serializable {
     @Column(name = "chat_id")
     private long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany()
     @JoinTable(name = "chats_users",
             joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
     @ElementCollection()
-    @CollectionTable(name = "chats_chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
+    @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
     private List<ChatMessage> chatMessages;
 
     public Chat(List<User> participants) {
         this.participants = participants;
         this.chatMessages = new ArrayList<>();
-
     }
 
     public void addChatMessage(ChatMessage chatMessage) {
