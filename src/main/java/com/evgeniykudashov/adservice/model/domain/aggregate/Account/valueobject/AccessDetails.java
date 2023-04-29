@@ -17,14 +17,22 @@ import java.util.Collection;
 @Immutable
 @Embeddable
 @Access(AccessType.FIELD)
-public class AccountAccessDetails implements UserDetails {
+public class AccessDetails implements UserDetails {
 
     private String username;
     private String password;
 
-    public AccountAccessDetails(String username, String password) {
+    public AccessDetails(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public AccessDetails withUsername(String username) {
+        return new AccessDetails(username, this.password);
+    }
+
+    public AccessDetails withPassword(String password) {
+        return new AccessDetails(this.username, password);
     }
 
     @Override
