@@ -31,8 +31,8 @@ public class Chat implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
-    @ElementCollection()
-    @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
+
+    @OneToMany(mappedBy = "chat")
     private List<ChatMessage> chatMessages;
 
     public Chat(List<User> participants) {
