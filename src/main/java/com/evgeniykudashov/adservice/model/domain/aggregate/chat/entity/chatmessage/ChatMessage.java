@@ -4,7 +4,7 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmess
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject.MessageBody;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
@@ -14,19 +14,19 @@ import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
-@Builder
+@AllArgsConstructor
 
+@Immutable
 @Embeddable
 public class ChatMessage implements Serializable {
 
     private MessageBody messageBody;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_sender_id")
-    @Immutable
+    @JoinColumn(name = "sender_user_id")
     private User sender;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private MessageStatus messageStatus;
 
 
@@ -34,12 +34,6 @@ public class ChatMessage implements Serializable {
         this.messageBody = messageBody;
         this.sender = sender;
         this.messageStatus = MessageStatus.CREATED;
-    }
-
-    protected ChatMessage(MessageBody messageBody, User sender, MessageStatus chatStatus) {
-        this.messageBody = messageBody;
-        this.sender = sender;
-        this.messageStatus = chatStatus;
     }
 
     public ChatMessage withMessageBody(MessageBody messageBody) {
