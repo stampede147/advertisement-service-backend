@@ -50,9 +50,6 @@ public class ChatMessage implements Serializable {
         this.messageStatus = MessageStatus.CREATED;
     }
 
-    public ChatMessage withMessageBody(MessageBody messageBody) {
-        return new ChatMessage(messageBody, this.sender, MessageStatus.MODIFIED);
-    }
 
     public void makeDeleted() {
         this.messageStatus = MessageStatus.DELETED;
