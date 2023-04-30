@@ -1,6 +1,7 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@EqualsAndHashCode
 
 @Immutable
 @Entity
@@ -18,6 +20,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
+    @EqualsAndHashCode.Exclude
     private long id;
 
     private int zipCode;
