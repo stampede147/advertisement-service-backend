@@ -25,14 +25,14 @@ public class Chat implements Serializable {
     @EqualsAndHashCode.Include
     private long id;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "chats_users",
             joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<ChatMessage> chatMessages;
 
     public Chat(List<User> participants) {
