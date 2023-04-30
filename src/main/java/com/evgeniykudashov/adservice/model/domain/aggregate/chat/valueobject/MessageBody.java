@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.valueobject;
+package com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

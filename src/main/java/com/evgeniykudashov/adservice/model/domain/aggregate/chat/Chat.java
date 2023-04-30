@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmessage.ChatMessage;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,12 +27,13 @@ public class Chat implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "chats_users",
-            joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> participants;
 
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
+    @ElementCollection()
+    @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
     private List<ChatMessage> chatMessages;
 
     public Chat(List<User> participants) {
