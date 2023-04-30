@@ -5,25 +5,40 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+@Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-@Immutable
-@Embeddable
+@Entity
+@Table(name = "feedbacks")
 public class Feedback {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "feedback_id")
+    @EqualsAndHashCode.Include
+    public long id;
 
     @OneToOne
     @JoinColumn(name = "advertisement_id")
+    @Immutable
     private Advertisement advertisement;
 
     @OneToOne
     @JoinColumn(name = "sender_user_id")
+    @Immutable
     private User sender;
 
     @OneToOne
     @JoinColumn(name = "recipient_user_id")
+    @Immutable
     private User recipient;
 
     @Enumerated(EnumType.STRING)

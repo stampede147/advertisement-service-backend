@@ -1,38 +1,32 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
 
+import com.evgeniykudashov.adservice.model.domain.shared.security.AccessDetails;
+import com.evgeniykudashov.adservice.model.domain.shared.security.UsernameAndPassword;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@EqualsAndHashCode
 
 @Immutable
 @Embeddable
 @Access(AccessType.FIELD)
-public class AccessDetails implements UserDetails {
+public class AccessDetailsImpl implements AccessDetails {
 
-    private String username;
-    private String password;
 
-    public AccessDetails(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    private UsernameAndPassword usernameAndPassword;
 
-    public AccessDetails withUsername(String username) {
-        return new AccessDetails(username, this.password);
-    }
-
-    public AccessDetails withPassword(String password) {
-        return new AccessDetails(this.username, password);
+    public AccessDetailsImpl(UsernameAndPassword usernameAndPassword) {
+        this.usernameAndPassword = usernameAndPassword;
     }
 
     @Override
@@ -42,12 +36,12 @@ public class AccessDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return usernameAndPassword.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return usernameAndPassword.getUsername();
     }
 
     @Override

@@ -8,11 +8,16 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+
 
 @Entity
 @Table(name = "advertisements")
@@ -21,6 +26,7 @@ public class Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertisement_id")
+    @EqualsAndHashCode.Include
     private long id;
     private Title title;
     private Description description;
@@ -33,7 +39,7 @@ public class Advertisement {
     @Immutable
     private User owner;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     private AdvertisementStatus status;
 
     @OneToOne(fetch = FetchType.LAZY)

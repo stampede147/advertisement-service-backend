@@ -4,6 +4,7 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.chat.entity.chatmess
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
 @Table(name = "chats")
@@ -20,16 +22,17 @@ public class Chat implements Serializable {
 
     @Id
     @Column(name = "chat_id")
+    @EqualsAndHashCode.Include
     private long id;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "chats_users",
             joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> participants;
 
-    @ElementCollection()
-    @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
+
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<ChatMessage> chatMessages;
 
     public Chat(List<User> participants) {
