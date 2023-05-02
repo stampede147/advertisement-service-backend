@@ -57,4 +57,12 @@ public class Feedback {
         this.mark = mark;
         this.description = description;
     }
+
+    public void updateMark(Mark mark) {
+        this.mark = mark;
+    }
+
+    public void updateDescription(Description description) {
+        this.description = description;
+    }
 }
