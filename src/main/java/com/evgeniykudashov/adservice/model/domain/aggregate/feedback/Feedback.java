@@ -7,11 +7,9 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
-@Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -41,7 +39,7 @@ public class Feedback {
     @Immutable
     private User recipient;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Mark mark;
 
     private Description description;

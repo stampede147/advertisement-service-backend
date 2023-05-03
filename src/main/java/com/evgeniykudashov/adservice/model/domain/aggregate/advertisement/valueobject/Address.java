@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Immutable
 @Entity
-@Table(name = "addresses")
+@Table(name = "addresses", indexes = @Index(columnList = "zipCode, city, street, houseNumber"))
 public class Address implements Serializable {
 
     @Id
@@ -23,9 +23,16 @@ public class Address implements Serializable {
     @EqualsAndHashCode.Exclude
     private long id;
 
+    @Column(unique = true)
     private int zipCode;
+
+    @Column(unique = true)
     private String city;
+
+    @Column(unique = true)
     private String street;
+
+    @Column(unique = true)
     private String houseNumber;
 
     public Address(int zipCode, String city, String street, String houseNumber) {

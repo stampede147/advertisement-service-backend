@@ -9,15 +9,12 @@ import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Getter
-
 
 @Entity
 @Table(name = "advertisements")
@@ -28,8 +25,11 @@ public class Advertisement {
     @Column(name = "advertisement_id")
     @EqualsAndHashCode.Include
     private long id;
+
     private Title title;
+
     private Description description;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -42,7 +42,7 @@ public class Advertisement {
     @Enumerated(value = EnumType.ORDINAL)
     private AdvertisementStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "address_id")
     private Address address;
 
