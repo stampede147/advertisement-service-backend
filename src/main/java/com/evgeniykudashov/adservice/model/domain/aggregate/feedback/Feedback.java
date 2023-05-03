@@ -41,7 +41,7 @@ public class Feedback {
     @Immutable
     private User recipient;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Mark mark;
 
     private Description description;
