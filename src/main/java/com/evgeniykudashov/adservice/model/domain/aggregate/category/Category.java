@@ -3,15 +3,13 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.category;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
+
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
 
 @Entity
 @Table(name = "categories")

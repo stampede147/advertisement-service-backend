@@ -1,5 +1,7 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import java.io.Serializable;
 
 @Immutable
 @Embeddable
+@Access(AccessType.FIELD)
 public class MessageBody implements Serializable {
 
     private String body;
