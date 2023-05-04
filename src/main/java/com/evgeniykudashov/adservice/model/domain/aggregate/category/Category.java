@@ -29,7 +29,6 @@ public class Category {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Category> childrens;
 
-
     public Category(Title title, Category parent, List<Category> childrens) {
         this.title = title;
         this.parent = parent;
@@ -40,8 +39,17 @@ public class Category {
         this.parent = parent;
     }
 
-    public void addChildren(Category category) {
-        category.setParent(this);
-        this.childrens.add(category);
+    public void addChildren(Category children) {
+        children.setParent(this);
+        this.childrens.add(children);
+    }
+
+    public void removeChildren(Category children) {
+        children.setParent(null);
+        this.childrens.remove(children);
+    }
+
+    public void updateTitle(Title title) {
+        this.title = title;
     }
 }
