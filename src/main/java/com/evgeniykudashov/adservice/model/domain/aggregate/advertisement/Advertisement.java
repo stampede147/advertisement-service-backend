@@ -16,9 +16,6 @@ import org.hibernate.annotations.Immutable;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-@SecondaryTable(name = "addresses",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"),
-        indexes = @Index(columnList = "zipCode, city, street, houseNumber"))
 @Entity
 @Table(name = "advertisements")
 public class Advertisement {
@@ -34,20 +31,19 @@ public class Advertisement {
     private Description description;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", updatable = false, nullable = false)
-    @Immutable
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_user_id", updatable = false, nullable = false)
+    @JoinColumn(name = "owner_user_id")
     @Immutable
     private User owner;
 
     @Enumerated(value = EnumType.ORDINAL)
     private AdvertisementStatus status;
 
-
-    @Column(table = "addresses")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "address_id")
     private Address address;
 
     public Advertisement(Title title,
@@ -61,10 +57,12 @@ public class Advertisement {
         this.owner = owner;
         this.address = address;
         this.status = AdvertisementStatus.ARCHIVED;
+
     }
 
     public void changeTitle(Title title) {
         this.title = title;
+
     }
 
     public void changeDescription(Description description) {
