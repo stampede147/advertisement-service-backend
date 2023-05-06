@@ -69,21 +69,11 @@ public class Advertisement {
         this.description = description;
     }
 
-    public void changeCategory(Category newCategory) {
-        this.category = newCategory;
-    }
-
     public void changeAddress(Address address) {
         this.address = address;
     }
 
-    public void makeActive() {
-        this.status = AdvertisementStatus.ACTIVE;
+    public void changeStatus(AdvertisementStatus status) {
+        this.status = status;
     }
-
-    public void makeDeleted() {
-        this.status = AdvertisementStatus.DELETED;
-    }
-
-
 }
