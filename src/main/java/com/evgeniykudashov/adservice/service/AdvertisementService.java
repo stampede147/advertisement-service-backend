@@ -1,25 +1,29 @@
 package com.evgeniykudashov.adservice.service;
 
+import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
+import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
+import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
-import com.evgeniykudashov.adservice.view.dto.AdvertisementDto;
-import com.evgeniykudashov.adservice.view.dto.CategoryDto;
-import com.evgeniykudashov.adservice.view.dto.UserDto;
 
 import java.util.List;
 
 public interface AdvertisementService {
 
-    AdvertisementDto create(AdvertisementDto advertisementDto);
+    Advertisement create(Advertisement advertisement);
 
-    AdvertisementDto update(AdvertisementDto advertisementDto);
+    Advertisement updateTitle(Title title, long advertisementId);
 
-    void delete(AdvertisementDto advertisementDto);
+    Advertisement updateAddress(Address address, long advertisementId);
 
-    public List<AdvertisementDto> findAllByUser(UserDto user);
+    Advertisement updateStatus(AdvertisementStatus status, long advertisementId);
 
-    public List<AdvertisementDto> findAllByTitle(Title title);
+    void remove(long advertisementId);
 
-    public List<AdvertisementDto> findAllByCategory(CategoryDto categoryDto);
+    public List<Advertisement> findAllByUserId(long userId);
+
+    public List<Advertisement> findAllByTitle(Title title);
+
+    public List<Advertisement> findAllByCategoryId(long categoryId);
 
 
 }
