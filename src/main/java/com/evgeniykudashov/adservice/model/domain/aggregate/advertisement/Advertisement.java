@@ -16,7 +16,9 @@ import org.hibernate.annotations.Immutable;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-@SecondaryTable(name = "addresses", pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"))
+@SecondaryTable(name = "addresses",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"),
+        indexes = @Index(columnList = "zipCode, city, street, houseNumber"))
 @Entity
 @Table(name = "advertisements")
 public class Advertisement {
