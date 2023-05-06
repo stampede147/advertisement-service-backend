@@ -1,7 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,25 +8,31 @@ import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
 
-
+@Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode
-@Getter
 
 @Immutable
-@Embeddable
+@Entity
+@Table(name = "addresses", indexes = @Index(columnList = "zipCode, city, street, houseNumber"))
 public class Address implements Serializable {
 
-    @Column(table = "addresses")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id")
+    @EqualsAndHashCode.Exclude
+    private long id;
+
+    @Column(unique = true)
     private int zipCode;
 
-    @Column(table = "addresses")
+    @Column(unique = true)
     private String city;
 
-    @Column(table = "addresses")
+    @Column(unique = true)
     private String street;
 
-    @Column(table = "addresses")
+    @Column(unique = true)
     private String houseNumber;
 
     public Address(int zipCode, String city, String street, String houseNumber) {
