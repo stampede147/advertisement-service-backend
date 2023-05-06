@@ -23,16 +23,12 @@ public class Address implements Serializable {
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(unique = true)
     private int zipCode;
 
-    @Column(unique = true)
     private String city;
 
-    @Column(unique = true)
     private String street;
 
-    @Column(unique = true)
     private String houseNumber;
 
     public Address(int zipCode, String city, String street, String houseNumber) {
