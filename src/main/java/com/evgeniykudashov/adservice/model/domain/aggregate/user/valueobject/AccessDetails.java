@@ -1,7 +1,9 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject;
 
-import com.evgeniykudashov.adservice.model.domain.shared.security.AccessDetails;
-import com.evgeniykudashov.adservice.model.domain.shared.security.UsernameAndPassword;
+
+import com.evgeniykudashov.adservice.model.domain.shared.security.CustomUserDetails;
+import com.evgeniykudashov.adservice.model.domain.shared.security.Password;
+import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
@@ -13,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode
@@ -20,28 +23,14 @@ import java.util.Collection;
 @Immutable
 @Embeddable
 @Access(AccessType.FIELD)
-public class AccessDetailsImpl implements AccessDetails {
+public class AccessDetails implements CustomUserDetails {
 
-
-    private UsernameAndPassword usernameAndPassword;
-
-    public AccessDetailsImpl(UsernameAndPassword usernameAndPassword) {
-        this.usernameAndPassword = usernameAndPassword;
-    }
+    private Username username;
+    private Password password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return usernameAndPassword.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return usernameAndPassword.getUsername();
     }
 
     @Override

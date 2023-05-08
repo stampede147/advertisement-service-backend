@@ -11,14 +11,8 @@ import org.hibernate.annotations.Immutable;
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode
 
-@Embeddable
 @Immutable
-public class UsernameAndPassword {
-    private String username;
-    private String password;
-
-    public UsernameAndPassword(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+@Embeddable
+public class Username {
+    String username;
 }

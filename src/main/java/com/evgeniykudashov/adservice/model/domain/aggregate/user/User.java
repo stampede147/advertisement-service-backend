@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.user;
 
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetailsImpl;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetails;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.PersonalDetails;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -27,9 +27,9 @@ public class User {
     private PersonalDetails personalDetails;
 
     @Getter
-    private AccessDetailsImpl accessDetails;
+    private AccessDetails accessDetails;
 
-    public User(PersonalDetails personalDetails, AccessDetailsImpl accessDetails) {
+    public User(PersonalDetails personalDetails, AccessDetails accessDetails) {
         this.personalDetails = personalDetails;
         this.accessDetails = accessDetails;
     }
@@ -38,7 +38,7 @@ public class User {
         this.personalDetails = personalDetails;
     }
 
-    public void changeAccessDetails(AccessDetailsImpl accessDetails) {
+    public void changeAccessDetails(AccessDetails accessDetails) {
         this.accessDetails = accessDetails;
     }
 }
