@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Acc
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.PersonalDetails;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -19,10 +20,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @EqualsAndHashCode.Include
+    @Getter
     private Long id;
 
+    @Getter
     private PersonalDetails personalDetails;
 
+    @Getter
     private AccessDetailsImpl accessDetails;
 
     public User(PersonalDetails personalDetails, AccessDetailsImpl accessDetails) {

@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.category;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -18,8 +19,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Getter
     private long id;
 
+    @Getter
     private Title title;
 
     @ManyToOne(fetch = FetchType.LAZY)

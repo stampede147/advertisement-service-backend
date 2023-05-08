@@ -7,6 +7,7 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -22,6 +23,7 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feedback_id")
     @EqualsAndHashCode.Include
+    @Getter
     public long id;
 
     @OneToOne
@@ -40,8 +42,10 @@ public class Feedback {
     private User recipient;
 
     @Enumerated(EnumType.ORDINAL)
+    @Getter
     private Mark mark;
 
+    @Getter
     private Description description;
 
     public Feedback(Advertisement advertisement,

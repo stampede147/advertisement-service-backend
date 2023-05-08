@@ -9,6 +9,7 @@ import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -27,10 +28,13 @@ public class Advertisement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertisement_id")
     @EqualsAndHashCode.Include
+    @Getter
     private long id;
 
+    @Getter
     private Title title;
 
+    @Getter
     private Description description;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -44,10 +48,12 @@ public class Advertisement {
     private User owner;
 
     @Enumerated(value = EnumType.ORDINAL)
+    @Getter
     private AdvertisementStatus status;
 
 
     @Column(table = "addresses")
+    @Getter
     private Address address;
 
     public Advertisement(Title title,
@@ -63,29 +69,24 @@ public class Advertisement {
         this.status = AdvertisementStatus.ARCHIVED;
     }
 
-    public void changeTitle(Title title) {
+    public void updateTitle(Title title) {
         this.title = title;
     }
 
-    public void changeDescription(Description description) {
+    public void UpdateDescription(Description description) {
         this.description = description;
     }
 
-    public void changeCategory(Category newCategory) {
+    public void updateCategory(Category newCategory) {
         this.category = newCategory;
     }
 
-    public void changeAddress(Address address) {
+    public void updateAddress(Address address) {
         this.address = address;
     }
 
-    public void makeActive() {
-        this.status = AdvertisementStatus.ACTIVE;
+    public void updateStatus(AdvertisementStatus status) {
+        this.status = status;
     }
-
-    public void makeDeleted() {
-        this.status = AdvertisementStatus.DELETED;
-    }
-
 
 }

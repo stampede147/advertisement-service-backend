@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.Cha
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -24,6 +25,7 @@ public class Chat implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
     @EqualsAndHashCode.Include
+    @Getter
     private long id;
 
 
@@ -41,6 +43,7 @@ public class Chat implements Serializable {
 
     @ElementCollection()
     @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
+    @Getter
     private List<ChatMessage> chatMessages;
 
     public Chat(Advertisement advertisement, List<User> participants) {
