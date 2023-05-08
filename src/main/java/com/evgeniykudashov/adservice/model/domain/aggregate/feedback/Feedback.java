@@ -11,13 +11,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+import java.io.Serializable;
+
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
 @Table(name = "feedbacks")
-public class Feedback {
+public class Feedback implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +28,17 @@ public class Feedback {
     @Getter
     public long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advertisement_id")
     @Immutable
     private Advertisement advertisement;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_user_id")
     @Immutable
     private User sender;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient_user_id")
     @Immutable
     private User recipient;

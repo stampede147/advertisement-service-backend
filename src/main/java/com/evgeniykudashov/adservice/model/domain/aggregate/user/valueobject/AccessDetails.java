@@ -7,6 +7,7 @@ import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Collection;
 
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
 @EqualsAndHashCode
 
 @Immutable
@@ -27,6 +29,11 @@ public class AccessDetails implements CustomUserDetails {
 
     private Username username;
     private Password password;
+
+    public AccessDetails(Username username, Password password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
