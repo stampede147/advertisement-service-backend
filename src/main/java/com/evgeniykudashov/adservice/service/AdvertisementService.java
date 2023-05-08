@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface AdvertisementService {
 
-    Advertisement create(Advertisement advertisement);
+    long create(Advertisement advertisement);
 
-    Advertisement updateTitle(Title title, long advertisementId);
+    void updateTitle(Title title, long advertisementId);
 
-    Advertisement updateAddress(Address address, long advertisementId);
+    void updateAddress(Address address, long advertisementId);
 
-    Advertisement updateStatus(AdvertisementStatus status, long advertisementId);
+    void updateStatus(AdvertisementStatus status, long advertisementId);
 
     void remove(long advertisementId);
 
