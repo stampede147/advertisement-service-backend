@@ -5,7 +5,6 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.Acc
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.PersonalDetails;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 

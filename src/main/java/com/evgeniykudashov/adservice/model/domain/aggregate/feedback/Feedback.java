@@ -7,7 +7,6 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
