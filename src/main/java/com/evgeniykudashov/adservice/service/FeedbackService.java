@@ -1,20 +1,24 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.view.dto.FeedbackDto;
+import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.Feedback;
+import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark;
+import com.evgeniykudashov.adservice.model.domain.shared.Description;
 
 import java.util.List;
 
 public interface FeedbackService {
 
-    FeedbackDto create(FeedbackDto feedbackDto);
+    long create(Feedback feedback);
 
-    FeedbackDto update(FeedbackDto feedbackDto);
+    void remove(long feedbackId);
 
-    void remove(FeedbackDto feedbackDto);
+    void updateMark(Mark mark, long feedbackId);
 
-    List<FeedbackDto> findAllByUserRecipient(long userRecipient);
+    void updateDescription(Description description, long feedbackId);
 
-    List<FeedbackDto> findAllByUserSender(long userRecipient);
+    List<Feedback> findAllByRecipientUserId(long recipientUserId);
+
+    List<Feedback> findAllBySenderUserId(long senderUserId);
 
 
 }

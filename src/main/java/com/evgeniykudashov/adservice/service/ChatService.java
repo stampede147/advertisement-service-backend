@@ -1,29 +1,27 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.Chat;
-import com.evgeniykudashov.adservice.view.dto.AdvertisementDto;
-import com.evgeniykudashov.adservice.view.dto.ChatDto;
-import com.evgeniykudashov.adservice.view.dto.ChatMessageDto;
-import com.evgeniykudashov.adservice.view.dto.UserDto;
+import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public interface ChatService {
 
-    Chat createChat(AdvertisementDto advertisementDto, List<UserDto> participants);
+    long create(long advertisementId, Collection<Long> usersIds);
 
-    void removeChat(ChatDto chat);
+    void remove(long chatId);
 
-    List<ChatDto> findChatsByParticipantUser(UserDto participant);
+    List<Chat> findAllByParticipantUserId(long userId);
 
-    ChatDto findChatByParticipantsUsers(List<UserDto> participants);
+    Chat findByParticipantUsersIds(Collection<Long> participantUsersIds);
 
-    ChatMessageDto createChatMessage(ChatDto chat, ChatMessageDto chatMessage);
+    void addChatMessage(long chatId, ChatMessage chatMessage);
 
-    void removeChatMessage(ChatMessageDto message);
+    void removeChatMessage(long chatId, ChatMessage chatMessage);
 
-    List<ChatMessageDto> findChatMessagesByChat(Chat chat);
+    List<ChatMessage> findChatMessagesByChatId(long chatId);
 
-    Map<ChatDto, List<ChatMessageDto>> findChatMessagesByChats(List<ChatDto> chats);
+    Map<Long, List<ChatMessage>> findChatMessagesByChatIds(Collection<Long> chatIds);
 }

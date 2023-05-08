@@ -1,19 +1,23 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
-import com.evgeniykudashov.adservice.view.dto.CategoryDto;
+import com.evgeniykudashov.adservice.model.domain.shared.Title;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    CategoryDto create(CategoryDto categoryDto);
+    long create(Category category);
 
-    CategoryDto update(CategoryDto categoryDto);
+    void updateTitle(Title title, long categoryId);
 
-    void remove(CategoryDto categoryDto);
+    void addChildren(long childrenId, long parentId);
+
+    void removeChildren(long childrenId, long parentId);
+
+    void remove(long categoryId);
 
     Category findById(long id);
 
-    List<CategoryDto> findAllRoots();
+    List<Category> findAllRoots();
 }

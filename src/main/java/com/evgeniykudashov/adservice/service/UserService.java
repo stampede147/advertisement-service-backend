@@ -1,15 +1,19 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.view.dto.UserDto;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetails;
+import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.PersonalDetails;
 
 public interface UserService {
 
-    UserDto create(UserDto userDto);
+    long create(User user);
 
-    UserDto update(UserDto userDto);
+    void updatePersonalDetails(PersonalDetails personalDetails, long userId);
 
-    void remove(UserDto userDto);
+    void updateAccessDetails(AccessDetails accessDetails, long userId);
 
-    UserDto findById(Long id);
+    void remove(long userId);
+
+    User findById(Long userId);
 
 }
