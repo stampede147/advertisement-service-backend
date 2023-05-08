@@ -34,11 +34,11 @@ public class User {
         this.accessDetails = accessDetails;
     }
 
-    public void changePersonalDetails(PersonalDetails personalDetails) {
+    public void updatePersonalDetails(PersonalDetails personalDetails) {
         this.personalDetails = personalDetails;
     }
 
-    public void changeAccessDetails(AccessDetails accessDetails) {
+    public void updateAccessDetails(AccessDetails accessDetails) {
         this.accessDetails = accessDetails;
     }
 }
