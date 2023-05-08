@@ -56,12 +56,8 @@ public class Chat implements Serializable {
         this.chatMessages.add(chatMessage);
     }
 
-    public void addChatMessages(List<ChatMessage> chatMessages) {
-        this.chatMessages.addAll(chatMessages);
-    }
-
-    public void deleteChatMessageByIndex(int index) {
-        this.chatMessages.remove(index);
+    public void removeChatMessage(ChatMessage chatMessage) {
+        this.chatMessages.remove(chatMessage);
     }
 
 
