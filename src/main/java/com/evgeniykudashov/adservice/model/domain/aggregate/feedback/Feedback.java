@@ -22,6 +22,7 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feedback_id")
     @EqualsAndHashCode.Include
+    @Getter
     public long id;
 
     @OneToOne
@@ -40,8 +41,10 @@ public class Feedback {
     private User recipient;
 
     @Enumerated(EnumType.ORDINAL)
+    @Getter
     private Mark mark;
 
+    @Getter
     private Description description;
 
     public Feedback(Advertisement advertisement,

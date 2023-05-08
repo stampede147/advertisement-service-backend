@@ -19,10 +19,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @EqualsAndHashCode.Include
+    @Getter
     private Long id;
 
+    @Getter
     private PersonalDetails personalDetails;
 
+    @Getter
     private AccessDetailsImpl accessDetails;
 
     public User(PersonalDetails personalDetails, AccessDetailsImpl accessDetails) {
