@@ -9,7 +9,6 @@ import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -53,7 +52,6 @@ public class Advertisement implements Serializable {
     @Getter
     private AdvertisementStatus status;
 
-
     @Column(table = "addresses")
     @Getter
     private Address address;
@@ -86,5 +84,4 @@ public class Advertisement implements Serializable {
     public void updateStatus(AdvertisementStatus status) {
         this.status = status;
     }
-
 }
