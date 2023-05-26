@@ -9,10 +9,9 @@ import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
 
-
+@Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode
-@Getter
 
 @Immutable
 @Embeddable

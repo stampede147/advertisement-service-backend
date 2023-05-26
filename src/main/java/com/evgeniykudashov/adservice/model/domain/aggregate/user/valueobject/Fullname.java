@@ -7,13 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+import java.io.Serializable;
+
 @Getter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode
 
 @Immutable
 @Embeddable
-public class Fullname {
+public class Fullname implements Serializable {
 
     private String name;
     private String surname;

@@ -20,7 +20,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public long create(Feedback feedback) {
-        return feedbackRepository.save(feedback).id;
+        return feedbackRepository.save(feedback).getId();
     }
 
     @Override

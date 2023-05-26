@@ -12,6 +12,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+import java.io.Serializable;
+
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -21,7 +23,7 @@ import org.hibernate.annotations.Immutable;
         indexes = @Index(columnList = "zipCode, city, street, houseNumber"))
 @Entity
 @Table(name = "advertisements")
-public class Advertisement {
+public class Advertisement implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,12 +73,8 @@ public class Advertisement {
         this.title = title;
     }
 
-    public void UpdateDescription(Description description) {
+    public void updateDescription(Description description) {
         this.description = description;
-    }
-
-    public void updateCategory(Category newCategory) {
-        this.category = newCategory;
     }
 
     public void updateAddress(Address address) {

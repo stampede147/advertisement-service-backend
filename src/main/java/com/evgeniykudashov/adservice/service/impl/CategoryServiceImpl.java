@@ -1,7 +1,6 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.NotFoundCategoryException;
-import com.evgeniykudashov.adservice.exception.NotFoundSuchEntityException;
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.repository.CategoryRepository;
@@ -46,9 +45,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional()
     public void removeChildren(long childrenId, long parentId) {
-        Category parent = categoryRepository.findById(parentId).orElseThrow(NotFoundSuchEntityException::new);
-        Category children = categoryRepository.findById(childrenId).orElseThrow(NotFoundSuchEntityException::new);
-        parent.addChildren(children);
+        Category parent = categoryRepository.findById(parentId).orElseThrow(NotFoundCategoryException::new);
+        Category children = categoryRepository.findById(childrenId).orElseThrow(NotFoundCategoryException::new);
+        parent.removeChildren(children);
         categoryRepository.save(parent);
     }
 

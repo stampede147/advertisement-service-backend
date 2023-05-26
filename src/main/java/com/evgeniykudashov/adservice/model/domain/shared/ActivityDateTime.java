@@ -30,7 +30,7 @@ public final class ActivityDateTime {
         if (lastUpdateDateTime == null) {
             throw new RuntimeException("lastUpdateDateTime can not be null");
         }
-        if (firstUpdateDateTime.isBefore(lastUpdateDateTime)) {
+        if (firstUpdateDateTime.compareTo(lastUpdateDateTime) < 0) {
             throw new RuntimeException(("lastUpdateDatetime can not be earlier than firstUpdateDateTime"));
         }
         this.firstUpdateDateTime = firstUpdateDateTime;

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @Immutable
 @Embeddable
 @Access(AccessType.FIELD)
-public class PublicationDateTime {
+public class PublicationDateTime implements Serializable {
 
     private LocalDateTime publicationDateTime;
 
