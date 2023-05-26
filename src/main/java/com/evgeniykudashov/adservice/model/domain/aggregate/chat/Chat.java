@@ -4,9 +4,7 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advert
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
@@ -16,9 +14,11 @@ import java.util.List;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 
 @Entity
 @Table(name = "chats")
+@Setter
 public class Chat implements Serializable {
 
     @Id

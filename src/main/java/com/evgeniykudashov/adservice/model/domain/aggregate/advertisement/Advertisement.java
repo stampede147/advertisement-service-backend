@@ -75,12 +75,8 @@ public class Advertisement implements Serializable {
         this.title = title;
     }
 
-    public void UpdateDescription(Description description) {
+    public void updateDescription(Description description) {
         this.description = description;
-    }
-
-    public void updateCategory(Category newCategory) {
-        this.category = newCategory;
     }
 
     public void updateAddress(Address address) {

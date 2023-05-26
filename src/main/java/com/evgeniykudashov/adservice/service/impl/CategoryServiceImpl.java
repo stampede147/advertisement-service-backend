@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void removeChildren(long childrenId, long parentId) {
         Category parent = categoryRepository.findById(parentId).orElseThrow(NotFoundCategoryException::new);
         Category children = categoryRepository.findById(childrenId).orElseThrow(NotFoundCategoryException::new);
-        parent.addChildren(children);
+        parent.removeChildren(children);
         categoryRepository.save(parent);
     }
 

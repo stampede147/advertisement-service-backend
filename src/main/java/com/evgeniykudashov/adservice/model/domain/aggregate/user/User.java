@@ -23,7 +23,7 @@ public class User implements Serializable {
     @Column(name = "user_id")
     @EqualsAndHashCode.Include
     @Getter
-    private Long id;
+    private long id;
 
     @Getter
     private PersonalDetails personalDetails;

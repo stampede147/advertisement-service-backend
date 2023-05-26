@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface ChatService {
 
-    long create(long advertisementId, Collection<Long> usersIds);
+    long create(Chat chat);
 
     void remove(long chatId);
 

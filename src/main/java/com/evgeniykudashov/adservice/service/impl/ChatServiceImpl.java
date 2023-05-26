@@ -29,10 +29,8 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public long create(long advertisementId, Collection<Long> userIds) {
-        return chatRepository.save(new Chat(
-                advertisementRepository.findById(advertisementId).orElseThrow(NotFoundChatException::new),
-                userRepository.findAllById(userIds))).getId();
+    public long create(Chat chat) {
+        return chatRepository.save(chat).getId();
     }
 
     @Override

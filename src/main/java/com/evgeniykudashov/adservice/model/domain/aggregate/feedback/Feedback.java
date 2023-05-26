@@ -7,6 +7,7 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -25,7 +26,7 @@ public class Feedback implements Serializable {
     @Column(name = "feedback_id")
     @EqualsAndHashCode.Include
     @Getter
-    public long id;
+    private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advertisement_id")
