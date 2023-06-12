@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.exception;
+package com.evgeniykudashov.adservice.controller.exception;
 
 public class NotFoundChatException extends NotFoundEntityException {
 }
