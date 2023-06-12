@@ -2,6 +2,7 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.category;
 
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
