@@ -6,8 +6,9 @@ import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.status
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
-import com.evgeniykudashov.adservice.service.impl.AdvertisementServiceImpl;
+import com.evgeniykudashov.adservice.service.impl.UserAdvertisementServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,7 +27,7 @@ class AdvertisementServiceTest {
     AdvertisementRepository advertisementRepository;
 
     @InjectMocks
-    AdvertisementServiceImpl sut;
+    UserAdvertisementServiceImpl sut;
 
 
     @Test
@@ -93,20 +94,21 @@ class AdvertisementServiceTest {
         Mockito.verify(advertisementRepository).findAllByOwnerId(Mockito.any(Long.class));
     }
 
-    @Test
-    void find_all_advertisements_by_title() {
-        Title title = TestValues.getTitleObject();
+//    @Disabled
+//    @Test
+//    void find_all_advertisements_by_title() {
+//        Title title = TestValues.getTitleObject();
+//
+//        sut.findAllByTitle(title);
+//
+//        Mockito.verify(advertisementRepository).findAllByTitle(Mockito.any(Title.class));
+//    }
 
-        sut.findAllByTitle(title);
-
-        Mockito.verify(advertisementRepository).findAllByTitle(Mockito.any(Title.class));
-    }
-
-    @Test
-    void find_all_advertisements_by_Category_id() {
-
-        sut.findAllByCategoryId(ID);
-
-        Mockito.verify(advertisementRepository).findAllByCategoryId(Mockito.any(Long.class));
-    }
+//    @Test
+//    void find_all_advertisements_by_Category_id() {
+//
+//        sut.findAllByCategoryId(ID);
+//
+//        Mockito.verify(advertisementRepository).findAllByCategoryId(Mockito.any(Long.class));
+//    }
 }

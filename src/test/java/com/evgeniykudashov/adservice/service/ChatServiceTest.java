@@ -56,7 +56,7 @@ class ChatServiceTest {
         ChatMessage chatMessage = TestValues.getChatMessageObject();
         Mockito.when(chatRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(chat));
 
-        sut.addChatMessage(chat.getId(), chatMessage);
+        sut.addChatMessage(chatMessage, chat.getId());
 
         Mockito.verify(chatRepository).save(chat);
         Assertions.assertTrue(chat.getChatMessages().contains(chatMessage));
@@ -68,7 +68,7 @@ class ChatServiceTest {
         ChatMessage chatMessage = TestValues.getChatMessageObject();
         Mockito.when(chatRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(chat));
 
-        sut.removeChatMessage(chat.getId(), chatMessage);
+        sut.removeChatMessage(chatMessage, chat.getId());
 
         Mockito.verify(chatRepository).save(chat);
         Assertions.assertFalse(chat.getChatMessages().contains(chatMessage));
