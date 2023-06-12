@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.service;
+package com.evgeniykudashov.adservice.controller.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
@@ -17,7 +17,7 @@ public interface CategoryService {
 
     void remove(long categoryId);
 
-    Category findById(long id);
-
     List<Category> findAllRoots();
+
+    List<Category> findAll();
 }
