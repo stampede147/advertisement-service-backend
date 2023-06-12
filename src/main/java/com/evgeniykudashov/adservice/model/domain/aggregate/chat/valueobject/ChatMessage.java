@@ -2,8 +2,9 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.statuses.MessageStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,28 +16,39 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
-@AllArgsConstructor
+@EqualsAndHashCode
 
 @Immutable
 @Embeddable
 public class ChatMessage implements Serializable {
 
-    private MessageBody messageBody;
+
+    private MessageBody body;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_user_id")
+    @JoinColumn(name = "user_id")
     private User sender;
 
     @Enumerated(EnumType.ORDINAL)
+    @EqualsAndHashCode.Exclude
     private MessageStatus messageStatus;
 
     private PublicationDateTime publicationDateTime;
 
+    @JsonCreator
     public ChatMessage(MessageBody messageBody, User sender, PublicationDateTime publicationDateTime) {
-        this.messageBody = messageBody;
+        this.body = messageBody;
         this.sender = sender;
         this.publicationDateTime = publicationDateTime;
         this.messageStatus = MessageStatus.CREATED;
+    }
+
+    @JsonCreator
+    public ChatMessage(MessageBody body, User sender, MessageStatus messageStatus, PublicationDateTime publicationDateTime) {
+        this.body = body;
+        this.sender = sender;
+        this.messageStatus = messageStatus;
+        this.publicationDateTime = publicationDateTime;
     }
 
     public ChatMessage withUpdatedMessageBody(MessageBody messageBody) {
@@ -44,6 +56,6 @@ public class ChatMessage implements Serializable {
     }
 
     public ChatMessage withDeletedStatus() {
-        return new ChatMessage(this.messageBody, this.sender, MessageStatus.DELETED, this.publicationDateTime);
+        return new ChatMessage(this.body, this.sender, MessageStatus.DELETED, this.publicationDateTime);
     }
 }
