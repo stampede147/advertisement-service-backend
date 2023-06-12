@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.repository;
+package com.evgeniykudashov.adservice.controller.repository;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.Feedback;
 import org.springframework.data.jpa.repository.JpaRepository;
