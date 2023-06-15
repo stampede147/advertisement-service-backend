@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
-import com.evgeniykudashov.adservice.controller.customannotations.Default;
+import com.evgeniykudashov.adservice.annotations.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
@@ -47,7 +47,7 @@ public class Chat implements Serializable {
     @ElementCollection()
     @CollectionTable(name = "chat_messages",
             joinColumns = @JoinColumn(name = "chat_id"))
-    @Getter
+    @Getter(onMethod_ = @Deprecated)
     private List<ChatMessage> chatMessages;
 
     @Default

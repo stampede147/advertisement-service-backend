@@ -22,7 +22,6 @@ import java.io.Serializable;
 @Embeddable
 public class ChatMessage implements Serializable {
 
-
     private MessageBody body;
 
     @ManyToOne(fetch = FetchType.LAZY)
