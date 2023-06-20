@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.annotations;
+package com.evgeniykudashov.adservice.annotation;
 
 
 import java.lang.annotation.ElementType;
