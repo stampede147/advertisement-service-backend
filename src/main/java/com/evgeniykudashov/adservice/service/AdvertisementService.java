@@ -1,29 +1,22 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
-import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
-import com.evgeniykudashov.adservice.model.domain.shared.Title;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Map;
 
 public interface AdvertisementService {
 
     long create(Advertisement advertisement);
 
-    void updateTitle(Title title, long advertisementId);
-
-    void updateAddress(Address address, long advertisementId);
-
-    void updateStatus(AdvertisementStatus status, long advertisementId);
+    void patchUpdate(Map<String, Object> data, long advertisementId);
 
     void remove(long advertisementId);
 
-    public List<Advertisement> findAllByUserId(long userId);
+    Page<Advertisement> findAllByUserId(long userId, Pageable pageable);
 
-    public List<Advertisement> findAllByTitle(Title title);
-
-    public List<Advertisement> findAllByCategoryId(long categoryId);
+    Advertisement findById(long advertisementId);
 
 
 }

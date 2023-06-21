@@ -2,26 +2,37 @@ package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.Chat;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ChatService {
 
+    /**
+     * chat segment begin
+     */
     long create(Chat chat);
 
     void remove(long chatId);
 
-    List<Chat> findAllByParticipantUserId(long userId);
+    Page<Chat> findAllByUserId(long userId, Pageable pageable);
 
-    Chat findByParticipantUsersIds(Collection<Long> participantUsersIds);
+    Chat findById(long chatId);
 
-    void addChatMessage(long chatId, ChatMessage chatMessage);
+    /**
+     *  chat segment end
+     */
 
-    void removeChatMessage(long chatId, ChatMessage chatMessage);
 
-    List<ChatMessage> findChatMessagesByChatId(long chatId);
+    /**
+     * chat message segment begin
+     */
+    void addChatMessage(ChatMessage chatMessage, long chatId);
 
-    Map<Long, List<ChatMessage>> findChatMessagesByChatIds(Collection<Long> chatIds);
+    void removeChatMessage(ChatMessage chatMessage, long chatId);
+
+    Page<ChatMessage> findChatMessagesByChatId(long chatId, Pageable pageable);
+
+    /**
+     * chat message segment end
+     */
 }

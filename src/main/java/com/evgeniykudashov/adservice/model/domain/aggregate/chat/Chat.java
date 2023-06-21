@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
+import com.evgeniykudashov.adservice.annotation.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
@@ -8,8 +9,8 @@ import lombok.*;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
@@ -32,28 +33,36 @@ public class Chat implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advertisement_id")
     @Immutable
+    @Getter(onMethod_ = @Deprecated)
     private Advertisement advertisement;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "chats_users",
             joinColumns = @JoinColumn(name = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @Immutable
-    private List<User> participants;
+    @Getter(onMethod_ = @Deprecated)
+    private Set<User> participants;
 
     @ElementCollection()
-    @CollectionTable(name = "chat_messages", joinColumns = @JoinColumn(name = "chat_id"))
-    @Getter
+    @CollectionTable(name = "chat_messages",
+            joinColumns = @JoinColumn(name = "chat_id"))
+    @Getter(onMethod_ = @Deprecated)
     private List<ChatMessage> chatMessages;
 
-    public Chat(Advertisement advertisement, List<User> participants) {
+    @Default
+    public Chat(Advertisement advertisement, Set<User> participants, List<ChatMessage> chatMessages) {
         this.advertisement = advertisement;
         this.participants = participants;
-        this.chatMessages = new ArrayList<>();
+        this.chatMessages = chatMessages;
     }
 
     public void addChatMessage(ChatMessage chatMessage) {
         this.chatMessages.add(chatMessage);
+    }
+
+    public void updateChatMessage(ChatMessage chatMessage) {
+        this.addChatMessage(chatMessage);
     }
 
     public void removeChatMessage(ChatMessage chatMessage) {

@@ -17,7 +17,7 @@ public interface CategoryService {
 
     void remove(long categoryId);
 
-    Category findById(long id);
-
     List<Category> findAllRoots();
+
+    List<Category> findAll();
 }

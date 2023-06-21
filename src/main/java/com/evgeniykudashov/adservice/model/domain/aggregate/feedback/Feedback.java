@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.feedback;
 
+import com.evgeniykudashov.adservice.annotation.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
@@ -7,6 +8,7 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -15,7 +17,6 @@ import java.io.Serializable;
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
 @Entity
 @Table(name = "feedbacks")
 public class Feedback implements Serializable {
@@ -30,16 +31,19 @@ public class Feedback implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advertisement_id")
     @Immutable
+    @Getter(onMethod_ = @Deprecated)
     private Advertisement advertisement;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_user_id")
     @Immutable
+    @Getter(onMethod_ = @Deprecated)
     private User sender;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient_user_id")
     @Immutable
+    @Getter(onMethod_ = @Deprecated)
     private User recipient;
 
     @Enumerated(EnumType.ORDINAL)
@@ -49,6 +53,8 @@ public class Feedback implements Serializable {
     @Getter
     private Description description;
 
+
+    @Default
     public Feedback(Advertisement advertisement,
                     User sender,
                     User recipient,

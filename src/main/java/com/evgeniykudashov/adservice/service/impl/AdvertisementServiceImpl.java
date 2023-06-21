@@ -1,18 +1,20 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundAdvertisementException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
+import com.evgeniykudashov.adservice.helper.ReflectionUtility;
+import com.evgeniykudashov.adservice.helper.StringUtils;
+import com.evgeniykudashov.adservice.model.domain.DomainLayerConstants;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
-import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
-import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor(onConstructor_ = @Autowired)
 
@@ -26,34 +28,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return advertisementRepository.save(advertisement).getId();
     }
 
-    @Override
     @Transactional
-    public void updateTitle(Title title, long advertisementId) {
-        Advertisement advertisement = advertisementRepository.findById(advertisementId)
-                .orElseThrow(NotFoundAdvertisementException::new);
-        advertisement.updateTitle(title);
-        advertisementRepository.save(advertisement);
+    @Override
+    public void patchUpdate(Map<String, Object> data, long advertisementId) {
+        data.forEach((k, v) -> ReflectionUtility.callMethod(this.findById(advertisementId),
+                DomainLayerConstants.UPDATE_METHOD_PREFIX.concat(StringUtils.capitalize(k)),
+                v));
     }
 
-    @Override
-    @Transactional
-    public void updateAddress(Address address, long advertisementId) {
-        Advertisement advertisement = advertisementRepository.findById(advertisementId)
-                .orElseThrow(NotFoundAdvertisementException::new);
-        advertisement.updateAddress(address);
-        advertisementRepository.save(advertisement);
-    }
-
-    @Override
-    @Transactional
-    public void updateStatus(AdvertisementStatus status, long advertisementId) {
-        Advertisement advertisement = advertisementRepository.findById(advertisementId)
-                .orElseThrow(NotFoundAdvertisementException::new);
-        advertisement.updateStatus(status);
-        advertisementRepository.save(advertisement);
-    }
-
-    @Override
     @Transactional
     public void remove(long advertisementId) {
         advertisementRepository.deleteById(advertisementId);
@@ -61,19 +43,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Advertisement> findAllByUserId(long userId) {
-        return advertisementRepository.findAllByOwnerId(userId);
+    public Page<Advertisement> findAllByUserId(long userId, Pageable pageable) {
+        return advertisementRepository.findAllByOwnerId(userId, pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Advertisement> findAllByTitle(Title title) {
-        return advertisementRepository.findAllByTitle(title);
+    public Advertisement findById(long advertisementId) {
+        return advertisementRepository.findById(advertisementId).orElseThrow(NotFoundEntityException::new);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Advertisement> findAllByCategoryId(long categoryId) {
-        return advertisementRepository.findAllByCategoryId(categoryId);
-    }
+
+//    public List<Advertisement> findAll(){
+//        return advertisementRepository.findAll(pageable).getContent();
+//    }
+
 }

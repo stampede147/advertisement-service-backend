@@ -1,24 +1,21 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.Feedback;
-import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark;
-import com.evgeniykudashov.adservice.model.domain.shared.Description;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FeedbackService {
 
     long create(Feedback feedback);
 
+    void patchUpdate(Map<String, Object> map, long feedbackId);
+
     void remove(long feedbackId);
-
-    void updateMark(Mark mark, long feedbackId);
-
-    void updateDescription(Description description, long feedbackId);
 
     List<Feedback> findAllByRecipientUserId(long recipientUserId);
 
     List<Feedback> findAllBySenderUserId(long senderUserId);
 
-
+    Feedback findById(Long id);
 }

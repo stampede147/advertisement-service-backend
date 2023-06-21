@@ -4,7 +4,9 @@ package com.evgeniykudashov.adservice.model.domain.aggregate.user;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetails;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.PersonalDetails;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import java.io.Serializable;
 
 @NoArgsConstructor(onConstructor = @__({@Deprecated}))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 
 @Entity
 @Table(name = "users")

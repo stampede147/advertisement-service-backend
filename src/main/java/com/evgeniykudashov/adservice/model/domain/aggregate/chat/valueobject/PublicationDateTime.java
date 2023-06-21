@@ -1,6 +1,7 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
@@ -21,6 +22,7 @@ public class PublicationDateTime implements Serializable {
 
     private LocalDateTime publicationDateTime;
 
+    @JsonCreator
     public PublicationDateTime(LocalDateTime publicationDateTime) {
         this.publicationDateTime = publicationDateTime;
     }

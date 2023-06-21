@@ -1,6 +1,8 @@
 package com.evgeniykudashov.adservice.model.domain.shared;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,15 +10,17 @@ import org.hibernate.annotations.Immutable;
 
 
 @Getter
-@NoArgsConstructor(onConstructor = @__({@Deprecated}))
-
+@NoArgsConstructor(onConstructor_ = @Deprecated)
 @Embeddable
 @Immutable
 public class Title {
 
-    private String title;
 
-    public Title(String title) {
-        this.title = title;
+    @JsonProperty(required = true)
+    private String tname;
+
+    @JsonCreator
+    public Title(String tname) {
+        this.tname = tname;
     }
 }

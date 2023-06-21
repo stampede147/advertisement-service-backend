@@ -18,8 +18,11 @@ import com.evgeniykudashov.adservice.model.domain.shared.Description;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.model.domain.shared.security.Password;
 import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,7 +46,7 @@ public class TestValues {
 
 
     public Category getCategoryObject() {
-        return new Category(getTitleObject(), null, null);
+        return new Category(0, getTitleObject(), null, null);
     }
 
     public MessageBody getMessageBodyObject() {
@@ -95,4 +98,10 @@ public class TestValues {
                 getDescriptionObject());
     }
 
+
+    @SneakyThrows
+    public static void main(String[] args) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("java.json"), TestValues.getAdvertisementObject());
+    }
 }
