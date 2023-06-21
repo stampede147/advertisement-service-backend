@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundFeedbackException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.helper.ReflectionUtility;
 import com.evgeniykudashov.adservice.helper.StringUtils;
 import com.evgeniykudashov.adservice.model.domain.DomainLayerConstants;
@@ -57,6 +57,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(readOnly = true)
     @Override
     public Feedback findById(Long id) {
-        return feedbackRepository.findById(id).orElseThrow(NotFoundFeedbackException::new);
+        return feedbackRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 }

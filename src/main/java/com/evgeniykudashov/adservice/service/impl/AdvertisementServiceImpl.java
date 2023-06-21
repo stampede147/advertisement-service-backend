@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundAdvertisementException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.helper.ReflectionUtility;
 import com.evgeniykudashov.adservice.helper.StringUtils;
 import com.evgeniykudashov.adservice.model.domain.DomainLayerConstants;
@@ -50,7 +50,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     @Transactional(readOnly = true)
     public Advertisement findById(long advertisementId) {
-        return advertisementRepository.findById(advertisementId).orElseThrow(NotFoundAdvertisementException::new);
+        return advertisementRepository.findById(advertisementId).orElseThrow(NotFoundEntityException::new);
     }
 
 

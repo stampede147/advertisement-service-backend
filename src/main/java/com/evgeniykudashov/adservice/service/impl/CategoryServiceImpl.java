@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundCategoryException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
 import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.repository.CategoryRepository;
@@ -67,6 +67,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     protected Category findById(long categoryId) {
-        return categoryRepository.findById(categoryId).orElseThrow(NotFoundCategoryException::new);
+        return categoryRepository.findById(categoryId).orElseThrow(NotFoundEntityException::new);
     }
 }

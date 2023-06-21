@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundChatException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.Chat;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.repository.ChatRepository;
@@ -40,7 +40,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     @Transactional(readOnly = true)
     public Chat findById(long chatId) {
-        return chatRepository.findById(chatId).orElseThrow(NotFoundChatException::new);
+        return chatRepository.findById(chatId).orElseThrow(NotFoundEntityException::new);
     }
 
     @Override
