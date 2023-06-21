@@ -29,7 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private AuthenticationManager authenticationManager;
 
 
-    public JwtAuthenticationFilter() {
+    public JwtAuthenticationFilter(AuthenticationManager manager) {
+        this.authenticationManager = manager;
         this.isPostSupported = true;
     }
 
