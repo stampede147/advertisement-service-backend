@@ -1,10 +1,11 @@
 package com.evgeniykudashov.adservice.service.impl;
 
-import com.evgeniykudashov.adservice.exception.NotFoundUserException;
+import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.helper.ReflectionUtility;
 import com.evgeniykudashov.adservice.helper.StringUtils;
 import com.evgeniykudashov.adservice.model.domain.DomainLayerConstants;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.UserService;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findById(long userId) {
-        return userRepository.findById(userId).orElseThrow(NotFoundUserException::new);
+        return userRepository.findById(userId).orElseThrow(NotFoundEntityException::new);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User findByUsername(Username username) {
+        return userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new);
     }
 }
