@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.advertisement;
 
-import com.evgeniykudashov.adservice.annotations.Default;
+import com.evgeniykudashov.adservice.annotation.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.statuses.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.valueobject.Address;
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
@@ -61,17 +61,12 @@ public class Advertisement implements Serializable {
 
 
     @Default
-    public Advertisement(@NonNull Title title,
-                         @NonNull Description description,
-                         @NonNull Category category,
-                         @NonNull User owner,
-                         @NonNull Address address) {
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.owner = owner;
-        this.address = address;
-        this.status = AdvertisementStatus.ARCHIVED;
+    public Advertisement(Title title,
+                         Description description,
+                         Category category,
+                         User owner,
+                         Address address) {
+        this(0L, title, description, category, owner, address, AdvertisementStatus.ARCHIVED);
     }
 
     @JsonCreator

@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.feedback;
 
-import com.evgeniykudashov.adservice.annotations.Default;
+import com.evgeniykudashov.adservice.annotation.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.domain.aggregate.feedback.status.Mark;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;

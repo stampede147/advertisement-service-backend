@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.model.domain.aggregate.chat;
 
-import com.evgeniykudashov.adservice.annotations.Default;
+import com.evgeniykudashov.adservice.annotation.Default;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
 import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
