@@ -2,8 +2,6 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 
 import com.evgeniykudashov.adservice.mapper.ChatMapper;
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.chat.ChatResponseDto;
 import com.evgeniykudashov.adservice.mapper.dto.chat.CreateChatRequestDto;
 import com.evgeniykudashov.adservice.service.ChatService;
 import lombok.AllArgsConstructor;
@@ -40,9 +38,8 @@ public class UserChatController {
     }
 
     @GetMapping()
-    @SuppressWarnings("unused")
-    public ResponseEntity<PageDto<ChatResponseDto>> findAll(@PathVariable long userId,
-                                                            @PageableDefault Pageable pageable) {
+    public ResponseEntity<?> findAll(@PathVariable long userId,
+                                     @PageableDefault Pageable pageable) {
 
         return ResponseEntity.ok(dtoEntityMapper.toPageDto(chatService.findAllByUserId(userId, pageable)));
     }
