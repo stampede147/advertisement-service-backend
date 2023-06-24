@@ -2,10 +2,10 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
-import com.evgeniykudashov.adservice.mapper.dto.advertisement.AdvertisementCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.advertisement.CreateAdvertisementRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.advertisement.UpdateAdvertisementRequestDto;
 import com.evgeniykudashov.adservice.model.domain.aggregate.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,28 +13,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.lang.reflect.Field;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/users/{userId}/advertisements")
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class UserAdvertisementController {
 
-    public static final Class<Advertisement> ADVERTISEMENT_CLASS = Advertisement.class;
-
     private AdvertisementService advertisementService;
-    private ObjectMapper jsonMapper;
     private AdvertisementMapper dtoEntityMapper;
 
     @PostMapping()
-    public ResponseEntity<Void> onCreate(@RequestBody AdvertisementCreateRequestDto requestDto) {
+    public ResponseEntity<Void> onCreate(@RequestBody CreateAdvertisementRequestDto requestDto) {
         long resourceId = advertisementService.create(dtoEntityMapper.toAdvertisement(requestDto));
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
@@ -43,30 +36,12 @@ public class UserAdvertisementController {
                 .build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> onPatch(@RequestBody Map<String, Object> map, @PathVariable Long id) {
-
-        //if request body does not contain  id that corresponds path variable id
-        if (!map.containsKey("id") || !id.equals(Long.valueOf(map.get("id").toString()))) {
-            return ResponseEntity.badRequest().build();
-        }
-        map.remove("id");
-
-        //converting all objects (that are linkedHashMap) from requestBody to concrete objects due to Advertisement.class
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            Field field = ReflectionUtils.findField(ADVERTISEMENT_CLASS, entry.getKey());
-            if (Objects.isNull(field)) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                map.put(entry.getKey(), jsonMapper.convertValue(entry.getValue(), field.getType()));
-            }
-        }
-
-        advertisementService.patchUpdate(map, id);
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> onPut(@RequestBody UpdateAdvertisementRequestDto requestDto, @PathVariable Long id) {
+        Advertisement advertisement = dtoEntityMapper.toAdvertisement(requestDto);
+        advertisementService.put(advertisement, id);
         return ResponseEntity.noContent().build();
     }
-
 
     @ExceptionHandler(MismatchedInputException.class)
     public ResponseEntity<?> handlePatchMethodExceptions(MismatchedInputException e) {
@@ -79,10 +54,9 @@ public class UserAdvertisementController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> onGetById(@PathVariable Long id) {
-        return ResponseEntity.ok(advertisementService.findById(id));
+        return ResponseEntity.ok(dtoEntityMapper.toAdvertisementResponseDto(advertisementService.findById(id)));
     }
 
     @GetMapping()

@@ -2,7 +2,7 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 
 import com.evgeniykudashov.adservice.mapper.FeedbackMapper;
-import com.evgeniykudashov.adservice.mapper.dto.feedback.FeedbackCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.feedback.CreateFeedbackRequestDto;
 import com.evgeniykudashov.adservice.service.FeedbackService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -21,7 +21,7 @@ public class FeedbackController {
     private FeedbackMapper feedbackMapper;
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody FeedbackCreateRequestDto requestDto) {
+    public ResponseEntity<Void> create(@RequestBody CreateFeedbackRequestDto requestDto) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
