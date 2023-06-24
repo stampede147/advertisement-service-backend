@@ -2,7 +2,6 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 
 import com.evgeniykudashov.adservice.model.domain.aggregate.category.Category;
-import com.evgeniykudashov.adservice.model.domain.shared.Title;
 import com.evgeniykudashov.adservice.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ public class CategoryController {
 
     private CategoryService categoryService;
 
-
     @PostMapping
     public ResponseEntity<Long> create(Category category) {
         return ResponseEntity
@@ -28,16 +26,6 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         categoryService.remove(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    /**
-     * !!!!
-     * change input request body
-     */
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> updateTitle(@RequestBody Title title, @PathVariable long id) {
-        categoryService.updateTitle(title, id);
         return ResponseEntity.noContent().build();
     }
 
