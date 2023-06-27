@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model.domain;
+package com.evgeniykudashov.adservice.model.domain.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
