@@ -1,19 +1,15 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
-import com.evgeniykudashov.adservice.helper.ReflectionUtility;
-import com.evgeniykudashov.adservice.helper.StringUtils;
-import com.evgeniykudashov.adservice.model.domain.DomainLayerConstants;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
-import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
+import com.evgeniykudashov.adservice.mapper.UserMapper;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
 
 
 @AllArgsConstructor(onConstructor_ = @Autowired)
@@ -22,19 +18,12 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    @Transactional
-    @Override
-    public long create(User user) {
-        return userRepository.save(user).getId();
-    }
+    private UserMapper mapper;
 
     @Transactional
     @Override
-    public void patchUpdate(Map<String, Object> data, Long userId) {
-        data.forEach((k, v) -> ReflectionUtility.callMethod(this.findById(userId),
-                DomainLayerConstants.UPDATE_METHOD_PREFIX.concat(StringUtils.capitalize(k)),
-                v));
-
+    public long create(UserCreateRequestDto dto) {
+        return userRepository.save(mapper.toUser(dto)).getId();
     }
 
     @Transactional
@@ -45,13 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User findById(long userId) {
-        return userRepository.findById(userId).orElseThrow(NotFoundEntityException::new);
+    public UserResponseDto findById(long userId) {
+        return mapper.toUserResponseDto(userRepository.findById(userId).orElseThrow(NotFoundEntityException::new));
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public User findByUsername(Username username) {
-        return userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new);
-    }
 }
