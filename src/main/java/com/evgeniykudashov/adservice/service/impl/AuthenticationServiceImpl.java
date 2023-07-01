@@ -1,21 +1,18 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetails;
-import com.evgeniykudashov.adservice.model.domain.shared.security.Username;
+import com.evgeniykudashov.adservice.mapper.dto.UsernamePasswordDto;
+import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.JwtTokenFactory;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
+import java.util.Collections;
 
 
 @Service
@@ -23,21 +20,27 @@ import java.io.File;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private UserRepository userRepository;
-    private ConfigurableApplicationContext applicationContext;
-
+    private PasswordEncoder passwordEncoder;
     private JwtTokenFactory factory;
 
     @Transactional(readOnly = true)
-    @SneakyThrows
-    public String generateJwtToken(AccessDetails accessDetails) {
-        User user = findUserByUsername(accessDetails.getUsername());
-        accessDetails = user.getAccessDetails();
-        new ObjectMapper().writeValue(new File("java.json"), accessDetails);
-        return factory.createToken(accessDetails.getUsername().getUsername(), accessDetails.getAuthorities());
+    public String generateJwtToken(UsernamePasswordDto dto) {
+        User user = findUserByUsername(dto.getUsername());
+
+        validatePassword(dto.getPassword(), user.getPassword());
+
+        return factory.createToken(user.getUsername(), Collections.singleton(user.getRole()));
     }
 
-    private User findUserByUsername(Username username) {
-        return userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new);
+    private User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(NotFoundEntityException::new);
+    }
+
+    private void validatePassword(String rawPassword, String encodedPassword) {
+        if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+            throw new RuntimeException("provided password is wrong");
+        }
     }
 
 }

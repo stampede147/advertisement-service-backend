@@ -1,16 +1,25 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.Chat;
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.valueobject.ChatMessage;
+import com.evgeniykudashov.adservice.mapper.ChatMapper;
+import com.evgeniykudashov.adservice.mapper.dto.PageDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.CreateChatRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.model.chat.Chat;
+import com.evgeniykudashov.adservice.model.user.User;
+import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.ChatRepository;
+import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.ChatService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor(onConstructor_ = @Autowired)
@@ -19,10 +28,28 @@ public class ChatServiceImpl implements ChatService {
 
     private ChatRepository chatRepository;
 
+    private AdvertisementRepository advertisementRepository;
+    private UserRepository userRepository;
+
+    private ChatMapper dtoMapper;
+
     @Override
     @Transactional
-    public long create(Chat chat) {
-        return chatRepository.save(chat).getId();
+    public long create(CreateChatRequestDto dto) {
+        return chatRepository.save(Chat.builder()
+                .id(0)
+                .createdAt(LocalDate.now())
+                .advertisement(advertisementRepository.getReferenceById(dto.getAdvertisementId()))
+                .participants(convertUserIdToUser(dto.getUserIds()))
+                .build()
+        ).getId();
+
+    }
+
+    private Set<User> convertUserIdToUser(Set<Long> ids) {
+        return ids.stream()
+                .map(userId -> userRepository.getReferenceById(userId))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -33,33 +60,18 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Chat> findAllByUserId(long userId, Pageable pageable) {
-        return chatRepository.findAllByUserId(userId, pageable);
+    public PageDto<ChatResponseDto> findAllByUserId(long userId, Pageable pageable) {
+        return dtoMapper.toPageDto(chatRepository.findByUsersIds(userId, pageable));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Chat findById(long chatId) {
+    public ChatResponseDto findById(long chatId) {
+        return dtoMapper.toChatResponseDto(findChatById(chatId));
+
+    }
+
+    private Chat findChatById(long chatId) {
         return chatRepository.findById(chatId).orElseThrow(NotFoundEntityException::new);
     }
-
-    @Override
-    @Transactional
-    public void addChatMessage(ChatMessage chatMessage, long chatId) {
-        this.findById(chatId).addChatMessage(chatMessage);
-    }
-
-    @Override
-    @Transactional
-    public void removeChatMessage(ChatMessage chatMessage, long chatId) {
-        this.findById(chatId).removeChatMessage(chatMessage);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ChatMessage> findChatMessagesByChatId(long chatId, Pageable pageable) {
-        return chatRepository.findAllChatMessagesByChatId(chatId, pageable);
-    }
-
-
 }
