@@ -1,11 +1,8 @@
-package com.evgeniykudashov.adservice.model.domain.advertisement;
+package com.evgeniykudashov.adservice.model.advertisement;
 
-import com.evgeniykudashov.adservice.model.domain.user.User;
+import com.evgeniykudashov.adservice.model.user.User;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
@@ -15,6 +12,8 @@ import java.io.Serializable;
 @SecondaryTable(name = "addresses",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"),
         uniqueConstraints = @UniqueConstraint(columnNames = "advertisement_id"))
+@Getter
+@Setter
 @Entity
 @Table(name = "advertisements")
 public class Advertisement implements Serializable {

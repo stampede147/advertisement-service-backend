@@ -1,7 +1,6 @@
-package com.evgeniykudashov.adservice.model.domain.user;
+package com.evgeniykudashov.adservice.model.user;
 
 
-import com.evgeniykudashov.adservice.annotation.Default;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +9,10 @@ import java.time.LocalDate;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 //
-@SecondaryTable(name = "user_details",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -26,34 +24,37 @@ public class User implements Serializable {
     private long id;
 
     private String firstName;
+
     private String lastName;
+
     private LocalDate birthdate;
+
     private String email;
 
+    @Column(unique = true)
+    private String username;
 
-    @Column(table = "user_details")
-    private UserDetails userDetails;
+    private String password;
 
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-    public User(@NonNull long id,
+    public User(long id,
                 @NonNull String firstName,
                 @NonNull String lastName,
                 @NonNull LocalDate birthdate,
                 @NonNull String email,
-                @NonNull UserDetails userDetails) {
+                @NonNull String username,
+                @NonNull String password,
+                @NonNull Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.email = email;
-        this.userDetails = userDetails;
-    }
-
-    @Default
-    public User(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 }
 

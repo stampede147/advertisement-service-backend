@@ -1,11 +1,13 @@
-package com.evgeniykudashov.adservice.model.domain.user;
+package com.evgeniykudashov.adservice.model.user;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
 
     USER(Roles.ROLE_USER), ADMIN(Roles.ROLE_ADMIN);
 
+    @JsonValue
     String authority;
 
     Role(String val) {
