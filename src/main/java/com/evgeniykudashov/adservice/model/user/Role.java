@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
 
-    USER(Roles.ROLE_USER), ADMIN(Roles.ROLE_ADMIN);
+    USER(Constants.ROLE_USER), ADMIN(Constants.ROLE_ADMIN);
 
     @JsonValue
     String authority;
@@ -19,10 +19,10 @@ public enum Role implements GrantedAuthority {
         return authority;
     }
 
-    public static class Roles {
-        public static final String USER = "USER";
-        public static final String ADMIN = "ADMIN";
-        protected static final String ROLE_PREFIX = "ROLE_";
+    public static class Constants {
+        private static final String USER = "USER";
+        private static final String ADMIN = "ADMIN";
+        private static final String ROLE_PREFIX = "ROLE_";
         public static final String ROLE_USER = ROLE_PREFIX + USER;
         public static final String ROLE_ADMIN = ROLE_PREFIX + ADMIN;
     }
