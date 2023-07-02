@@ -1,16 +1,14 @@
 package com.evgeniykudashov.adservice.mapper;
 
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.chat.ChatResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.chat.CreateChatRequestDto;
-import com.evgeniykudashov.adservice.model.domain.aggregate.chat.Chat;
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.User;
+import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.model.chat.Chat;
+import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,37 +16,20 @@ import org.springframework.data.domain.Page;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = ChatMessageMapper.class)
+@Mapper(componentModel = "spring")
 @Setter(onMethod_ = @Autowired)
 public abstract class ChatMapper {
 
     protected AdvertisementRepository advertisementRepository;
     protected UserRepository userRepository;
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "participants", source = "userIds", qualifiedByName = "userIdsToUsers")
-    @Mapping(target = "advertisement", expression = "java(advertisementRepository.getReferenceById(requestDto.getAdvertisementId()))")
-    public abstract Chat ToChat(CreateChatRequestDto requestDto);
-
-    @Named("userIdsToUsers")
-    protected Set<User> userIdsToUsers(Set<Long> userIds) {
-        return userIds.stream()
-                .map(id -> userRepository.getReferenceById(id))
-                .collect(Collectors.toSet());
-    }
-
-
-    @Mappings(value = {
-            @Mapping(target = "userIds", source = "participants", qualifiedByName = "usersToUserIds"),
-            @Mapping(target = "chatId", expression = "java(chat.getId())"),
-            @Mapping(target = "advertisementId", expression = "java(chat.getAdvertisement().getId())")
-    })
+    @Mapping(target = "chatId", ignore = true)
     public abstract ChatResponseDto toChatResponseDto(Chat chat);
 
     @Named("usersToUserIds")
     protected Set<Long> usersToUserIds(Set<User> users) {
         return users.stream()
-                .map(user -> user.getId())
+                .map(User::getId)
                 .collect(Collectors.toSet());
     }
 
