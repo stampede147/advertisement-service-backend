@@ -25,7 +25,7 @@ public class Message {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id", updatable = false, insertable = false)
+    @JoinColumn(name = "chat_id", updatable = false)
     @Immutable
     private Chat chat;
 
@@ -33,7 +33,7 @@ public class Message {
     private String body;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     @Immutable
     private User sender;
 
