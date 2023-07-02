@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class AdvertisementController {
 
     private final AdvertisementService advertisementService;
-
 
     @PostMapping()
     public ResponseEntity<Void> onCreate(@RequestBody CreateAdvertisementRequestDto requestDto) {
@@ -43,7 +41,6 @@ public class AdvertisementController {
     @GetMapping(params = "userId")
     public ResponseEntity<?> getUsersAdvertisements(@RequestParam Long userId,
                                                     @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication().toString());
-//        return ResponseEntity.ok(advertisementService.findAllByUserId(userId, pageable));
+        return ResponseEntity.ok(advertisementService.findAllByUserId(userId, pageable));
     }
 }
