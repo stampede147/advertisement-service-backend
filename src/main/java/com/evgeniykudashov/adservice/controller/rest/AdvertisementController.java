@@ -1,0 +1,49 @@
+package com.evgeniykudashov.adservice.controller.rest;
+
+
+import com.evgeniykudashov.adservice.mapper.dto.request.CreateAdvertisementRequestDto;
+import com.evgeniykudashov.adservice.service.AdvertisementService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RestController
+@RequestMapping("/advertisements")
+public class AdvertisementController {
+
+    private final AdvertisementService advertisementService;
+
+
+    @PostMapping()
+    public ResponseEntity<Void> onCreate(@RequestBody CreateAdvertisementRequestDto requestDto) {
+        return ResponseEntity
+                .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
+                        .path("/{id}")
+                        .build(advertisementService.create(requestDto)))
+                .build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> onDelete(@PathVariable Long id) {
+        advertisementService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> onGetById(@PathVariable Long id) {
+        return ResponseEntity.ok(advertisementService.findById(id));
+    }
+
+    @GetMapping(params = "userId")
+    public ResponseEntity<?> getUsersAdvertisements(@RequestParam Long userId,
+                                                    @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication().toString());
+//        return ResponseEntity.ok(advertisementService.findAllByUserId(userId, pageable));
+    }
+}
