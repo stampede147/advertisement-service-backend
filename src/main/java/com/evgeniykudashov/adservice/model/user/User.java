@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.model.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 //
 @Entity
 @Table(name = "users")
+@BatchSize(size = 10)
 public class User implements Serializable {
 
     @Id

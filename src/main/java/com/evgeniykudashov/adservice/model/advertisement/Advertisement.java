@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.model.advertisement;
 import com.evgeniykudashov.adservice.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "advertisements")
+@BatchSize(size = 10)
 public class Advertisement implements Serializable {
 
     @Id
