@@ -4,7 +4,6 @@ package com.evgeniykudashov.adservice.controller.rest;
 import com.evgeniykudashov.adservice.mapper.dto.UsernamePasswordDto;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -22,7 +21,6 @@ public class AuthenticationController {
     public static final String ACCESS_TOKEN = "access_token";
     protected AuthenticationService authenticationService;
 
-    @SneakyThrows
     @PostMapping("/jwt")
     public ResponseEntity<Void> createJwtAuthentication(@RequestBody UsernamePasswordDto dto) {
         return ResponseEntity.noContent()
