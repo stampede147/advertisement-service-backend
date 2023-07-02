@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 
 
 /**
- * if Constructor is marked with @Default annotation it will be used for default object creation
+ * used by model mapper (mapstruct)
+ * Constructor marked @Default annotation will be used for default object creation
  *
  * @see MapStruct documentation
  */

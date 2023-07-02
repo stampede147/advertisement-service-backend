@@ -15,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -26,7 +26,6 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @ConditionalOnBean(SecurityComponentConfiguration.class)
 public class WebSecurityConfiguration {
 
-    private final String[] API_AVAILABLE_UNAUTHORIZED_PATHS = {"/advertisements/**", "/authentication"};
     protected JwtAuthenticationFilter filter;
 
 
@@ -34,17 +33,17 @@ public class WebSecurityConfiguration {
     @SneakyThrows
     protected SecurityFilterChain filterChain(HttpSecurity http) {
         return http
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .securityContext().and()
                 .authorizeHttpRequests(r -> {
+                    r.requestMatchers("/users/**").authenticated();
+                    r.requestMatchers("/authentications/**").permitAll();
                     r.anyRequest().permitAll();
-//                    r.requestMatchers(API_AVAILABLE_UNAUTHORIZED_PATHS).permitAll();
-//                    r.anyRequest().authenticated();
                 })
-                .addFilterBefore(filter, AnonymousAuthenticationFilter.class)
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 

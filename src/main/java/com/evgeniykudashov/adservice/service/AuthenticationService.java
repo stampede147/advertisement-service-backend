@@ -1,9 +1,9 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.model.domain.aggregate.user.valueobject.AccessDetails;
+import com.evgeniykudashov.adservice.mapper.dto.UsernamePasswordDto;
 
 public interface AuthenticationService {
 
-    String generateJwtToken(AccessDetails accessDetails);
+    String generateJwtToken(UsernamePasswordDto dto);
 
 }
