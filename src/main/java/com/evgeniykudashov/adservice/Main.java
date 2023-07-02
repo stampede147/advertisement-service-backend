@@ -2,6 +2,7 @@ package com.evgeniykudashov.adservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class Main {
     public void mapperConfiguration(ObjectMapper mapper) {
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.enable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
         mapper.registerModule(new ParameterNamesModule());
+        mapper.registerModule(new JavaTimeModule());
     }
 
 }
