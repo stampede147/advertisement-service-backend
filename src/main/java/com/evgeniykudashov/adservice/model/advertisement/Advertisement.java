@@ -32,7 +32,7 @@ public class Advertisement implements Serializable {
     private String description;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     @Immutable
     private User owner;
 
