@@ -22,14 +22,6 @@ public class ChatMessageController {
 
     private final MessageService messageService;
 
-    private static ResponseEntity<Void> getConfiguredResponseEntity() {
-        return ResponseEntity
-                .status(HTTP_STATUS_REDIRECT)
-                .location(MvcUriComponentsBuilder.fromController(CONTROLLER_TYPE_REDIRECT)
-                        .build()
-                        .toUri())
-                .build();
-    }
 
     @GetMapping()
     public ResponseEntity<?> getChatMessages(@PathVariable long chatId,
@@ -45,6 +37,15 @@ public class ChatMessageController {
     @DeleteMapping
     public ResponseEntity<Void> deleteChatMessage() {
         return getConfiguredResponseEntity();
+    }
+
+    private static ResponseEntity<Void> getConfiguredResponseEntity() {
+        return ResponseEntity
+                .status(HTTP_STATUS_REDIRECT)
+                .location(MvcUriComponentsBuilder.fromController(CONTROLLER_TYPE_REDIRECT)
+                        .build()
+                        .toUri())
+                .build();
     }
 
 
