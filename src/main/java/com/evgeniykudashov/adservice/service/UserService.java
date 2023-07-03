@@ -1,11 +1,11 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
 
 public interface UserService {
 
-    long create(UserCreateRequestDto user);
+    long create(UserRequestDto user);
 
     void remove(long userId);
 

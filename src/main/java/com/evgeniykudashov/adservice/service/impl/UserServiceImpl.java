@@ -2,30 +2,33 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.UserMapper;
-import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
 import com.evgeniykudashov.adservice.model.user.Role;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.UserService;
-import lombok.AllArgsConstructor;
+import jakarta.validation.Validator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@AllArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder encoder;
-    private UserMapper mapper;
+    private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
+    private final UserMapper mapper;
+
+    private final Validator validator;
 
     @Transactional
     @Override
-    public long create(UserCreateRequestDto dto) {
+    public long create(UserRequestDto dto) {
         return userRepository.save(User.builder().id(0)
                 .firstName(dto.firstName)
                 .lastName(dto.lastName)
