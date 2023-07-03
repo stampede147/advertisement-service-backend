@@ -2,12 +2,13 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.service.ChatService;
-import jakarta.validation.Valid;
+import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,7 +20,7 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
-    public ResponseEntity<Void> createChat(@RequestBody @Valid ChatRequestDto chat) {
+    public ResponseEntity<Void> createChat(@RequestBody @Validated(value = CreateConstraint.class) ChatRequestDto chat) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
