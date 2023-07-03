@@ -2,7 +2,7 @@ package com.evgeniykudashov.adservice.mapper;
 
 
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateAdvertisementRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.repository.UserRepository;
@@ -21,7 +21,7 @@ public abstract class AdvertisementMapper {
     protected UserRepository userRepository;
 
     @Mapping(target = "owner", expression = "java(userRepository.getReferenceById(requestDto.getUserId()))")
-    public abstract Advertisement toAdvertisement(CreateAdvertisementRequestDto requestDto);
+    public abstract Advertisement toAdvertisement(AdvertisementRequestDto requestDto);
 
 
     @Mapping(target = "userId", expression = "java(advertisement.getOwner().getId())")

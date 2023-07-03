@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.mapper;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public abstract class UserMapper {
 
     @Mapping(target = "birthdate", source = "birthdate")
 
-    public abstract User toUser(UserCreateRequestDto dto);
+    public abstract User toUser(UserRequestDto dto);
 
     @Mapping(target = "userId", source = "id")
     public abstract UserResponseDto toUserResponseDto(User user);

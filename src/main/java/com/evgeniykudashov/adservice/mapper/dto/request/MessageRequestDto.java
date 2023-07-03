@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.mapper.dto;
+package com.evgeniykudashov.adservice.mapper.dto.request;
 
 
 import com.evgeniykudashov.adservice.model.chat.statuses.MessageStatus;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageDto {
+public class MessageRequestDto {
 
     long messageId;
 
