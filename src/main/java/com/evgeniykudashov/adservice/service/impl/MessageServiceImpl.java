@@ -2,8 +2,9 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.MessageMapper;
-import com.evgeniykudashov.adservice.mapper.dto.MessageDto;
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.MessageRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.model.chat.statuses.MessageStatus;
 import com.evgeniykudashov.adservice.repository.ChatRepository;
@@ -32,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public long createMessage(MessageDto dto) {
+    public long createMessage(MessageRequestDto dto) {
         return messageRepository.save(Message.builder()
                         .id(0L)
                         .body(dto.getBody())
@@ -51,7 +52,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public MessageDto getMessageById(long messageId) {
+    public MessageResponseDto getMessageById(long messageId) {
         return dtoMapper.toMessageResponseDto(findMessageById(messageId));
     }
 
@@ -61,13 +62,13 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageDto<MessageDto> getLastMessagesByChatId(long chatId, Pageable pageable) {
+    public PageDto<MessageResponseDto> getLastMessagesByChatId(long chatId, Pageable pageable) {
         return dtoMapper.toPageDto(messageRepository.findLastMessages(chatId, pageable));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<MessageDto> getLastMessageByChatsIds(long[] chatId) {
+    public Collection<MessageResponseDto> getLastMessageByChatsIds(long[] chatId) {
         return dtoMapper.toMessageResponseDto(messageRepository.findLastMessageByChatId(chatId));
     }
 }
