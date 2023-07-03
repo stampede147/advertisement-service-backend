@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.mapper;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.MessageDto;
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import lombok.Setter;
@@ -23,10 +23,10 @@ public abstract class MessageMapper {
     @Mapping(target = "messageId", source = "id")
     @Mapping(target = "chatId", expression = "java(chatMessage.getChat().getId())")
     @Mapping(target = "senderId", expression = "java(chatMessage.getSender().getId())")
-    public abstract MessageDto toMessageResponseDto(Message chatMessage);
+    public abstract MessageResponseDto toMessageResponseDto(Message chatMessage);
 
-    public abstract List<MessageDto> toMessageResponseDto(Collection<Message> chatMessageList);
+    public abstract List<MessageResponseDto> toMessageResponseDto(Collection<Message> chatMessageList);
 
-    public abstract PageDto<MessageDto> toPageDto(Page<Message> page);
+    public abstract PageDto<MessageResponseDto> toPageDto(Page<Message> page);
 
 }

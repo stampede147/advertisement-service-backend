@@ -1,12 +1,14 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.service.UserService;
+import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserCreateRequestDto dto) {
+    public ResponseEntity<?> createUser(@RequestBody @Validated(value = CreateConstraint.class) UserRequestDto dto) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder
                         .fromCurrentRequestUri()

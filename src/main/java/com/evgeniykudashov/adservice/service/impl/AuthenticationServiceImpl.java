@@ -6,7 +6,7 @@ import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.JwtTokenFactory;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 
 
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Service
-@AllArgsConstructor(onConstructor_ = @Autowired)
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private JwtTokenFactory factory;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenFactory factory;
 
     @Transactional(readOnly = true)
     public String generateJwtToken(UsernamePasswordDto dto) {

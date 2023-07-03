@@ -1,13 +1,15 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateAdvertisementRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
+import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,7 +21,7 @@ public class AdvertisementController {
     private final AdvertisementService advertisementService;
 
     @PostMapping()
-    public ResponseEntity<Void> onCreate(@RequestBody CreateAdvertisementRequestDto requestDto) {
+    public ResponseEntity<Void> onCreate(@RequestBody @Validated(value = CreateConstraint.class) AdvertisementRequestDto requestDto) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")

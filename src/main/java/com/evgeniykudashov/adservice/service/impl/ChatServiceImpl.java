@@ -3,7 +3,7 @@ package com.evgeniykudashov.adservice.service.impl;
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.ChatMapper;
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateChatRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
 import com.evgeniykudashov.adservice.model.chat.Chat;
 import com.evgeniykudashov.adservice.model.user.User;
@@ -35,7 +35,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public long create(CreateChatRequestDto dto) {
+    public long create(ChatRequestDto dto) {
         return chatRepository.save(Chat.builder()
                 .id(0)
                 .createdAt(LocalDate.now())

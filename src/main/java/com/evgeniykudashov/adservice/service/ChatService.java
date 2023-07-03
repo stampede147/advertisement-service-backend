@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateChatRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +10,7 @@ public interface ChatService {
     /**
      * chat segment begin
      */
-    long create(CreateChatRequestDto dto);
+    long create(ChatRequestDto dto);
 
     void remove(long chatId);
 
