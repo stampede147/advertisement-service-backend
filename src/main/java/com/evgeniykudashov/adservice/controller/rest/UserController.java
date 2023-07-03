@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserCreateRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserCreateRequestDto dto) {
+    public ResponseEntity<?> createUser(@RequestBody UserRequestDto dto) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder
                         .fromCurrentRequestUri()
