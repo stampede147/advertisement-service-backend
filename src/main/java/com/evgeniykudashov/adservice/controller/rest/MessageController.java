@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
-import com.evgeniykudashov.adservice.mapper.dto.MessageDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class MessageController {
 
 
     @PostMapping
-    public ResponseEntity<?> createMessage(@RequestBody MessageDto dto) {
+    public ResponseEntity<?> createMessage(@RequestBody MessageResponseDto dto) {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
                         .build(messageService.createMessage(dto)))
