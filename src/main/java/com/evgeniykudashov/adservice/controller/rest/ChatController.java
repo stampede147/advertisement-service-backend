@@ -1,7 +1,8 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateChatRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.service.ChatService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
-    public ResponseEntity<Void> createChat(@RequestBody CreateChatRequestDto chat) {
+    public ResponseEntity<Void> createChat(@RequestBody @Valid ChatRequestDto chat) {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
