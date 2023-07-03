@@ -1,13 +1,13 @@
 package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.mapper.dto.PageDto;
-import com.evgeniykudashov.adservice.mapper.dto.request.CreateAdvertisementRequestDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.AdvertisementResponseDto;
 import org.springframework.data.domain.Pageable;
 
 public interface AdvertisementService {
 
-    long create(CreateAdvertisementRequestDto advertisement);
+    long create(AdvertisementRequestDto advertisement);
 
     void remove(long advertisementId);
 
