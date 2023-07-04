@@ -19,7 +19,6 @@ public class MessageController {
 
     private final MessageService messageService;
 
-
     @PostMapping
     public ResponseEntity<?> createMessage(@RequestBody @Validated(value = CreateConstraint.class) MessageRequestDto dto) {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri()
@@ -29,8 +28,8 @@ public class MessageController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMessage(@PathVariable long messageId) {
-        messageService.deleteMessage(messageId);
+    public ResponseEntity<?> deleteMessage(@PathVariable long id) {
+        messageService.deleteMessage(id);
         return ResponseEntity.noContent().build();
     }
 
