@@ -58,7 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         this.securityContextHolderStrategy.clearContext();
-
     }
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) {
