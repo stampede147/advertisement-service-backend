@@ -21,7 +21,7 @@ import java.io.IOException;
 
 @Setter
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class BearerAuthenticationFilter extends OncePerRequestFilter {
     private boolean isPostSupported;
 
     private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private AuthenticationManager authenticationManager;
 
 
-    public JwtAuthenticationFilter(AuthenticationManager manager) {
+    public BearerAuthenticationFilter(AuthenticationManager manager) {
         this.authenticationManager = manager;
         this.isPostSupported = true;
     }

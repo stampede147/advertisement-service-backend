@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.configuration;
 
-import com.evgeniykudashov.adservice.security.jwt.JwtAuthenticationFilter;
+import com.evgeniykudashov.adservice.security.jwt.BearerAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +20,9 @@ public class SecurityComponentConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean<JwtAuthenticationFilter> filterFilterRegistrationBean(AuthenticationManager manager) {
-        FilterRegistrationBean<JwtAuthenticationFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
-        filterFilterRegistrationBean.setFilter(new JwtAuthenticationFilter(manager));
+    public FilterRegistrationBean<BearerAuthenticationFilter> filterFilterRegistrationBean(AuthenticationManager manager) {
+        FilterRegistrationBean<BearerAuthenticationFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
+        filterFilterRegistrationBean.setFilter(new BearerAuthenticationFilter(manager));
         return filterFilterRegistrationBean;
     }
 }
