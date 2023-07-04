@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.mapper.dto;
+package com.evgeniykudashov.adservice.mapper.dto.request;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
