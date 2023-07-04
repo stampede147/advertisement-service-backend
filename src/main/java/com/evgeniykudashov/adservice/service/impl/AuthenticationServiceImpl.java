@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
-import com.evgeniykudashov.adservice.mapper.dto.UsernamePasswordDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.JwtTokenFactory;
@@ -24,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtTokenFactory factory;
 
     @Transactional(readOnly = true)
-    public String generateJwtToken(UsernamePasswordDto dto) {
+    public String generateJwtToken(UsernamePasswordRequestDto dto) {
         User user = findUserByUsername(dto.getUsername());
 
         validatePassword(dto.getPassword(), user.getPassword());

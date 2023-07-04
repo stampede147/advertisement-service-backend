@@ -2,9 +2,9 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.ChatMapper;
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
 import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.chat.Chat;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;

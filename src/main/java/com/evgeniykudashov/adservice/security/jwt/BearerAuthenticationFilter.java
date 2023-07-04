@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,15 +23,15 @@ import java.io.IOException;
 
 @Setter
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class BearerAuthenticationFilter extends OncePerRequestFilter {
     private boolean isPostSupported;
 
     private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
     private BearerAuthenticationConverter converter = new BearerAuthenticationConverter();
     private AuthenticationManager authenticationManager;
+    protected AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
-
-    public JwtAuthenticationFilter(AuthenticationManager manager) {
+    public BearerAuthenticationFilter(AuthenticationManager manager) {
         this.authenticationManager = manager;
         this.isPostSupported = true;
     }
@@ -44,6 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             BearerAuthenticationToken bearerAuthentication = converter.convert(request);
+            bearerAuthentication.setDetails(authenticationDetailsSource.buildDetails(request));
 
             Authentication authentication = authenticationManager.authenticate(bearerAuthentication);
 //            validateAuthentication(authentication);
@@ -58,7 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         this.securityContextHolderStrategy.clearContext();
-
     }
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) {

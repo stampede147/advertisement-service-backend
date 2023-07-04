@@ -15,10 +15,11 @@ import org.springframework.stereotype.Component;
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
 
-    private OAuthTokenFactory factory;
+    public static final String JWT_TOKEN_FACTORY = "jwtTokenFactory";
+    private final OAuthTokenFactory factory;
 
     @Autowired
-    public JwtAuthenticationProvider(@Qualifier("jwtTokenFactory") OAuthTokenFactory factory) {
+    public JwtAuthenticationProvider(@Qualifier(JWT_TOKEN_FACTORY) OAuthTokenFactory factory) {
         this.factory = factory;
     }
 
@@ -31,6 +32,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         } catch (DecodeException e) {
             throw new InternalAuthenticationServiceException("problems with decoding jwt token", e);
         }
+        abstractAuthenticationToken.setDetails(token.getDetails());
         abstractAuthenticationToken.setAuthenticated(true);
         return abstractAuthenticationToken;
     }

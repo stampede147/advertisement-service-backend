@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.configuration;
 
 
-import com.evgeniykudashov.adservice.security.jwt.JwtAuthenticationFilter;
+import com.evgeniykudashov.adservice.security.jwt.BearerAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ConditionalOnBean(SecurityComponentConfiguration.class)
 public class WebSecurityConfiguration {
 
-    protected JwtAuthenticationFilter filter;
+    protected BearerAuthenticationFilter filter;
 
 
     @Bean()

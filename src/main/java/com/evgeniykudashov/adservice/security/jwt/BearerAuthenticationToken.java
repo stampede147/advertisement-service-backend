@@ -2,12 +2,14 @@ package com.evgeniykudashov.adservice.security.jwt;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
+import java.util.List;
+
 public class BearerAuthenticationToken extends AbstractAuthenticationToken {
 
-    private String token;
+    private final String token;
 
     public BearerAuthenticationToken(String token) {
-        super(null);
+        super(List.of());
         this.token = token;
     }
 

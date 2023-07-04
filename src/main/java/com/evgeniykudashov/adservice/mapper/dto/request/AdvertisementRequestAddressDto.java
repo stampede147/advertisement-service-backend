@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.mapper.dto;
+package com.evgeniykudashov.adservice.mapper.dto.request;
 
 
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDto {
+public class AdvertisementRequestAddressDto {
 
     @Min(value = 0, message = "zipcode should contain only numbers", groups = {CreateConstraint.class, UpdateConstraint.class})
     Integer zipcode;

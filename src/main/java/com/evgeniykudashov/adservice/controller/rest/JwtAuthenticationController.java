@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.UsernamePasswordDto;
+import com.evgeniykudashov.adservice.mapper.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class JwtAuthenticationController {
     protected AuthenticationService authenticationService;
 
     @PostMapping("/jwt")
-    public ResponseEntity<Void> createJwtAuthentication(@RequestBody @Valid UsernamePasswordDto dto) {
+    public ResponseEntity<Void> createJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
         return ResponseEntity.noContent()
                 .headers(headers -> headers.add(HttpHeaders.SET_COOKIE,
                         ResponseCookie.from(ACCESS_TOKEN, authenticationService.generateJwtToken(dto))
