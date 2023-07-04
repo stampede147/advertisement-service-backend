@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

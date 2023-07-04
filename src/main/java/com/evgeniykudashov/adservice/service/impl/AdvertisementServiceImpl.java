@@ -2,9 +2,9 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
 import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.AdvertisementResponseDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.AllArgsConstructor;

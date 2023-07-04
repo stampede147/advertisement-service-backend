@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.mapper;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.MessageResponseDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import lombok.Setter;

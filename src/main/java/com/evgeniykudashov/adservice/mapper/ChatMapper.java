@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.mapper;
 
-import com.evgeniykudashov.adservice.mapper.dto.PageDto;
 import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.chat.Chat;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
