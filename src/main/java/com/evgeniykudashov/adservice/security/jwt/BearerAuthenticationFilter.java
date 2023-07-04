@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -27,7 +28,7 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
     private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
     private BearerAuthenticationConverter converter = new BearerAuthenticationConverter();
     private AuthenticationManager authenticationManager;
-
+    protected AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
     public BearerAuthenticationFilter(AuthenticationManager manager) {
         this.authenticationManager = manager;
@@ -44,6 +45,7 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             BearerAuthenticationToken bearerAuthentication = converter.convert(request);
+            bearerAuthentication.setDetails(authenticationDetailsSource.buildDetails(request));
 
             Authentication authentication = authenticationManager.authenticate(bearerAuthentication);
 //            validateAuthentication(authentication);
