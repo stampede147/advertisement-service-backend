@@ -3,9 +3,10 @@ package com.evgeniykudashov.adservice.security.jwt;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class JwtAuthenticationToken extends AbstractAuthenticationToken {
+public class JwtAuthenticationToken extends AbstractAuthenticationToken implements Serializable {
 
     private final String userId;
 
