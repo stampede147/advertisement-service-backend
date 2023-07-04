@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDto {
+public class AdvertisementRequestAddressDto {
 
     @Min(value = 0, message = "zipcode should contain only numbers", groups = {CreateConstraint.class, UpdateConstraint.class})
     Integer zipcode;

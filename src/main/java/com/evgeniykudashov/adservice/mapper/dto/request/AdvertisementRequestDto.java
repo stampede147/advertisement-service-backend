@@ -1,6 +1,5 @@
 package com.evgeniykudashov.adservice.mapper.dto.request;
 
-import com.evgeniykudashov.adservice.mapper.dto.AddressDto;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
@@ -36,7 +35,7 @@ public class AdvertisementRequestDto implements Serializable {
     private long userId;
 
     @Valid
-    private AddressDto address;
+    private AdvertisementRequestAddressDto address;
 
     @NotNull(message = "status should not be null")
     private AdvertisementStatus status;
