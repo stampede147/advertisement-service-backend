@@ -34,14 +34,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public long createMessage(MessageRequestDto dto) {
-        return messageRepository.save(Message.builder()
-                        .id(0L)
-                        .body(dto.getBody())
-                        .sender(userRepository.getReferenceById(dto.getSenderId()))
-                        .chat(chatRepository.getReferenceById(dto.getChatId()))
-                        .createdAt(LocalDateTime.now())
-                        .status(MessageStatus.CREATED)
-                        .build())
+        return messageRepository.save(dtoMapper.toMessage(dto, LocalDateTime.now(), MessageStatus.CREATED))
                 .getId();
     }
 
