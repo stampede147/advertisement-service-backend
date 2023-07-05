@@ -25,18 +25,23 @@ public class AdvertisementRequestDto implements Serializable {
     })
     private long advertisementId;
 
-    @Pattern(regexp = "[a-zA-Z0-9!@#$%^&*() ]+", message = "title should contain words or digits or character")
+    @Pattern(regexp = "[a-zA-Z0-9!@#$%^&*() ]+",
+            message = "title should contain words or digits or character")
     private String title;
 
-    @Pattern(regexp = "[a-zA-Z0-9!@#$%^&*() ]+", message = "description should contain words or digits or characters")
+    @Pattern(regexp = "[a-zA-Z0-9!@#$%^&*() ]+",
+            groups = {CreateConstraint.class, UpdateConstraint.class},
+            message = "description should contain words or digits or characters")
     private String description;
 
-    @PositiveOrZero(message = "userId should be minimum 0")
+    @PositiveOrZero(message = "userId should be minimum 0",
+            groups = {CreateConstraint.class, UpdateConstraint.class})
     private long userId;
 
     @Valid
     private AdvertisementRequestAddressDto address;
 
-    @NotNull(message = "status should not be null")
+    @NotNull(message = "status should not be null",
+            groups = {CreateConstraint.class, UpdateConstraint.class})
     private AdvertisementStatus status;
 }
