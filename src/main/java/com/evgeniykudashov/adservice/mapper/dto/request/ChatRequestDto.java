@@ -24,10 +24,12 @@ public class ChatRequestDto {
     })
     long chatId;
 
-    @Positive(message = "advertisement id should be positive")
+    @Positive(message = "advertisement id should be positive",
+            groups = {CreateConstraint.class, UpdateConstraint.class})
     Long advertisementId;
 
-    @Positive(message = "user id should be positive")
+    @Positive(message = "user id should be positive",
+            groups = {CreateConstraint.class, UpdateConstraint.class})
     Set<Long> userIds;
 
     public ChatRequestDto(@JsonProperty(required = true) Long advertisementId,

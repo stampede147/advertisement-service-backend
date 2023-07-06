@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.controller.exceptionhandling;
+package com.evgeniykudashov.adservice.controller;
 
 
 import com.evgeniykudashov.adservice.mapper.dto.ErrorDto;

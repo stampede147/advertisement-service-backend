@@ -47,9 +47,4 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                 .orElseThrow(NotFoundEntityException::new));
     }
 
-
-//    public List<Advertisement> findAll(){
-//        return advertisementRepository.findAll(pageable).getContent();
-//    }
-
 }

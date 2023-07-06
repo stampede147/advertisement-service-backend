@@ -36,13 +36,8 @@ public class ChatServiceImpl implements ChatService {
     @Override
     @Transactional
     public long create(ChatRequestDto dto) {
-        return chatRepository.save(Chat.builder()
-                .id(0)
-                .createdAt(LocalDate.now())
-                .advertisement(advertisementRepository.getReferenceById(dto.getAdvertisementId()))
-                .participants(convertUserIdToUser(dto.getUserIds()))
-                .build()
-        ).getId();
+        return chatRepository.save(dtoMapper.toChat(dto, LocalDate.now()))
+                .getId();
 
     }
 
