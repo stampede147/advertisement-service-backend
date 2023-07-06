@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "thing_colors")
-public class Color {
+public class ThingColor {
 
     @Id
     String color;

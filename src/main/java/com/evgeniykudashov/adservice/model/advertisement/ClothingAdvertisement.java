@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Cascade;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,12 +25,10 @@ public class ClothingAdvertisement extends Advertisement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "color")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Color color;
+    private ThingColor color;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private ClothingSize size;
 
     @Enumerated(value = EnumType.STRING)

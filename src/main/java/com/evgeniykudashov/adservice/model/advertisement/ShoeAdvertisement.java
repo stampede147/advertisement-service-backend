@@ -19,7 +19,7 @@ public class ShoeAdvertisement extends Advertisement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "color")
-    private Color color;
+    private ThingColor color;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size")
