@@ -19,7 +19,6 @@ import java.io.Serializable;
 @SecondaryTable(name = "addresses",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"),
         uniqueConstraints = @UniqueConstraint(columnNames = "advertisement_id"))
-
 @Entity
 @Table(name = "advertisements")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -30,14 +29,13 @@ public class Advertisement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertisement_id")
     @EqualsAndHashCode.Include
-    @Getter
     private long id;
 
     private String title;
 
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", updatable = false)
     @Immutable
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -56,12 +54,14 @@ public class Advertisement implements Serializable {
                          @NonNull String description,
                          @NonNull User owner,
                          @NonNull AdvertisementStatus status,
-                         @NonNull Address address) {
+                         @NonNull Address address,
+                         long price) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.owner = owner;
         this.status = status;
         this.address = address;
+        this.price = price;
     }
 }
