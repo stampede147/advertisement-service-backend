@@ -19,6 +19,8 @@ import lombok.Setter;
 public class ShoeSize {
 
     @Id
-    int size;
+    private int size;
+
+    private String description;
 
 }
