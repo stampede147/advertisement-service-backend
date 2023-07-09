@@ -16,6 +16,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "clothing_advertisements")
+@DiscriminatorValue(value = AdvertisementType.Constants.CLOTHING)
 public class ClothingAdvertisement extends Advertisement {
 
 
@@ -32,6 +33,7 @@ public class ClothingAdvertisement extends Advertisement {
     private ClothingSize size;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(updatable = false, insertable = false)
     private ClothingType clothingType;
 
 }

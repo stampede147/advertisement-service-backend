@@ -1,8 +1,12 @@
-package com.evgeniykudashov.adservice.mapper.dto.request;
+package com.evgeniykudashov.adservice.dto.request;
 
+import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -14,6 +18,14 @@ import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        property = Advertisement.DISCRIMINATOR_COLUMN,
+        visible = true,
+        defaultImpl = AdvertisementRequestDto.class)
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = AdvertisementType.Constants.CLOTHING, value = ClothingAdvertisementRequestDto.class),
+        @JsonSubTypes.Type(name = AdvertisementType.Constants.SHOE, value = ShoeAdvertisementRequestDto.class)
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,4 +56,8 @@ public class AdvertisementRequestDto implements Serializable {
     @NotNull(message = "status should not be null",
             groups = {CreateConstraint.class, UpdateConstraint.class})
     private AdvertisementStatus status;
+
+    private long price;
+
+    private AdvertisementType type;
 }

@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UsernamePasswordRequestDto;
+import com.evgeniykudashov.adservice.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

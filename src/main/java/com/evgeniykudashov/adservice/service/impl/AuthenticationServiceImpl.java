@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.service.impl;
 
+import com.evgeniykudashov.adservice.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
-import com.evgeniykudashov.adservice.mapper.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.JwtTokenFactory;

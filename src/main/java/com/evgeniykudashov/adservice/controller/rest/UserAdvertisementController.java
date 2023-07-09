@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,6 @@ public class UserAdvertisementController {
     @GetMapping()
     public ResponseEntity<PageDto<?>> onGetAll(@PathVariable Long userId,
                                                @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(advertisementService.findAllByUserId(userId, pageable));
+        return ResponseEntity.ok(advertisementService.getPageByUserId(userId, pageable));
     }
 }

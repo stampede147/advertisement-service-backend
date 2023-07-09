@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
+import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import lombok.RequiredArgsConstructor;
@@ -25,24 +25,30 @@ public class AdvertisementController {
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
-                        .build(advertisementService.create(requestDto)))
+                        .build(advertisementService.createAdvertisement(requestDto)))
                 .build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> onDelete(@PathVariable Long id) {
-        advertisementService.remove(id);
+        advertisementService.removeAdvertisementById(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> onGetById(@PathVariable Long id) {
-        return ResponseEntity.ok(advertisementService.findById(id));
+        return ResponseEntity.ok(advertisementService.getOneByAdvertisementId(id));
     }
 
     @GetMapping(params = "userId")
-    public ResponseEntity<?> getUsersAdvertisements(@RequestParam Long userId,
-                                                    @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(advertisementService.findAllByUserId(userId, pageable));
+    public ResponseEntity<?> getUserAdvertisements(@RequestParam Long userId,
+                                                   @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(advertisementService.getPageByUserId(userId, pageable));
+    }
+
+
+    @GetMapping(params = "search")
+    public ResponseEntity<?> searchAdvertisements(@RequestParam String search) {
+        return null;
     }
 }

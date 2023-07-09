@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.ChatResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
+import com.evgeniykudashov.adservice.dto.request.ChatRequestDto;
+import com.evgeniykudashov.adservice.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import org.springframework.data.domain.Pageable;
 
 public interface ChatService {

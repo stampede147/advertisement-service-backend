@@ -1,8 +1,9 @@
-package com.evgeniykudashov.adservice.mapper.dto.response;
+package com.evgeniykudashov.adservice.dto.response;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestAddressDto;
+import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestAddressDto;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,7 @@ public class AdvertisementResponseDto {
     AdvertisementStatus status;
 
     AdvertisementRequestAddressDto address;
+
+    AdvertisementType type;
 
 }

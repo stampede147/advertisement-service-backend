@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.mapper.dto;
+package com.evgeniykudashov.adservice.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

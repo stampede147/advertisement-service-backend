@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.MessageRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.MessageResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
+import com.evgeniykudashov.adservice.dto.request.MessageRequestDto;
+import com.evgeniykudashov.adservice.dto.response.MessageResponseDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;

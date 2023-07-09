@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
+import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
 
 public interface UserService {
 
