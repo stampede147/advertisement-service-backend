@@ -1,19 +1,20 @@
 package com.evgeniykudashov.adservice.service;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.AdvertisementRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.AdvertisementResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
+import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
+import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import org.springframework.data.domain.Pageable;
 
 public interface AdvertisementService {
 
-    long create(AdvertisementRequestDto advertisement);
+    long createAdvertisement(AdvertisementRequestDto advertisement);
 
-    void remove(long advertisementId);
+    void removeAdvertisementById(long advertisementId);
 
-    PageDto<AdvertisementResponseDto> findAllByUserId(long userId, Pageable pageable);
+    PageDto<? extends AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable);
 
-    AdvertisementResponseDto findById(long advertisementId);
+
+    AdvertisementResponseDto getOneByAdvertisementId(long advertisementId);
 
 
 }

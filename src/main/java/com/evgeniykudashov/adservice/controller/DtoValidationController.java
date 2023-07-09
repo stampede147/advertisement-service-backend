@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.controller;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.ErrorDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.ErrorResponseDto;
+import com.evgeniykudashov.adservice.dto.ErrorDto;
+import com.evgeniykudashov.adservice.dto.response.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

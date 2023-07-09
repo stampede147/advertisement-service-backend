@@ -12,5 +12,4 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
 
     Page<Advertisement> findAllByOwnerId(long ownerId, Pageable pageable);
 
-
 }

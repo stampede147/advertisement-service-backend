@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Cascade;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +16,7 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "clothing_advertisements")
+@DiscriminatorValue(value = AdvertisementType.Constants.CLOTHING)
 public class ClothingAdvertisement extends Advertisement {
 
 
@@ -26,15 +26,14 @@ public class ClothingAdvertisement extends Advertisement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "color")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Color color;
+    private ThingColor color;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private ClothingSize size;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(updatable = false, insertable = false)
     private ClothingType clothingType;
 
 }

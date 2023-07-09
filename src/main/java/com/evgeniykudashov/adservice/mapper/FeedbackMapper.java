@@ -1,11 +1,11 @@
 package com.evgeniykudashov.adservice.mapper;
 
-import com.evgeniykudashov.adservice.mapper.dto.response.FeedbackResponseAdvertisementDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.FeedbackResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.FeedbackResponseUserDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
-import com.evgeniykudashov.adservice.model.Feedback;
+import com.evgeniykudashov.adservice.dto.response.FeedbackResponseAdvertisementDto;
+import com.evgeniykudashov.adservice.dto.response.FeedbackResponseDto;
+import com.evgeniykudashov.adservice.dto.response.FeedbackResponseUserDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
+import com.evgeniykudashov.adservice.model.feedback.Feedback;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.Setter;
 import org.mapstruct.Mapper;

@@ -1,8 +1,8 @@
 package com.evgeniykudashov.adservice.mapper;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.request.UserRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
+import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
 import com.evgeniykudashov.adservice.model.user.Role;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.Setter;
