@@ -1,7 +1,7 @@
-package com.evgeniykudashov.adservice.mapper.dto.response;
+package com.evgeniykudashov.adservice.dto.response;
 
 
-import com.evgeniykudashov.adservice.mapper.dto.ErrorDto;
+import com.evgeniykudashov.adservice.dto.ErrorDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

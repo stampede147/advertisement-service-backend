@@ -1,7 +1,7 @@
-package com.evgeniykudashov.adservice.mapper.dto.response;
+package com.evgeniykudashov.adservice.dto.response;
 
-import com.evgeniykudashov.adservice.model.FeedbackStatus;
-import com.evgeniykudashov.adservice.model.Mark;
+import com.evgeniykudashov.adservice.model.feedback.FeedbackStatus;
+import com.evgeniykudashov.adservice.model.feedback.Mark;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

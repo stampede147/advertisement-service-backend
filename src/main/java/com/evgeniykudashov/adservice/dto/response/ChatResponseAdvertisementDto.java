@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.mapper.dto.response;
+package com.evgeniykudashov.adservice.dto.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model;
+package com.evgeniykudashov.adservice.model.feedback;
 
 
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;

@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice;
 
+import com.evgeniykudashov.adservice.service.AdvertisementService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,6 +21,17 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(Main.class, args);
+
+        AdvertisementService bean = run.getBean(AdvertisementService.class);
+//
+//        AdvertisementRequestDto dto = new AdvertisementRequestDto();
+//        AdvertisementRequestDto dto1 = new ClothingAdvertisementRequestDto();
+//
+//        List<Class<?>> classes = new ArrayList<>();
+//        classes.add(dto.getClass());
+//        classes.add(dto1.getClass());
+//
+//        System.out.println(classes);
     }
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.repository;
 
-import com.evgeniykudashov.adservice.model.Feedback;
+import com.evgeniykudashov.adservice.model.feedback.Feedback;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

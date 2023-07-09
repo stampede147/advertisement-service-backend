@@ -1,7 +1,7 @@
-package com.evgeniykudashov.adservice.mapper.dto.request;
+package com.evgeniykudashov.adservice.dto.request;
 
-import com.evgeniykudashov.adservice.model.FeedbackStatus;
-import com.evgeniykudashov.adservice.model.Mark;
+import com.evgeniykudashov.adservice.model.feedback.FeedbackStatus;
+import com.evgeniykudashov.adservice.model.feedback.Mark;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
 import jakarta.persistence.EnumType;

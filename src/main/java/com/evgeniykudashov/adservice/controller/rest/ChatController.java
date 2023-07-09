@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
-import com.evgeniykudashov.adservice.mapper.dto.request.ChatRequestDto;
+import com.evgeniykudashov.adservice.dto.request.ChatRequestDto;
 import com.evgeniykudashov.adservice.service.ChatService;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import lombok.RequiredArgsConstructor;

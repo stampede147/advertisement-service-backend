@@ -1,10 +1,10 @@
 package com.evgeniykudashov.adservice.service.impl;
 
+import com.evgeniykudashov.adservice.dto.request.FeedbackRequestDto;
+import com.evgeniykudashov.adservice.dto.response.FeedbackResponseDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.mapper.FeedbackMapper;
-import com.evgeniykudashov.adservice.mapper.dto.request.FeedbackRequestDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.FeedbackResponseDto;
-import com.evgeniykudashov.adservice.mapper.dto.response.PageDto;
-import com.evgeniykudashov.adservice.model.Feedback;
+import com.evgeniykudashov.adservice.model.feedback.Feedback;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.FeedbackRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
