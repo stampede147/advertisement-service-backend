@@ -32,21 +32,22 @@ public class JwtTokenFactory implements OAuthTokenFactory {
     @Override
     public String createToken(String username, Collection<? extends GrantedAuthority> authorities) {
         return JWT.create()
-                .withClaim(JwtTokenConstants.sub, username)
-                .withArrayClaim(JwtTokenConstants.roles, authorities.stream()
+                .withClaim(JwtTokenConstants.SUB, username)
+                .withArrayClaim(JwtTokenConstants.ROLES, authorities.stream()
                         .map(GrantedAuthority::getAuthority)
                         .toArray(String[]::new))
-                .withClaim(JwtTokenConstants.issuedAt, Instant.now())
-                .withClaim(JwtTokenConstants.expiresAt, Instant.now().plusMillis(tokenLifeMillis))
+                .withClaim(JwtTokenConstants.ISSUED_AT, Instant.now())
+                .withClaim(JwtTokenConstants.EXPIRES_AT, Instant.now().plusMillis(tokenLifeMillis))
                 .sign(algorithm);
     }
 
     @Override
     public JwtAuthenticationToken validateAndDecodeToken(String token) {
         DecodedJWT rawToken = validate(token);
+
         return new JwtAuthenticationToken(
-                List.of(rawToken.getClaim(JwtTokenConstants.roles).asArray(Role.class)),
-                rawToken.getClaim(JwtTokenConstants.sub).asString());
+                List.of(rawToken.getClaim(JwtTokenConstants.ROLES).asArray(Role.class)),
+                rawToken.getClaim(JwtTokenConstants.SUB).asString());
     }
 
     private DecodedJWT validate(String token) {

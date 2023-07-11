@@ -6,9 +6,9 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.dto.response.ShoeAdvertisementResponseDto;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
+import com.evgeniykudashov.adservice.mapper.ShoeSizeMapper;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.ShoeAdvertisement;
-import com.evgeniykudashov.adservice.model.advertisement.ShoeSize;
 import com.evgeniykudashov.adservice.repository.ThingColorRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring", imports = ShoeSize.class)
+@Mapper(componentModel = "spring", uses = {ShoeSizeMapper.class})
 @Setter(onMethod_ = @Autowired)
 public abstract class ShoeAdvertisementMapper implements AdvertisementMapper {
 
@@ -33,7 +33,6 @@ public abstract class ShoeAdvertisementMapper implements AdvertisementMapper {
     @Mapping(target = "id", source = "dto.advertisementId")
     @Mapping(target = "owner", expression = "java(userRepository.getReferenceById(dto.getUserId()))")
     @Mapping(target = "color", expression = "java(thingColorRepository.getReferenceById(dto.getColor()))")
-    @Mapping(target = "size", expression = "java(new ShoeSize(dto.getSize()))")
     public abstract ShoeAdvertisement toAdvertisement1(ShoeAdvertisementRequestDto dto);
 
     @Override

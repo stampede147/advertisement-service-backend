@@ -24,7 +24,6 @@ import java.io.IOException;
 @Setter
 @Component
 public class BearerAuthenticationFilter extends OncePerRequestFilter {
-    private boolean isPostSupported;
 
     private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
     private BearerAuthenticationConverter converter = new BearerAuthenticationConverter();
@@ -33,7 +32,6 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
 
     public BearerAuthenticationFilter(AuthenticationManager manager) {
         this.authenticationManager = manager;
-        this.isPostSupported = true;
     }
 
     @Override
@@ -49,7 +47,6 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
             bearerAuthentication.setDetails(authenticationDetailsSource.buildDetails(request));
 
             Authentication authentication = authenticationManager.authenticate(bearerAuthentication);
-//            validateAuthentication(authentication);
 
             onSuccessfulAuthentication(request, response, filterChain, authentication);
         } catch (AuthenticationException e) {
@@ -71,6 +68,7 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
 
     protected void validateAuthentication(Authentication other) {
         Authentication authentication = securityContextHolderStrategy.getContext().getAuthentication();
+
         if (authentication != null && authentication.isAuthenticated() && !authentication.equals(other)) {
             throw new BadCredentialsException("authentication in context does not equal with provided authentication");
         }
@@ -78,15 +76,7 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
     }
 
     protected boolean requiresAuthentication(HttpServletRequest request) {
-        return containsHeader(request);
-    }
-
-    private boolean containsHeader(HttpServletRequest request) {
         return request.getHeader(HttpHeaders.AUTHORIZATION) != null;
-    }
-
-    private boolean hasRequestMethod(HttpServletRequest request) {
-        return isPostSupported && "POST".equalsIgnoreCase(request.getMethod());
     }
 
 }

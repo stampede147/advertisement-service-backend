@@ -31,8 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public long createFeedback(FeedbackRequestDto dto) {
         return feedbackRepository.save(Feedback.builder()
                 .id(0)
-                .description(dto.getDescription()
-                )
+                .description(dto.getDescription())
                 .advertisement(advertisementRepository.getReferenceById(dto.getAdvertisementId()))
                 .mark(dto.getMark())
                 .status(dto.getStatus())
