@@ -18,5 +18,5 @@ import lombok.Setter;
 public class ThingColor {
 
     @Id
-    String color;
+    private String color;
 }

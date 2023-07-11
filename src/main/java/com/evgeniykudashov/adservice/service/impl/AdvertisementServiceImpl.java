@@ -50,6 +50,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public AdvertisementResponseDto getOneByAdvertisementId(long advertisementId) {
         Advertisement advertisement = advertisementRepository.findById(advertisementId)
                 .orElseThrow(NotFoundEntityException::new);
+
         return context.getMapper(advertisement.getType())
                 .toResponseDto(advertisement);
     }

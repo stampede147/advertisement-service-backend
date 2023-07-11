@@ -2,6 +2,7 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.exception.InvalidIdException;
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.UserMapper;
 import com.evgeniykudashov.adservice.model.user.Role;
@@ -32,13 +33,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void remove(long userId) {
+        validateId(userId);
+
         userRepository.deleteById(userId);
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserResponseDto findById(long userId) {
+        validateId(userId);
+
         return mapper.toUserResponseDto(userRepository.findById(userId).orElseThrow(NotFoundEntityException::new));
+    }
+
+    private void validateId(long userId) {
+        if (userId <= 0) {
+            throw new InvalidIdException("provided id should be positive, id: " + userId);
+        }
     }
 
 }

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 @Component("bearerAuthenticationProvider")
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
-
     public static final String JWT_TOKEN_FACTORY = "jwtTokenFactory";
+
     private final OAuthTokenFactory factory;
 
     @Autowired
@@ -26,14 +26,17 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         BearerAuthenticationToken token = (BearerAuthenticationToken) authentication;
+
         AbstractAuthenticationToken abstractAuthenticationToken;
         try {
             abstractAuthenticationToken = factory.validateAndDecodeToken(token.getToken());
         } catch (DecodeException e) {
             throw new InternalAuthenticationServiceException("problems with decoding jwt token", e);
         }
+
         abstractAuthenticationToken.setDetails(token.getDetails());
         abstractAuthenticationToken.setAuthenticated(true);
+
         return abstractAuthenticationToken;
     }
 

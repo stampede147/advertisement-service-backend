@@ -4,7 +4,6 @@ import com.evgeniykudashov.adservice.dto.request.FeedbackRequestDto;
 import com.evgeniykudashov.adservice.dto.response.FeedbackResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.mapper.FeedbackMapper;
-import com.evgeniykudashov.adservice.model.feedback.Feedback;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.FeedbackRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
@@ -29,16 +28,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Transactional
     public long createFeedback(FeedbackRequestDto dto) {
-        return feedbackRepository.save(Feedback.builder()
-                .id(0)
-                .description(dto.getDescription()
-                )
-                .advertisement(advertisementRepository.getReferenceById(dto.getAdvertisementId()))
-                .mark(dto.getMark())
-                .status(dto.getStatus())
-                .seller(userRepository.getReferenceById(dto.getSellerId()))
-                .customer(userRepository.getReferenceById(dto.getCustomerId()))
-                .build()).getId();
+        return feedbackRepository.save(dtoMapper.toFeedback(dto))
+                .getId();
     }
 
     @Override

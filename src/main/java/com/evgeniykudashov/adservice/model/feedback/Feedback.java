@@ -36,6 +36,7 @@ public class Feedback {
 
     @Enumerated(value = EnumType.ORDINAL)
     private Mark mark;
+
     @Enumerated(value = EnumType.STRING)
     private FeedbackStatus status;
 
