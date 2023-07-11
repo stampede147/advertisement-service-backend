@@ -7,7 +7,6 @@ import com.evgeniykudashov.adservice.dto.response.FeedbackResponseUserDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.feedback.Feedback;
-import com.evgeniykudashov.adservice.model.feedback.FeedbackStatus;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
@@ -28,8 +27,7 @@ public abstract class FeedbackMapper {
     @Mapping(target = "id", source = "dto.feedbackId")
     @Mapping(target = "customer", expression = "java(userRepository.getReferenceById(dto.getCustomerId()))")
     @Mapping(target = "advertisement", expression = "java(advertisementRepository.getReferenceById(dto.getAdvertisementId()))")
-    @Mapping(target = "status", source = "status")
-    public abstract Feedback toFeedback(FeedbackRequestDto dto, FeedbackStatus status);
+    public abstract Feedback toFeedback(FeedbackRequestDto dto);
 
     @Mapping(target = "feedbackId", source = "id")
     public abstract FeedbackResponseDto toFeedbackResponseDto(Feedback feedback);
