@@ -18,7 +18,7 @@ public class DtoValidationController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ErrorResponseDto processRSR303Validation(final MethodArgumentNotValidException e) {
+    public ErrorResponseDto processJSR303Validation(final MethodArgumentNotValidException e) {
         return new ErrorResponseDto(e.getBindingResult().getFieldErrors().stream()
                 .map(fieldError -> ErrorDto.of(fieldError.getField(), fieldError.getDefaultMessage()))
                 .collect(Collectors.toSet()));
