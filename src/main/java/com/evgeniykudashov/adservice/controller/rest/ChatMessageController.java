@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -14,7 +15,9 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
-@RequestMapping("/chats/{chatId}/messages")
+@RequestMapping(value = "/api/v1/chats/{chatId}/messages",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChatMessageController {
 
     private static final HttpStatus HTTP_STATUS_REDIRECT = HttpStatus.TEMPORARY_REDIRECT;

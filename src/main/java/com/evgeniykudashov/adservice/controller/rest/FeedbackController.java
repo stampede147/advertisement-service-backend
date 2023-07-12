@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/feedbacks")
+@RequestMapping("/api/v1/feedbacks")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class FeedbackController {
 
