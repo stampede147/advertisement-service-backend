@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.model.advertisement.ShoeSize;
 import com.evgeniykudashov.adservice.service.ShoeSizeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,7 +14,9 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@RequestMapping("/shoesizes")
+@RequestMapping(value = "/api/v1/shoesizes",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class ShoeSizeController {
 
     private final ShoeSizeService shoeSizeService;
