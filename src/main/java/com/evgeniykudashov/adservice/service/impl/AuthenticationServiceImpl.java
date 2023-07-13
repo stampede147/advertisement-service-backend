@@ -1,6 +1,7 @@
 package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.dto.request.UsernamePasswordRequestDto;
+import com.evgeniykudashov.adservice.exception.PasswordMismatchException;
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
@@ -39,7 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private void validatePassword(String rawPassword, String encodedPassword) {
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
-            throw new RuntimeException("provided password is wrong");
+            throw new PasswordMismatchException("provided password is wrong");
         }
     }
 
