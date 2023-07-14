@@ -12,5 +12,4 @@ public class ShoeSizeDto {
 
     int size;
 
-    String description;
 }
