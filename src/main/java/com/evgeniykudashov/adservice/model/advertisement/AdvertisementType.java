@@ -4,7 +4,6 @@ import lombok.Getter;
 
 public enum AdvertisementType {
 
-    DEFAULT,
     SHOE, CLOTHING;
 
     @Getter
