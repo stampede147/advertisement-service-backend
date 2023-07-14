@@ -6,8 +6,8 @@ import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapperContext;
+import com.evgeniykudashov.adservice.mapper.impl.AdvertisementMapperType;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     @Transactional
     public long createAdvertisement(AdvertisementRequestDto dto) {
-        AdvertisementMapper mapper = context.getMapper(dto.getType());
+        AdvertisementMapper mapper = context.getMapper(AdvertisementMapperType.fromAdvertisementType(dto.getType()));
 
         return advertisementRepository.save(mapper.toAdvertisement(dto))
                 .getId();
@@ -41,7 +41,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public PageDto<? extends AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable) {
-        return context.getMapper(AdvertisementType.DEFAULT)
+        return context.getMapper(AdvertisementMapperType.DEFAULT)
                 .toPageDto(advertisementRepository.findAllByOwnerId(userId, pageable));
     }
 
@@ -51,7 +51,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Advertisement advertisement = advertisementRepository.findById(advertisementId)
                 .orElseThrow(NotFoundEntityException::new);
 
-        return context.getMapper(advertisement.getType())
+        return context.getMapper(AdvertisementMapperType.fromAdvertisementType(advertisement.getType()))
                 .toResponseDto(advertisement);
     }
 
