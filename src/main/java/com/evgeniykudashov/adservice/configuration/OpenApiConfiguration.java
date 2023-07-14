@@ -4,6 +4,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springdoc.core.customizers.RouterOperationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,5 +24,15 @@ public class OpenApiConfiguration {
         return new OpenAPI()
                 .info(info)
                 .servers(developmentServerIp);
+    }
+
+    @Bean
+    public RouterOperationCustomizer routerOperationCustomizer() {
+        return (routerOperation, handlerMethod) -> {
+            if (routerOperation.getParams().length > 0) {
+                routerOperation.setPath(routerOperation.getPath() + "?" + String.join("&", routerOperation.getParams()));
+            }
+            return routerOperation;
+        };
     }
 }
