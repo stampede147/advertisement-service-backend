@@ -3,7 +3,7 @@ package com.evgeniykudashov.adservice.service.impl;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
-import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
+import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapperContext;
 import com.evgeniykudashov.adservice.mapper.impl.AdvertisementMapperType;
