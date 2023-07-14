@@ -55,7 +55,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageDto<MessageResponseDto> getLastMessagesByChatId(long chatId, Pageable pageable) {
+    public PageDto<MessageResponseDto> getMessagesByChatId(long chatId, Pageable pageable) {
         return dtoMapper.toPageDto(messageRepository.findLastMessages(chatId, pageable));
     }
 
