@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
 @RequestMapping(value = "/api/v1/chats/{chatId}/messages",
@@ -29,7 +28,7 @@ public class ChatMessageController {
     @GetMapping()
     public ResponseEntity<?> getChatMessages(@PathVariable long chatId,
                                              @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(messageService.getLastMessagesByChatId(chatId, pageable));
+        return ResponseEntity.ok(messageService.getMessagesByChatId(chatId, pageable));
     }
 
     @PostMapping

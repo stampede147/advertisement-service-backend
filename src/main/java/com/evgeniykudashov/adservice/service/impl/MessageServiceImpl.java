@@ -3,7 +3,7 @@ package com.evgeniykudashov.adservice.service.impl;
 import com.evgeniykudashov.adservice.dto.request.MessageRequestDto;
 import com.evgeniykudashov.adservice.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
-import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
+import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.MessageMapper;
 import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.model.chat.statuses.MessageStatus;
@@ -55,7 +55,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageDto<MessageResponseDto> getLastMessagesByChatId(long chatId, Pageable pageable) {
+    public PageDto<MessageResponseDto> getMessagesByChatId(long chatId, Pageable pageable) {
         return dtoMapper.toPageDto(messageRepository.findLastMessages(chatId, pageable));
     }
 

@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.model.advertisement.ClothingType;
 import com.evgeniykudashov.adservice.model.advertisement.Gender;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,10 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+@Schema(allOf = {
+        AdvertisementRequestDto.class
+})
 
 @NoArgsConstructor
 @AllArgsConstructor

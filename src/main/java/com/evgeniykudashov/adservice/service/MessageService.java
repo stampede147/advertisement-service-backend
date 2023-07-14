@@ -16,7 +16,7 @@ public interface MessageService {
 
     MessageResponseDto getMessageById(long messageId);
 
-    PageDto<MessageResponseDto> getLastMessagesByChatId(long chatId, Pageable pageable);
+    PageDto<MessageResponseDto> getMessagesByChatId(long chatId, Pageable pageable);
 
     Collection<MessageResponseDto> getLastMessageByChatsIds(long[] chatId);
 }

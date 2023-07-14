@@ -2,8 +2,8 @@ package com.evgeniykudashov.adservice.service.impl;
 
 import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
-import com.evgeniykudashov.adservice.exception.InvalidIdException;
-import com.evgeniykudashov.adservice.exception.service.NotFoundEntityException;
+import com.evgeniykudashov.adservice.exception.servicelayer.InvalidIdException;
+import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.UserMapper;
 import com.evgeniykudashov.adservice.model.user.Role;
 import com.evgeniykudashov.adservice.repository.UserRepository;

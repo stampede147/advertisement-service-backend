@@ -7,6 +7,8 @@ import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.v3.oas.annotations.media.DiscriminatorMapping;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -18,10 +20,17 @@ import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
 
+@Schema(
+        requiredProperties = Advertisement.DISCRIMINATOR_COLUMN,
+        discriminatorProperty = Advertisement.DISCRIMINATOR_COLUMN,
+        discriminatorMapping = {
+                @DiscriminatorMapping(value = AdvertisementType.Constants.CLOTHING, schema = ClothingAdvertisementRequestDto.class),
+                @DiscriminatorMapping(value = AdvertisementType.Constants.SHOE, schema = ShoeAdvertisementRequestDto.class)
+        })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         property = Advertisement.DISCRIMINATOR_COLUMN,
-        visible = true,
-        defaultImpl = AdvertisementRequestDto.class)
+        visible = true)
+//        defaultImpl = AdvertisementRequestDto.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(name = AdvertisementType.Constants.CLOTHING, value = ClothingAdvertisementRequestDto.class),
         @JsonSubTypes.Type(name = AdvertisementType.Constants.SHOE, value = ShoeAdvertisementRequestDto.class)

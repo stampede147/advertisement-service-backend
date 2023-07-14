@@ -1,5 +1,10 @@
-package com.evgeniykudashov.adservice.exception.service;
+package com.evgeniykudashov.adservice.exception.servicelayer;
 
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 public class ServiceLayerException extends RuntimeException {
     public ServiceLayerException() {
     }

@@ -5,12 +5,16 @@ import com.evgeniykudashov.adservice.model.advertisement.Gender;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Schema(allOf = {
+        AdvertisementRequestDto.class
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

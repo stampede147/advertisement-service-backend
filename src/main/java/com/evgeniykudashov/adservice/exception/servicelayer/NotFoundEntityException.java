@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.exception.service;
+package com.evgeniykudashov.adservice.exception.servicelayer;
 
 
 import org.springframework.http.HttpStatus;

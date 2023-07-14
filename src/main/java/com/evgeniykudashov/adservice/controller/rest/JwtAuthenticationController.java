@@ -3,6 +3,11 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 import com.evgeniykudashov.adservice.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.security.SecuritySchemes;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Authentication", description = "provides API about authentication")
+@SecuritySchemes({
+        @SecurityScheme(type = SecuritySchemeType.HTTP,
+                name = "jwt authentication",
+                scheme = "bearer",
+                bearerFormat = "JWT",
+                in = SecuritySchemeIn.COOKIE
+        )
+})
 @RestController
 @RequestMapping(value = "/api/v1/authentications",
 

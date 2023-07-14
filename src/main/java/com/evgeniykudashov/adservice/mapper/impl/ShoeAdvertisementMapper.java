@@ -40,6 +40,10 @@ public abstract class ShoeAdvertisementMapper implements AdvertisementMapper {
         return toResponseDto1((ShoeAdvertisement) advertisement);
     }
 
+    @Mapping(target = "size", source = "advertisement.size.size")
+    @Mapping(target = "color", source = "advertisement.color.color")
+    @Mapping(target = "userId", source = "advertisement.owner.id")
+    @Mapping(target = "advertisementId", source = "id")
     public abstract ShoeAdvertisementResponseDto toResponseDto1(ShoeAdvertisement advertisement);
 
     @Override
