@@ -29,8 +29,8 @@ public class ShoeSizeController {
                 .build();
     }
 
-    @DeleteMapping(params = "size")
-    public void deleteShoeSize(@RequestParam int size) {
+    @DeleteMapping("/{size}")
+    public void deleteShoeSize(@PathVariable int size) {
         deleteShoeSize(size);
     }
 
