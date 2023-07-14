@@ -1,6 +1,5 @@
-package com.evgeniykudashov.adservice.exception;
+package com.evgeniykudashov.adservice.exception.servicelayer;
 
-import com.evgeniykudashov.adservice.exception.service.ServiceLayerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
