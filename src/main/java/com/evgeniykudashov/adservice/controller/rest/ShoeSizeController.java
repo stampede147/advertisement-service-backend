@@ -6,6 +6,7 @@ import com.evgeniykudashov.adservice.service.ShoeSizeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class ShoeSizeController {
 
     private final ShoeSizeService shoeSizeService;
 
-    @Operation(description = "creates new shoe size")
+    @Operation(description = "creates new shoe size",
+            security = @SecurityRequirement(name = "jwt authentication"))
     @ApiResponse(responseCode = "201",
             description = "created successfully",
             headers = @Header(name = HttpHeaders.LOCATION, description = "The location of created resource"))
@@ -42,6 +44,7 @@ public class ShoeSizeController {
     }
 
     @Operation(description = "deletes shoe size by its ID",
+            security = @SecurityRequirement(name = "jwt authentication"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK) Deleted successfully"),
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) Not found such shoe size by ID")
@@ -51,7 +54,8 @@ public class ShoeSizeController {
         shoeSizeService.delete(sizeId);
     }
 
-    @Operation(description = "returns an array of shoe sizes")
+    @Operation(description = "returns an array of shoe sizes",
+            security = @SecurityRequirement(name = "jwt authentication"))
     @ApiResponse(responseCode = "200", description = "(OK) returns shoe sizes")
     @GetMapping
     public List<ShoeSize> getShoeSizes() {

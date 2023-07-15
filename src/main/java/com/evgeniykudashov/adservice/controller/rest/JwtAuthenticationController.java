@@ -3,10 +3,10 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 import com.evgeniykudashov.adservice.dto.request.UsernamePasswordRequestDto;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import io.swagger.v3.oas.annotations.security.SecuritySchemes;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,14 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Authentication", description = "provides API about authentication")
-@SecuritySchemes({
-        @SecurityScheme(type = SecuritySchemeType.HTTP,
-                name = "jwt authentication",
-                scheme = "bearer",
-                bearerFormat = "JWT",
-                in = SecuritySchemeIn.COOKIE
-        )
-})
+
 @RestController
 @RequestMapping(value = "/api/v1/authentications",
 
@@ -38,8 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class JwtAuthenticationController {
 
     public static final String ACCESS_TOKEN = "access_token";
+
     protected AuthenticationService authenticationService;
 
+    @Operation(description = "Provides authentication details")
+    @ApiResponse(responseCode = "204",
+            description = "(NO CONTENT) provides API access token in cookie",
+            headers = @Header(
+                    name = HttpHeaders.SET_COOKIE,
+                    description = "provides jwt token for authentication, after " + ACCESS_TOKEN + "=",
+                    schema = @Schema(
+                            example = ACCESS_TOKEN + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
+            ))
     @PostMapping("/jwt")
     public ResponseEntity<Void> createJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
         return ResponseEntity.noContent()

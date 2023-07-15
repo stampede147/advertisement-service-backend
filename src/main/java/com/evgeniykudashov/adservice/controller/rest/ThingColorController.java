@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.service.ThingColorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class ThingColorController {
 
     private final ThingColorService thingColorService;
 
-    @Operation(description = "creates the color")
+    @Operation(description = "creates the color",
+            security = @SecurityRequirement(name = "jwt authentication"))
     @ApiResponse(responseCode = "201",
             description = "created successfully",
             headers = @Header(name = HttpHeaders.LOCATION, description = "The location of created resource"))
@@ -40,6 +42,7 @@ public class ThingColorController {
     }
 
     @Operation(description = "deletes the color",
+            security = @SecurityRequirement(name = "jwt authentication"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK) Deleted successfully"),
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) Not found such color by ID")

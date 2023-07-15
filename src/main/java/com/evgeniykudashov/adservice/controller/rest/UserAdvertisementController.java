@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class UserAdvertisementController {
     private AdvertisementService advertisementService;
 
     @Operation(tags = {"User", "Advertisement"},
+            security = @SecurityRequirement(name = "jwt authentication"),
             description = "Returns paged array of user's advertisements.")
     @GetMapping()
     public ResponseEntity<PageDto<? extends AdvertisementResponseDto>> onGetAll(@PathVariable Long userId,

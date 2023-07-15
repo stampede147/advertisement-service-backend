@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.dto.response.ChatResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class UserChatController {
     private ChatService chatService;
 
     @Operation(description = "returns paged array of chats. In each of this chat userId is the participant",
+            security = @SecurityRequirement(name = "jwt authentication"),
             tags = {"User", "Chat"})
     @GetMapping()
     public ResponseEntity<PageDto<ChatResponseDto>> findAll(@PathVariable long userId,
