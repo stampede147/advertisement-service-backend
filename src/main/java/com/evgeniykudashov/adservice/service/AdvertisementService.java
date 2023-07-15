@@ -11,7 +11,7 @@ public interface AdvertisementService {
 
     void removeAdvertisementById(long advertisementId);
 
-    PageDto<? extends AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable);
+    PageDto<AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable);
 
 
     AdvertisementResponseDto getOneByAdvertisementId(long advertisementId);

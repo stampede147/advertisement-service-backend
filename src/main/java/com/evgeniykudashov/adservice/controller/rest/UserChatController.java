@@ -1,8 +1,12 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
+import com.evgeniykudashov.adservice.dto.response.ChatResponseDto;
+import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.ChatService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -23,9 +27,12 @@ public class UserChatController {
 
     private ChatService chatService;
 
+    @Operation(description = "returns paged array of chats. In each of this chat userId is the participant",
+            tags = {"User", "Chat"})
     @GetMapping()
-    public ResponseEntity<?> findAll(@PathVariable long userId,
-                                     @PageableDefault Pageable pageable) {
+    public ResponseEntity<PageDto<ChatResponseDto>> findAll(@PathVariable long userId,
+                                                            @ParameterObject
+                                                            @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(chatService.findAllByUserId(userId, pageable));
     }
 }

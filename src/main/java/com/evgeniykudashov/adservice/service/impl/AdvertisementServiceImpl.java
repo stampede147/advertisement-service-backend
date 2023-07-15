@@ -40,8 +40,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public PageDto<? extends AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable) {
-        return context.getMapper(AdvertisementMapperType.DEFAULT)
+    public PageDto<AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable) {
+        return (PageDto<AdvertisementResponseDto>) context.getMapper(AdvertisementMapperType.DEFAULT)
                 .toPageDto(advertisementRepository.findAllByOwnerId(userId, pageable));
     }
 
