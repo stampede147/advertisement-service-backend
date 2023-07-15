@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -29,10 +30,12 @@ public class FeedbackController {
 
     private final FeedbackService feedbackService;
 
-    @Operation(description = "creates a feedback", responses = {
-            @ApiResponse(responseCode = "201", description = "(CREATED) The resource created successfully.",
-                    headers = @Header(name = HttpHeaders.LOCATION, description = "the location of created resource"))
-    })
+    @Operation(description = "creates a feedback",
+            security = @SecurityRequirement(name = "jwt authentication"),
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "(CREATED) The resource created successfully.",
+                            headers = @Header(name = HttpHeaders.LOCATION, description = "the location of created resource"))
+            })
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody @Validated(value = CreateConstraint.class)
                                        FeedbackRequestDto dto) {
@@ -44,6 +47,7 @@ public class FeedbackController {
 
     @Operation(description = "deletes a feedback",
             parameters = @Parameter(name = "feedbackId", description = "ID of feedback, that should be deleted"),
+            security = @SecurityRequirement(name = "jwt authentication"),
             responses = {
                     @ApiResponse(responseCode = "204", description = "(NO CONTENT) Feedback deleted successfully"),
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) such feedback ID not found")
@@ -70,6 +74,7 @@ public class FeedbackController {
 
     @Operation(description = "Returns paged array of feedbacks. Such feedbacks correspond to customer (user) who sends them",
             parameters = @Parameter(name = "customerId", description = "User id who is the customer"),
+            security = @SecurityRequirement(name = "jwt authentication"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK) feedbacks found and returned"),
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) such customerId not found")

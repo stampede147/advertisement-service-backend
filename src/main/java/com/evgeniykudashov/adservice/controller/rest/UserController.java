@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -48,6 +49,7 @@ public class UserController {
     }
 
     @Operation(description = "deletes user by its ID",
+            security = @SecurityRequirement(name = "jwt authentication"),
             tags = "User",
             parameters = @Parameter(name = "id", description = "The ID of user that should be deleted"),
             responses = @ApiResponse(responseCode = "200", description = "user deleted successfully"))
@@ -59,6 +61,7 @@ public class UserController {
     }
 
     @Operation(description = "returns details that corresponds user with such id",
+            security = @SecurityRequirement(name = "jwt authentication"),
             tags = "User",
             parameters = @Parameter(name = "id", description = "the ID of user"),
             responses = @ApiResponse(responseCode = "200", description = "returns user details"))
