@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.security.jwt;
 
-import com.evgeniykudashov.adservice.security.jwt.exception.DecodeException;
+import com.evgeniykudashov.adservice.security.jwt.exception.TokenDecodeException;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.OAuthTokenFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,16 +25,16 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        BearerAuthenticationToken token = (BearerAuthenticationToken) authentication;
+        BearerAuthenticationToken bearerToken = (BearerAuthenticationToken) authentication;
 
         AbstractAuthenticationToken abstractAuthenticationToken;
         try {
-            abstractAuthenticationToken = factory.validateAndDecodeToken(token.getToken());
-        } catch (DecodeException e) {
+            abstractAuthenticationToken = factory.validateAndDecodeToken(bearerToken.getToken());
+        } catch (TokenDecodeException e) {
             throw new InternalAuthenticationServiceException("problems with decoding jwt token", e);
         }
 
-        abstractAuthenticationToken.setDetails(token.getDetails());
+        abstractAuthenticationToken.setDetails(bearerToken.getDetails());
         abstractAuthenticationToken.setAuthenticated(true);
 
         return abstractAuthenticationToken;
