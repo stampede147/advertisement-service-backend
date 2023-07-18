@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.security.jwt.tokenfactory;
 
-import com.evgeniykudashov.adservice.security.jwt.exception.DecodeException;
+import com.evgeniykudashov.adservice.security.jwt.exception.TokenDecodeException;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,6 +10,6 @@ public interface OAuthTokenFactory {
 
     String createToken(String username, Collection<? extends GrantedAuthority> authorities);
 
-    AbstractAuthenticationToken validateAndDecodeToken(String token) throws DecodeException;
+    AbstractAuthenticationToken validateAndDecodeToken(String token) throws TokenDecodeException;
 
 }
