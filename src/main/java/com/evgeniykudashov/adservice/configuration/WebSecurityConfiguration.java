@@ -37,8 +37,10 @@ public class WebSecurityConfiguration {
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .securityContext().and()
                 .authorizeHttpRequests(r -> {
-                    r.requestMatchers("/users/**").authenticated();
-                    r.requestMatchers("/authentications/**").permitAll();
+                    r.requestMatchers("/api/v1/advertisements/**").authenticated();
+                    r.requestMatchers("/api/v1/users").authenticated();
+                    r.requestMatchers("/api/v1/").authenticated();
+                    r.requestMatchers("/api/v1/authentications/**").permitAll();
                     r.anyRequest().permitAll();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
