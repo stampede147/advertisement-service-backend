@@ -4,7 +4,9 @@ import lombok.Getter;
 
 public enum AdvertisementType {
 
-    SHOE, CLOTHING;
+    DEFAULT,
+    SHOE,
+    CLOTHING;
 
     @Getter
     public static class Constants {

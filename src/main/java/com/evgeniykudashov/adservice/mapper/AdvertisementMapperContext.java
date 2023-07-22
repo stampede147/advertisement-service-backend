@@ -1,9 +1,9 @@
 package com.evgeniykudashov.adservice.mapper;
 
-import com.evgeniykudashov.adservice.mapper.impl.AdvertisementMapperType;
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 
 
 public interface AdvertisementMapperContext {
 
-    AdvertisementMapper getMapper(AdvertisementMapperType type);
+    AdvertisementMapper getMapper(AdvertisementType type);
 }

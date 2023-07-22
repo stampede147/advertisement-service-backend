@@ -5,8 +5,8 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapperContext;
-import com.evgeniykudashov.adservice.mapper.impl.AdvertisementMapperType;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.debug("Provided parameter dto: {}", dto);
 
         Advertisement entity = context
-                .getMapper(AdvertisementMapperType.fromAdvertisementType(dto.getType()))
+                .getMapper(dto.getType())
                 .toAdvertisement(dto);
 
         return advertisementRepository.save(entity).getId();
@@ -52,7 +52,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started getPageByUserId(long, Pageable) method");
         log.debug("Provided parameters userId: {}, pageable: {}", userId, pageable);
 
-        return (PageDto<AdvertisementResponseDto>) context.getMapper(AdvertisementMapperType.DEFAULT)
+        return (PageDto<AdvertisementResponseDto>) context.getMapper(AdvertisementType.DEFAULT)
                 .toPageDto(advertisementRepository.findAllByOwnerId(userId, pageable));
     }
 
@@ -69,7 +69,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                     return notFoundEntityException;
                 });
 
-        return context.getMapper(AdvertisementMapperType.fromAdvertisementType(advertisement.getType()))
+        return context.getMapper(advertisement.getType())
                 .toResponseDto(advertisement);
     }
 
