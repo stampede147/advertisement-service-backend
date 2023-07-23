@@ -5,7 +5,7 @@ import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityExcept
 import com.evgeniykudashov.adservice.exception.servicelayer.PasswordMismatchException;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
-import com.evgeniykudashov.adservice.security.jwt.tokenfactory.JwtTokenFactory;
+import com.evgeniykudashov.adservice.security.jwt.tokenfactory.OAuthTokenFactory;
 import com.evgeniykudashov.adservice.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenFactory factory;
+    private final OAuthTokenFactory factory;
 
     @Transactional(readOnly = true)
     public String generateJwtToken(UsernamePasswordRequestDto dto) {
@@ -45,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> {
                     NotFoundEntityException exception = new NotFoundEntityException();
-                    log.error("Unexpected exception: {}", exception);
+                    log.error("Unexpected exception. Not found entity with provided username: {}", username, exception);
                     return exception;
                 });
     }
