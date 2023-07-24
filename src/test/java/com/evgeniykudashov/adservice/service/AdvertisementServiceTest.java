@@ -3,14 +3,13 @@ package com.evgeniykudashov.adservice.service;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
-import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
-import com.evgeniykudashov.adservice.mapper.AdvertisementMapperContext;
+import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
+import com.evgeniykudashov.adservice.mapper.AdvertisementMapperProxy;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.impl.AdvertisementServiceImpl;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,87 +20,108 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Optional;
 
 
 @ExtendWith(MockitoExtension.class)
 @Setter(onMethod_ = @Autowired)
 class AdvertisementServiceTest {
 
-
-    public static final AdvertisementRequestDto INPUT_DTO = new AdvertisementRequestDto();
-
     @Mock
-    private AdvertisementRepository advertisementRepository;
+    AdvertisementRepository advertisementRepository;
 
     @Mock(stubOnly = true)
-    private AdvertisementMapperContext mapperContext;
+    AdvertisementMapperProxy advertisementMapper;
 
     @InjectMocks
-    private AdvertisementServiceImpl sut;
+    AdvertisementServiceImpl sut;
 
-    @BeforeEach
-    protected void beforeSetup() {
-        AdvertisementMapper mock = Mockito.mock(AdvertisementMapper.class, Mockito.withSettings().stubOnly());
+    @Test
+    void createAdvertisement_should_save_and_return_id() {
+        // Arrange
+        AdvertisementRequestDto requestDto = Mockito.mock(AdvertisementRequestDto.class);
+        Advertisement savedAdvertisement = Mockito.mock(Advertisement.class);
 
-        Mockito.when(mapperContext.getMapper(Mockito.any()))
-                .thenReturn(mock);
+
+        Mockito.when(savedAdvertisement.getId()).thenReturn(TestObjects.SAVED_ENTITY_ID);
+        Mockito.when(advertisementMapper.toAdvertisement(Mockito.any(AdvertisementRequestDto.class)))
+                .thenReturn(savedAdvertisement);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class)))
+                .thenReturn(savedAdvertisement);
+
+        // Act
+        long createdId = sut.createAdvertisement(requestDto);
+
+        // Assert
+        Assertions.assertEquals(TestObjects.SAVED_ENTITY_ID, createdId);
     }
 
     @Test
-    void can_create_advertisement() {
-        Advertisement notSavedAdvertisement = TestObjects.getNotSavedAdvertisement();
-        Mockito.when(advertisementRepository.save(notSavedAdvertisement))
-                .thenReturn(TestObjects.getSavedAdvertisement());
-        AdvertisementRequestDto dto = TestObjects.getNotSavedAdvertisementRequestDto();
-        Mockito.when(mapperContext.getMapper(Mockito.any())
-                        .toAdvertisement(dto))
-                .thenReturn(notSavedAdvertisement);
+    void removeAdvertisementById_should_call_repository_delete() {
+        // Arrange
+        long advertisementId = 1L;
 
+        // Act
+        sut.removeAdvertisementById(advertisementId);
 
-        long createdAdvertisementId = sut.createAdvertisement(dto);
-
-        Assertions.assertEquals(createdAdvertisementId, TestObjects.SAVED_ENTITY_ID);
+        // Assert
+        Mockito.verify(advertisementRepository).deleteById(advertisementId);
     }
 
     @Test
-    void can_remove_exist_advertisement_in_repository() {
-        final long ID = TestObjects.SAVED_ENTITY_ID;
-
-        sut.removeAdvertisementById(ID);
-
-        Mockito.verify(advertisementRepository).deleteById(ID);
-    }
-
-    @Test
-    void should_return_page_with_advertisements_when_provided_user_id() {
-
+    void getPageByUserId_should_return_pageDto() {
+        // Arrange
         long userId = TestObjects.SAVED_ENTITY_ID;
         Pageable pageable = Mockito.mock(Pageable.class);
+        Page<Advertisement> mockPage = Mockito.mock(Page.class);
+        PageDto<AdvertisementResponseDto> value = Mockito.mock(PageDto.class);
 
-        Page<Advertisement> returnPage = Mockito.mock(Page.class);
-        Mockito.when(advertisementRepository.findAllByOwnerId(userId, pageable)).thenReturn(returnPage);
+        Mockito.when(advertisementRepository.findAllByOwnerId(userId, pageable))
+                .thenReturn(mockPage);
+        Mockito.when(advertisementMapper.toPageDto(mockPage))
+                .thenReturn((PageDto) value);
 
-
-        PageDto value = new PageDto<AdvertisementResponseDto>();
-        value.setContent(List.of(new AdvertisementResponseDto()));
-        Mockito.when(mapperContext.getMapper(Mockito.any()).toPageDto(Mockito.any()))
-                .thenReturn(value);
-
-
-        //act
+        // Act
         PageDto<AdvertisementResponseDto> result = sut.getPageByUserId(userId, pageable);
 
-
-        Assertions.assertEquals(value, result);
+        // Assert
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(mockPage.getTotalElements(), result.getTotalElements());
     }
 
     @Test
-    void should_return_advertisement_when_exists_by_id() {
-        final long ID = TestObjects.SAVED_ENTITY_ID;
+    void getOneByAdvertisementId_should_return_advertisementResponseDto_when_found() {
+        // Arrange
+        long advertisementId = TestObjects.SAVED_ENTITY_ID;
+        Advertisement advertisement = Mockito.mock(Advertisement.class);
+        AdvertisementResponseDto responseDto = Mockito.mock(AdvertisementResponseDto.class);
 
-        AdvertisementResponseDto oneByAdvertisementId = sut.getOneByAdvertisementId(ID);
+        Mockito.when(advertisement.getId())
+                .thenReturn(advertisementId);
+        Mockito.when(responseDto.getAdvertisementId())
+                .thenReturn(advertisementId);
+        Mockito.when(advertisementMapper.toResponseDto(advertisement))
+                .thenReturn(responseDto);
+        Mockito.when(advertisementRepository.findById(advertisementId))
+                .thenReturn(Optional.of(advertisement));
 
-        Mockito.verify(advertisementRepository).findById(ID);
+        // Act
+        AdvertisementResponseDto result = sut.getOneByAdvertisementId(advertisementId);
+
+        // Assert
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(advertisement.getId(), result.getAdvertisementId());
+    }
+
+    @Test
+    void getOneByAdvertisementId_should_throw_NotFoundEntityException_when_not_found() {
+        // Arrange
+        long advertisementId = 1L;
+
+        Mockito.when(advertisementRepository.findById(advertisementId))
+                .thenReturn(Optional.empty());
+
+        // Act & Assert
+        Assertions.assertThrows(NotFoundEntityException.class, () -> sut.getOneByAdvertisementId(advertisementId));
     }
 }

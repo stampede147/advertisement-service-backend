@@ -63,7 +63,7 @@ public class MessageController {
                     @ApiResponse(responseCode = "200", description = "(OK) message found and returned")
             })
     @GetMapping("/{id}")
-    public ResponseEntity<MessageResponseDto> getMessage(@PathVariable long id) {
+    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable long id) {
         return ResponseEntity.ok(messageService.getMessageById(id));
     }
 
@@ -81,9 +81,9 @@ public class MessageController {
     @Operation(description = "returns paged array of messages. Messages correspond chatId",
             parameters = @Parameter(name = "chatId", description = "chat id"))
     @GetMapping(params = "chatId")
-    public ResponseEntity<PageDto<MessageResponseDto>> getLastMessage(@RequestParam long chatId,
-                                                                      @ParameterObject
-                                                                      @PageableDefault Pageable pageable) {
+    public ResponseEntity<PageDto<MessageResponseDto>> getLastMessages(@RequestParam long chatId,
+                                                                       @ParameterObject
+                                                                       @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(messageService.getMessagesByChatId(chatId, pageable));
     }
 }
