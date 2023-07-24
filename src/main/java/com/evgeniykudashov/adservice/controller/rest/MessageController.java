@@ -81,9 +81,9 @@ public class MessageController {
     @Operation(description = "returns paged array of messages. Messages correspond chatId",
             parameters = @Parameter(name = "chatId", description = "chat id"))
     @GetMapping(params = "chatId")
-    public ResponseEntity<PageDto<MessageResponseDto>> getLastMessage(@RequestParam long chatId,
-                                                                      @ParameterObject
-                                                                      @PageableDefault Pageable pageable) {
+    public ResponseEntity<PageDto<MessageResponseDto>> getLastMessages(@RequestParam long chatId,
+                                                                       @ParameterObject
+                                                                       @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(messageService.getMessagesByChatId(chatId, pageable));
     }
 }
