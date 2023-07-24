@@ -63,7 +63,7 @@ public class MessageController {
                     @ApiResponse(responseCode = "200", description = "(OK) message found and returned")
             })
     @GetMapping("/{id}")
-    public ResponseEntity<MessageResponseDto> getMessage(@PathVariable long id) {
+    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable long id) {
         return ResponseEntity.ok(messageService.getMessageById(id));
     }
 
