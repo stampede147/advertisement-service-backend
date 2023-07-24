@@ -4,9 +4,8 @@ import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
-import com.evgeniykudashov.adservice.mapper.AdvertisementMapperContext;
+import com.evgeniykudashov.adservice.mapper.AdvertisementMapperProxy;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
 
-    private final AdvertisementMapperContext context;
+    private final AdvertisementMapperProxy advertisementMapperProxy;
 
     @Override
     @Transactional
@@ -32,11 +31,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started createAdvertisement(AdvertisementRequestDto) method");
         log.debug("Provided parameter dto: {}", dto);
 
-        Advertisement entity = context
-                .getMapper(dto.getType())
-                .toAdvertisement(dto);
-
-        return advertisementRepository.save(entity).getId();
+        Advertisement advertisement = advertisementMapperProxy.toAdvertisement(dto);
+        return advertisementRepository.save(advertisement).getId();
     }
 
     @Transactional
@@ -52,8 +48,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started getPageByUserId(long, Pageable) method");
         log.debug("Provided parameters userId: {}, pageable: {}", userId, pageable);
 
-        return (PageDto<AdvertisementResponseDto>) context.getMapper(AdvertisementType.DEFAULT)
-                .toPageDto(advertisementRepository.findAllByOwnerId(userId, pageable));
+        return (PageDto<AdvertisementResponseDto>) advertisementMapperProxy.toPageDto(advertisementRepository.findAllByOwnerId(userId, pageable));
     }
 
     @Override
@@ -69,8 +64,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                     return notFoundEntityException;
                 });
 
-        return context.getMapper(advertisement.getType())
-                .toResponseDto(advertisement);
+        return advertisementMapperProxy.toResponseDto(advertisement);
     }
 
 }
