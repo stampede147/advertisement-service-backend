@@ -44,6 +44,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageDto<AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable) {
         log.trace("Started getPageByUserId(long, Pageable) method");
         log.debug("Provided parameters userId: {}, pageable: {}", userId, pageable);
