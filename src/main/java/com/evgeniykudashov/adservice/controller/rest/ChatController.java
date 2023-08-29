@@ -21,12 +21,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.print.attribute.standard.Media;
 
 @Tag(name = "Chat", description = "Provides API about chatting")
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/api/v1/chats",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +77,7 @@ public class ChatController {
             security = @SecurityRequirement(name = "jwt authentication"),
             parameters = @Parameter(name = "userId", description = "Participant of chat"),
             responses = @ApiResponse(responseCode = "200", description = "Returns page of chats"))
-    @GetMapping(params = "userId")
+    @GetMapping(params = "userId", consumes = "*/*")
     public ResponseEntity<PageDto<ChatResponseDto>> findAll(@RequestParam long userId,
                                                             @ParameterObject
                                                             @PageableDefault Pageable pageable) {

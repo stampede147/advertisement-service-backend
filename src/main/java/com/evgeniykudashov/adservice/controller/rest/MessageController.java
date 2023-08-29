@@ -35,6 +35,12 @@ public class MessageController {
 
     private final MessageService messageService;
 
+
+    @PostMapping("/has-unread")
+    private ResponseEntity<?> hasUnreadMessages(@RequestBody long lastMessageId) {
+        return null;
+    }
+
     @Operation(description = "creates a message", tags = "Message",
             responses = {
                     @ApiResponse(responseCode = "201", description = "message created",
@@ -69,20 +75,20 @@ public class MessageController {
 
     @Operation(description = "Returns an array of last messages for each chat. Each last message corresponds concrete chat id.",
             tags = "Message",
-            parameters = @Parameter(name = "chatsIds", description = "chats ids"),
+            parameters = @Parameter(name = "chatIds", description = "id of each chat"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK)")
             })
-    @GetMapping(params = "chatsIds")
-    public ResponseEntity<Collection<MessageResponseDto>> getLastMessage(@RequestParam long[] chatsIds) {
-        return ResponseEntity.ok(messageService.getLastMessageByChatsIds(chatsIds));
+    @GetMapping(params = "chatIds", consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<Collection<MessageResponseDto>> getLastMessage(@RequestParam long[] chatIds) {
+        return ResponseEntity.ok(messageService.getLastMessageByChatsIds(chatIds));
     }
 
     @Operation(description = "returns paged array of messages. Messages correspond chatId",
             parameters = @Parameter(name = "chatId", description = "chat id"))
-    @GetMapping(params = "chatId")
-    public ResponseEntity<PageDto<MessageResponseDto>> getLastMessages(@RequestParam long chatId,
-                                                                       @ParameterObject
+    @GetMapping(params = "chatId", consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<PageDto<MessageResponseDto>> getMessages(@RequestParam long chatId,
+                                                                   @ParameterObject
                                                                        @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(messageService.getMessagesByChatId(chatId, pageable));
     }
