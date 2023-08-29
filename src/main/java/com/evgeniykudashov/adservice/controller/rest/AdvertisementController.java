@@ -75,7 +75,7 @@ public class AdvertisementController {
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) Advertisement with such ID not found to delete",
                             content = @Content(schema = @Schema(hidden = true))),
             })
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", consumes = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<?> onDelete(@PathVariable Long id) {
         advertisementService.removeAdvertisementById(id);
         return ResponseEntity.noContent().build();
@@ -96,7 +96,7 @@ public class AdvertisementController {
                             description = "(NOT FOUND) such advertisement with ID not found",
                             content = @Content(schema = @Schema(hidden = true)))
             })
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<? extends AdvertisementResponseDto> onGetById(@PathVariable Long id) {
         return ResponseEntity.ok(advertisementService.getOneByAdvertisementId(id));
     }
@@ -105,7 +105,7 @@ public class AdvertisementController {
             parameters = {
                     @Parameter(name = "userId", description = "the ID of user")
             })
-    @GetMapping(params = "userId")
+    @GetMapping(params = "userId", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<PageDto<? extends AdvertisementResponseDto>> getUserAdvertisements(@RequestParam Long userId,
                                                                                              @ParameterObject
                                                                                              @PageableDefault Pageable pageable) {

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
@@ -48,8 +49,10 @@ public class JwtAuthenticationController {
         return ResponseEntity.noContent()
                 .headers(headers -> headers.add(HttpHeaders.SET_COOKIE,
                         ResponseCookie.from(ACCESS_TOKEN, authenticationService.generateJwtToken(dto))
-                                .httpOnly(true)
-                                .secure(true)
+//                                .httpOnly(true)
+//                                .secure(true)
+                                .sameSite("strict")
+                                .path("/")
                                 .build()
                                 .toString()))
                 .build();

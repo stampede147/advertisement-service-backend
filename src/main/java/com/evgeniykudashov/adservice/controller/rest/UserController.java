@@ -70,4 +70,14 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable long id) {
         return ResponseEntity.ok(userService.findById(id));
     }
+
+    @Operation(description = "returns details that corresponds user with such username",
+            security = @SecurityRequirement(name = "jwt authentication"),
+            tags = "User",
+            parameters = @Parameter(name = "id", description = "the username of user"),
+            responses = @ApiResponse(responseCode = "200", description = "returns user details"))
+    @GetMapping(params = "username", consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<UserResponseDto> getUserByUsername(@RequestParam String username) {
+        return ResponseEntity.ok(userService.findByUsername(username));
+    }
 }

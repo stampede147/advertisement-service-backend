@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
 @RequestMapping(value = "/api/v1/chats/{chatId}/messages",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.ALL_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChatMessageController {
 
@@ -25,7 +25,9 @@ public class ChatMessageController {
     private final MessageService messageService;
 
 
-    @GetMapping()
+    @GetMapping(params = "userId",
+            consumes = MediaType.ALL_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getChatMessages(@PathVariable long chatId,
                                              @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(messageService.getMessagesByChatId(chatId, pageable));
