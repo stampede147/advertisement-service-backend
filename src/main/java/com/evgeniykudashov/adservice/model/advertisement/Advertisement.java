@@ -10,6 +10,7 @@ import org.hibernate.annotations.DiscriminatorOptions;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @NoArgsConstructor()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -55,6 +56,8 @@ public class Advertisement implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = DISCRIMINATOR_COLUMN, updatable = false, insertable = false)
     private AdvertisementType type;
+
+    private LocalDate createdAt;
 
     public Advertisement(long id,
                          @NonNull String title,

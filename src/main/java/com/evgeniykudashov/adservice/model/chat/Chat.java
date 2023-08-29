@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor(onConstructor_ = @Deprecated)
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
@@ -41,20 +42,18 @@ public class Chat implements Serializable {
     @BatchSize(size = 10)
     private Set<User> participants;
 
-    @OneToMany(mappedBy = "chat")
-    private List<Message> messages;
+    @Enumerated(EnumType.STRING)
+    private ChatStatus status;
 
     private LocalDate createdAt;
 
     public Chat(long id,
                 @NonNull Advertisement advertisement,
                 @NonNull Set<User> participants,
-                @NonNull List<Message> chatMessages,
                 @NonNull LocalDate createdAt) {
         this.id = id;
         this.advertisement = advertisement;
         this.participants = participants;
-        this.messages = chatMessages;
         this.createdAt = createdAt;
     }
 }
