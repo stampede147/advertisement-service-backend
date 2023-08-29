@@ -13,6 +13,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("from Message m where m.id in (select max(m1.id) from Message m1 where m1.chat.id in :chatIds group by m1.chat)")
     Collection<Message> findLastMessageByChatId(long[] chatIds);
 
-    @Query("from Message m order by m.id desc")
+    @Query("from Message m where m.chat.id = :chatId order by m.id desc")
     Page<Message> findLastMessages(long chatId, Pageable pageable);
 }
