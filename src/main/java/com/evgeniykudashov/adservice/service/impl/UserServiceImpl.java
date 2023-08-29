@@ -52,9 +52,17 @@ public class UserServiceImpl implements UserService {
         log.trace("Started findById(long) method");
         log.debug("Provided parameter userId: {}", userId);
 
-        validateId(userId);
-
         return mapper.toUserResponseDto(userRepository.findById(userId).orElseThrow(NotFoundEntityException::new));
+    }
+
+    @Override
+    public UserResponseDto findByUsername(String username) {
+        log.trace("Started findByUsername(String) method");
+        log.debug("Provided parameter username: {}", username);
+
+        return mapper.toUserResponseDto(userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new));
+
+
     }
 
     private void validateId(long userId) {
