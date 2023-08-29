@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class UserMapper {
 
 
-    @Mapping(target = "id", expression = "java(dto.getUserId())")
     @Mapping(target = "birthdate", expression = "java(dto.getBirthdate())")
     @Mapping(target = "password", expression = "java(password)")
     @Mapping(target = "role", expression = "java(role)")
@@ -23,6 +22,5 @@ public abstract class UserMapper {
                                 String password,
                                 Role role);
 
-    @Mapping(target = "userId", source = "id")
     public abstract UserResponseDto toUserResponseDto(User user);
 }

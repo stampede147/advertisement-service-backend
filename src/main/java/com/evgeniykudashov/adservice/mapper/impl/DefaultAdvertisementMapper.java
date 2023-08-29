@@ -20,7 +20,6 @@ public abstract class DefaultAdvertisementMapper implements AdvertisementMapper 
     public abstract Advertisement toAdvertisement(AdvertisementRequestDto dto);
 
     @Mapping(target = "userId", source = "advertisement.owner.id")
-    @Mapping(target = "advertisementId", source = "advertisement.id")
     @Override
     public abstract AdvertisementResponseDto toResponseDto(Advertisement advertisement);
 

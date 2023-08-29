@@ -54,7 +54,7 @@ public class AdvertisementMapperProxyImpl implements AdvertisementMapperProxy {
 
     @Override
     public PageDto<? extends AdvertisementResponseDto> toPageDto(Page<? extends Advertisement> page) {
-        AdvertisementMapper mapper = mappers.get(AdvertisementType.DEFAULT);
+        AdvertisementMapper mapper = getDefaultMapper();
         return mapper.toPageDto(page);
     }
 }
