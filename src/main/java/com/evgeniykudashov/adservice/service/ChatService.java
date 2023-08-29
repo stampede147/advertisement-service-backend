@@ -7,9 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ChatService {
 
-    /**
-     * chat segment begin
-     */
     long create(ChatRequestDto dto);
 
     void remove(long chatId);
@@ -17,8 +14,5 @@ public interface ChatService {
     PageDto<ChatResponseDto> findAllByUserId(long userId, Pageable pageable);
 
     ChatResponseDto findById(long chatId);
-
-    /**
-     *  chat segment end
-     */
 }
+
