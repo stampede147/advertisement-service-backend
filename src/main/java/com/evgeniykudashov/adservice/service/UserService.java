@@ -11,4 +11,6 @@ public interface UserService {
 
     UserResponseDto findById(long userId);
 
+    UserResponseDto findByUsername(String username);
+
 }
