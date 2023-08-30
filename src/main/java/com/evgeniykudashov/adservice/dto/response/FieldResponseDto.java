@@ -1,8 +1,9 @@
-package com.evgeniykudashov.adservice.model.field;
+package com.evgeniykudashov.adservice.dto.response;
 
-
+import com.evgeniykudashov.adservice.model.field.FieldType;
 import com.evgeniykudashov.adservice.model.step.Step;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+public class FieldResponseDto {
 
-@Entity
-@Table(name = "adv_layout_fields")
-public class Field {
-
-    @Id
-    @Column(name = "field_id")
     private long id;
 
     private String name;
@@ -27,16 +23,11 @@ public class Field {
 
     private String label;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "step_id")
-    private Step step;
+    private long stepId;
 
-    @Column(name = "order_c")
     private long order;
 
     @Enumerated(value = EnumType.STRING)
     private FieldType type;
-
-    private String value;
 
 }

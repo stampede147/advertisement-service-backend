@@ -41,9 +41,9 @@ public class UserRequestDto {
             message = "password length should be minimum 4 and maximum 19, and consist of latin letters and digits")
     String username;
 
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9]{4,}$",
-            groups = {CreateConstraint.class, UpdateConstraint.class},
-            message = "password length should be minimum 4 and consist of latin letters and digits")
+//    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9]{4,}$",
+//            groups = {CreateConstraint.class, UpdateConstraint.class},
+//            message = "password length should be minimum 4 and consist of latin letters and digits")
     String password;
 
 }

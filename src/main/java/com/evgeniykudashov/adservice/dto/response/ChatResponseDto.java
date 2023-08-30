@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public class ChatResponseDto {
 
-    long chatId;
+    long id;
 
     ChatResponseAdvertisementDto advertisement;
 

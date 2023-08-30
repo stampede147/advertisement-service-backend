@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice.model.advertisement;
 
+import com.evgeniykudashov.adservice.model.Category;
 import com.evgeniykudashov.adservice.model.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,10 @@ public class Advertisement implements Serializable {
     @Column(name = "advertisement_id")
     @EqualsAndHashCode.Include
     private long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private String title;
 

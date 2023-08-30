@@ -16,6 +16,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Schema(requiredProperties = Advertisement.DISCRIMINATOR_COLUMN,
         discriminatorProperty = Advertisement.DISCRIMINATOR_COLUMN,
         discriminatorMapping = {
@@ -37,13 +39,16 @@ import lombok.experimental.FieldDefaults;
 @Data
 public class AdvertisementResponseDto {
 
-    long advertisementId;
+    long id;
 
     String title;
 
     String description;
 
-    @Parameter(description = "the user's ID, as owner of advertisement")
+    @Parameter(description = "the price of advertisement")
+    long price;
+
+    @Parameter(description = "the id of user who created this advertisement")
     long userId;
 
     @Parameter(description = "the status of advertisement")
@@ -54,5 +59,7 @@ public class AdvertisementResponseDto {
 
     @Parameter(description = "the type of advertisement")
     AdvertisementType type;
+
+    LocalDate createdAt;
 
 }

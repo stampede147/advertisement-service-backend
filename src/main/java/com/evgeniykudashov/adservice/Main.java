@@ -1,5 +1,8 @@
 package com.evgeniykudashov.adservice;
 
+import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
+import com.evgeniykudashov.adservice.service.UserService;
+import com.evgeniykudashov.adservice.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -10,6 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.time.LocalDate;
 
 
 @SpringBootApplication(exclude = {

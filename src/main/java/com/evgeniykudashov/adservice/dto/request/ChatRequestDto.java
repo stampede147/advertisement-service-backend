@@ -4,14 +4,13 @@ import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.evgeniykudashov.adservice.validation.UpdateConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Range;
-
-import java.util.Set;
 
 
 @FieldDefaults(level = AccessLevel.PUBLIC)
@@ -29,15 +28,16 @@ public class ChatRequestDto {
             groups = {CreateConstraint.class, UpdateConstraint.class})
     Long advertisementId;
 
-    @Parameter(description = "participants of this chat")
-    @Positive(message = "user id should be positive",
+    @Parameter(description = "user, who requested to create chat")
+    @NotNull(message = "user id should be positive",
             groups = {CreateConstraint.class, UpdateConstraint.class})
-    Set<Long> userIds;
+    Long userId;
 
-    public ChatRequestDto(@JsonProperty(required = true) Long advertisementId,
-                          @JsonProperty(required = true) Set<Long> userIds) {
+    public ChatRequestDto(@JsonProperty(required = true) long chatId,
+                          @JsonProperty(required = true) Long advertisementId,
+                          @JsonProperty(required = true) Long userId) {
+        this.chatId = chatId;
         this.advertisementId = advertisementId;
-        this.userIds = userIds;
+        this.userId = userId;
     }
-
 }

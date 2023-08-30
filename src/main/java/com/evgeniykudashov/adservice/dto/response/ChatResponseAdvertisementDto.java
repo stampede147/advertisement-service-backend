@@ -20,4 +20,8 @@ public class ChatResponseAdvertisementDto {
     @Parameter(description = "The title of advertisement")
     String title;
 
+    String price;
+
+    long userId;
+
 }
