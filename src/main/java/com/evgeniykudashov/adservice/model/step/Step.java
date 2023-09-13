@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.model.step;
 
 
-import com.evgeniykudashov.adservice.model.Category;
+import com.evgeniykudashov.adservice.model.category.Category;
 import com.evgeniykudashov.adservice.model.field.Field;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -47,12 +47,12 @@ public class JwtTokenFactory implements OAuthTokenFactory {
     }
 
     @Override
-    public String createToken(String username, Collection<? extends GrantedAuthority> authorities) {
+    public String createToken(String name, Collection<? extends GrantedAuthority> authorities) {
         log.trace("Started createToken(String, Collection> method");
-        log.debug("Provided parameters username: {}, authorities: {}", username, authorities);
+        log.debug("Provided parameters name: {}, authorities: {}", name, authorities);
 
         return JWT.create()
-                .withClaim(JwtTokenConstants.SUB, username)
+                .withClaim(JwtTokenConstants.SUB, name)
                 .withArrayClaim(JwtTokenConstants.ROLES, authorities.stream()
                         .map(GrantedAuthority::getAuthority)
                         .toArray(String[]::new))

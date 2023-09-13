@@ -43,10 +43,11 @@ public class WebSecurityConfiguration {
                 .securityContext().and()
                 .authorizeHttpRequests(r -> {
                     r.requestMatchers("/api/v1/advertisements/**").authenticated();
-                    r.requestMatchers("/api/v1/users/**").authenticated();
                     r.requestMatchers("/api/v1/chats/**").authenticated();
                     r.requestMatchers("/api/v1/chat-messages/**").authenticated();
+                    r.requestMatchers("/api/v1/user/**").authenticated();
                     r.requestMatchers("/api/v1/authentications/**").anonymous();
+                    r.requestMatchers("/api/v1/users/**").anonymous();
                     r.anyRequest().permitAll();
                     })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

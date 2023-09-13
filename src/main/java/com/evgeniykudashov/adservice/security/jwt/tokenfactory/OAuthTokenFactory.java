@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface OAuthTokenFactory {
 
-    String createToken(String username, Collection<? extends GrantedAuthority> authorities);
+    String createToken(String name, Collection<? extends GrantedAuthority> authorities);
 
     AbstractAuthenticationToken validateAndDecodeToken(String token) throws TokenDecodeException;
 

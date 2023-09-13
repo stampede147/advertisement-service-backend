@@ -5,14 +5,17 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import org.springframework.data.domain.Pageable;
 
+import java.security.Principal;
+
 public interface AdvertisementService {
 
-    long createAdvertisement(AdvertisementRequestDto advertisement);
+    public long createAdvertisementByPrincipal(Principal principal, AdvertisementRequestDto dto);
 
     void removeAdvertisementById(long advertisementId);
 
     PageDto<AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable);
 
+    PageDto<AdvertisementResponseDto> getPageByPrincipal(Principal principal, Pageable pageable);
 
     AdvertisementResponseDto getOneByAdvertisementId(long advertisementId);
 

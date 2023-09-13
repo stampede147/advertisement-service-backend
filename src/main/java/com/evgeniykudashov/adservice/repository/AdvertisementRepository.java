@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
-    Page<Advertisement> findAllByOwnerId(long ownerId, Pageable pageable);
+    Page<Advertisement> findAllBySellerId(long sellerId, Pageable pageable);
 
 }

@@ -6,14 +6,19 @@ import com.evgeniykudashov.adservice.exception.servicelayer.InvalidIdException;
 import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.UserMapper;
 import com.evgeniykudashov.adservice.model.user.Role;
+import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.Principal;
 
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -22,8 +27,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    
     private final PasswordEncoder encoder;
+    
     private final UserMapper mapper;
+    
+    private final Converter<Principal, Long> principalConverter;
 
     @Transactional
     @Override
@@ -31,17 +40,17 @@ public class UserServiceImpl implements UserService {
         log.trace("Started create(UserRequestDto) method");
         log.debug("Provided parameter dto: {}", dto);
 
-        return userRepository.save(mapper.toUser(dto, encoder.encode(dto.getPassword()), Role.USER))
+        String encodedPassword = encoder.encode(dto.getPassword());
+        return userRepository.save(mapper.toUser(dto, encodedPassword, Role.USER))
                 .getId();
     }
 
     @Transactional
     @Override
+    @PreAuthorize("hasRole(T(com.evgeniykudashov.adservice.model.user.Role).ADMIN)")
     public void remove(long userId) {
         log.trace("Started remove(long) method");
         log.debug("Provided parameter userId: {}", userId);
-
-        validateId(userId);
 
         userRepository.deleteById(userId);
     }
@@ -52,28 +61,30 @@ public class UserServiceImpl implements UserService {
         log.trace("Started findById(long) method");
         log.debug("Provided parameter userId: {}", userId);
 
-        return mapper.toUserResponseDto(userRepository.findById(userId).orElseThrow(NotFoundEntityException::new));
+        return mapper.toUserResponseDto(getUser(userId));
+    }
+
+    private User getUser(long userId) {
+        return userRepository.findById(userId).orElseThrow(NotFoundEntityException::new);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserResponseDto findByUsername(String username) {
         log.trace("Started findByUsername(String) method");
         log.debug("Provided parameter username: {}", username);
 
-        return mapper.toUserResponseDto(userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new));
+        return mapper.toUserResponseDto(getUser(username));
 
 
     }
 
-    private void validateId(long userId) {
-        log.trace("Started validateId(long) method");
-        log.debug("Provided parameter userId: {}", userId);
-
-        if (userId <= 0) {
-            InvalidIdException exception = new InvalidIdException("provided id should be positive, id: " + userId);
-            log.error("Unexpected exception", exception);
-            throw exception;
-        }
+    private User getUser(String username) {
+        return userRepository.findByUsername(username).orElseThrow(NotFoundEntityException::new);
     }
 
+    @Override
+    public UserResponseDto findByPrincipal(Principal principal) {
+        return this.findById(principalConverter.convert(principal));
+    }
 }

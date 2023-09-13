@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model;
+package com.evgeniykudashov.adservice.model.category;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
