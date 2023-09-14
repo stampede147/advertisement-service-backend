@@ -34,4 +34,9 @@ public class AdvertisementsController {
                                                                                 @ParameterObject @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(advertisementService.getPageByUserId(userId, pageable));
     }
+
+    @GetMapping(value = "/{advertisementId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AdvertisementResponseDto> getOne(@PathVariable long advertisementId) {
+        return ResponseEntity.ok(advertisementService.getOneByAdvertisementId(advertisementId));
+    }
 }

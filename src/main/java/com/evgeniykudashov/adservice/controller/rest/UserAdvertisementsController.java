@@ -61,10 +61,4 @@ public class UserAdvertisementsController {
         return ResponseEntity.ok(advertisementService.getPageByPrincipal(principal, pageable));
     }
 
-    @GetMapping(value = "/{advertisementId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AdvertisementResponseDto> getOne(@PathVariable long advertisementId) {
-        return ResponseEntity.ok(advertisementService.getOneByAdvertisementId(advertisementId));
-    }
-
-
 }
