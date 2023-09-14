@@ -27,4 +27,7 @@ public class AdvertisementRequestDto {
 
     @NotNull
     LocationRequestDto location;
+
+    @NotNull
+    Long categoryId;
 }

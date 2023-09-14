@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.boot.model.process.internal.UserTypeResolution;
 
 import java.time.LocalDate;
 
@@ -36,5 +37,7 @@ public class AdvertisementResponseDto {
     LocationResponseDto location;
 
     LocalDate startTime;
+
+    UserResponseDto seller;
 
 }

@@ -15,6 +15,6 @@ public class ChatResponseDto {
 
     ChatResponseAdvertisementDto advertisement;
 
-    Set<ChatResponseUserDto> participants;
+    UserResponseDto buyer;
 
 }

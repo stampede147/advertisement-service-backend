@@ -22,6 +22,6 @@ public class ChatResponseAdvertisementDto {
 
     String price;
 
-    long userId;
+    UserResponseDto seller;
 
 }
