@@ -7,8 +7,8 @@ import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityExcept
 import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
-import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
+import com.evgeniykudashov.adservice.repository.CategoryRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +33,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final UserRepository userRepository;
 
+    private final CategoryRepository categoryRepository;
+
     private final AdvertisementMapper advertisementMapper;
 
     private final Converter<Principal, Long> principalConverter;
@@ -47,7 +49,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Advertisement advertisement = advertisementMapper.toAdvertisement(dto,
                 LocalDate.now(),
                 AdvertisementStatus.CREATED,
-                userRepository.getReferenceById(principalConverter.convert(principal))
+                userRepository.getReferenceById(principalConverter.convert(principal)),
+                categoryRepository.getReferenceById(dto.getCategoryId())
         );
         return advertisementRepository.save(advertisement).getId();
     }
