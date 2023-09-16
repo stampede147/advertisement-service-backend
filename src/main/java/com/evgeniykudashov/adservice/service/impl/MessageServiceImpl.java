@@ -5,16 +5,21 @@ import com.evgeniykudashov.adservice.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.mapper.MessageMapper;
+import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.model.chat.statuses.MessageStatus;
+import com.evgeniykudashov.adservice.repository.ChatRepository;
 import com.evgeniykudashov.adservice.repository.MessageRepository;
+import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -25,16 +30,26 @@ import java.util.Collection;
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
+    private final ChatRepository chatRepository;
 
     private final MessageMapper dtoMapper;
 
+    private final Converter<Principal, Long> principalConverter;
+
     @Override
     @Transactional
-    public long createMessage(MessageRequestDto dto) {
+    public long createMessage(MessageRequestDto dto, Principal principal) {
         log.trace("Started createMessage(MessageRequestDto) method");
         log.debug("Provided parameter dto: {}", dto);
 
-        return messageRepository.save(dtoMapper.toMessage(dto, LocalDateTime.now(), MessageStatus.CREATED))
+        Message entity = dtoMapper.toMessage(dto,
+                LocalDateTime.now(),
+                MessageStatus.CREATED,
+                userRepository.getReferenceById(principalConverter.convert(principal)),
+                chatRepository.getReferenceById(dto.getChatId())
+                );
+        return messageRepository.save(entity)
                 .getId();
     }
 

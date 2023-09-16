@@ -29,7 +29,6 @@ public class Message {
     @Immutable
     private Chat chat;
 
-
     private String body;
 
     @ManyToOne(fetch = FetchType.LAZY)

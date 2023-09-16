@@ -22,35 +22,28 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.security.Principal;
 import java.util.Collection;
 
-@Tag(name = "Message", description = "provided API about chat messaging")
+@Tag(name = "Message", description = "provides API about chat messaging for authorized user")
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
-@RequestMapping(value = "/api/v1/chat-messages",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-public class MessageController {
+@RequestMapping(value = "/api/v1/user/messages")
+public class UserMessageController {
 
     private final MessageService messageService;
-
-
-    @PostMapping("/has-unread")
-    private ResponseEntity<?> hasUnreadMessages(@RequestBody long lastMessageId) {
-        return null;
-    }
 
     @Operation(description = "creates a message", tags = "Message",
             responses = {
                     @ApiResponse(responseCode = "201", description = "message created",
                             headers = @Header(name = HttpHeaders.LOCATION, description = "the location of created resource"))
             })
-    @PostMapping
-    public ResponseEntity<?> createMessage(@RequestBody @Validated(value = CreateConstraint.class) MessageRequestDto dto) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> createMessage(@RequestBody @Validated(value = CreateConstraint.class) MessageRequestDto dto, Principal principal) {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri()
                         .path("/{id}")
-                        .build(messageService.createMessage(dto)))
+                        .build(messageService.createMessage(dto, principal)))
                 .build();
     }
 
@@ -59,7 +52,7 @@ public class MessageController {
                     @ApiResponse(responseCode = "404", description = "(NOT FOUND) Not found such message ID")
             })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMessage(@PathVariable long id) {
+    public ResponseEntity<Void> deleteMessage(@PathVariable long id) {
         messageService.deleteMessage(id);
         return ResponseEntity.noContent().build();
     }
@@ -68,7 +61,7 @@ public class MessageController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK) message found and returned")
             })
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable long id) {
         return ResponseEntity.ok(messageService.getMessageById(id));
     }
@@ -79,14 +72,14 @@ public class MessageController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "(OK)")
             })
-    @GetMapping(params = "chatIds", consumes = MediaType.ALL_VALUE)
+    @GetMapping(params = "chatIds", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<MessageResponseDto>> getLastMessage(@RequestParam long[] chatIds) {
         return ResponseEntity.ok(messageService.getLastMessageByChatsIds(chatIds));
     }
 
     @Operation(description = "returns paged array of messages. Messages correspond chatId",
             parameters = @Parameter(name = "chatId", description = "chat id"))
-    @GetMapping(params = "chatId", consumes = MediaType.ALL_VALUE)
+    @GetMapping(params = "chatId", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageDto<MessageResponseDto>> getMessages(@RequestParam long chatId,
                                                                    @ParameterObject
                                                                        @PageableDefault Pageable pageable) {
