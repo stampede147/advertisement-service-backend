@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model;
+package com.evgeniykudashov.adservice.model.advertisementEdit;
 
 import com.evgeniykudashov.adservice.model.category.Category;
 import jakarta.persistence.*;

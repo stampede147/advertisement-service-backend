@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.model;
+package com.evgeniykudashov.adservice.model.advertisementEdit;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
