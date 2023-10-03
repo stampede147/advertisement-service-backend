@@ -2,39 +2,14 @@
 This project - **Advertisement service** - is **REST API** application which provides ability to **sell/buy items**
 
 # Features
-+ Advertisements
-  + Creating (only for authorized user)
-  + Deleting (only for authorized user)
-  + Updating (only for authorized user)
-  + Getting
-    
-+ User
-  + Creating 
-  + Deleting (only for authorized user)
-  + Updating (only for authorized user)
-  + Getting
-    
-+ Image
-  + Creating (only for authorized user)
-  + Getting
-    
-+ User Authentication
-  + JWT (by passing login and password)
-    
-+ Chat
-  + Creating (only for authorized user)
-  + Deleting (only for authorized user)
-  + Getting (only for authorized user)
-    
-+ Chat Messaging
-  + Creating (only for authorized user)
-  + Deleting (only for authorized user)
-  + Updating (only for authorized user)
-  + Getting (only for authorized user)
-    
-+ Advertisement-edit (used to generate a layout in frontend, particularly in creating, updating the advertisement )
-  + Getting navigation
-  + Getting generated layout
++ Creating/Updating/Deleting/Finding advertisements (finding by name and category)
++ User registration/login and authentication by JWT token
++ User chatting about advertisements
++ Saving and loading images
++ Advertisement-edit entity for conventient displaying advertisement details for creating and editting (used in frontend)
+
+# Future features
++ Possibility to leave review for advertisement
  
 # Dependencies
 + Java 17
