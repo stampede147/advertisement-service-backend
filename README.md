@@ -4,6 +4,7 @@ This project - **Advertisement service** - is **REST API** application which pro
 # Features
 + Creating/Updating/Deleting/Finding advertisements (finding by name and category)
 + User registration/login and authentication by JWT token
++ User editing/deleting
 + User chatting about advertisements
 + Saving and loading images
 + Advertisement-edit entity for conventient displaying advertisement details for creating and editting (used in frontend)
