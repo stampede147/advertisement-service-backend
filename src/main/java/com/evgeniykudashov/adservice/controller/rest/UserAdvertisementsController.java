@@ -6,6 +6,7 @@ import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
+import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,10 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import javax.print.attribute.standard.Media;
 import java.security.Principal;
 
 @Tag(name = "User", description = "Provides API about Authenticated user Advertisements.")
@@ -35,7 +36,9 @@ public class UserAdvertisementsController {
             security = @SecurityRequirement(name = "jwt authentication"),
             description = "Creates a new advertisement owned by the authenticated user.")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createAdvertisement(Principal principal, @RequestBody AdvertisementRequestDto dto) {
+    public ResponseEntity<Void> createAdvertisement(Principal principal,
+                                                    @Validated(value = CreateConstraint.class)
+                                                    @RequestBody AdvertisementRequestDto dto) {
         long advertisementId = advertisementService.createAdvertisementByPrincipal(principal, dto);
         return ResponseEntity.created(MvcUriComponentsBuilder.fromController(AdvertisementsController.class)
                         .path("/{id}")
@@ -59,6 +62,19 @@ public class UserAdvertisementsController {
     public ResponseEntity<PageDto<? extends AdvertisementResponseDto>> onGetAll(Principal principal,
                                                                                 @ParameterObject @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(advertisementService.getPageByPrincipal(principal, pageable));
+    }
+
+
+    @PostMapping("/{id}/active")
+    public ResponseEntity<Void> makeAdvertisementActive(@PathVariable Long id) {
+        advertisementService.activeAdvertisementById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/hidden")
+    public ResponseEntity<Void> makeAdvertisementHidden(@PathVariable Long id) {
+        advertisementService.hideAdvertisementById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -40,7 +40,7 @@ public class FeedbackController {
     public ResponseEntity<Void> create(@RequestBody @Validated(value = CreateConstraint.class)
                                        FeedbackRequestDto dto) {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri()
-                        .path("/id}")
+                        .path("/{id}")
                         .build(feedbackService.createFeedback(dto)))
                 .build();
     }

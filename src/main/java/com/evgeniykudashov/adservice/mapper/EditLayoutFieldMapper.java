@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.mapper;
 
 import com.evgeniykudashov.adservice.dto.response.EditLayoutFieldResponseDto;
-import com.evgeniykudashov.adservice.model.EditLayoutField;
+import com.evgeniykudashov.adservice.model.advertisementEdit.EditLayoutField;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

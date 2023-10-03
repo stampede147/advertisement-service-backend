@@ -1,11 +1,16 @@
 package com.evgeniykudashov.adservice.dto.request;
 
+import com.evgeniykudashov.adservice.validation.CreateConstraint;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 
 @Getter
@@ -15,19 +20,24 @@ import org.springframework.validation.annotation.Validated;
 @FieldDefaults(level = AccessLevel.PUBLIC)
 public class AdvertisementRequestDto {
 
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, groups = {CreateConstraint.class})
     String title;
 
-    @NonNull
+    @PositiveOrZero(groups = {CreateConstraint.class})
     Double price;
 
     @Parameter(description = "the description of advertisement")
-    @Size(min = 1,  max = 512)
+    @Size(min = 1, max = 512, groups = {CreateConstraint.class})
     String description;
 
-    @NotNull
+    @NotNull(groups = {CreateConstraint.class})
+    @JsonUnwrapped
+    @Valid
     LocationRequestDto location;
 
-    @NotNull
+    @PositiveOrZero(groups = {CreateConstraint.class})
     Long categoryId;
+
+    @NotNull(groups = {CreateConstraint.class})
+    List<String> images;
 }

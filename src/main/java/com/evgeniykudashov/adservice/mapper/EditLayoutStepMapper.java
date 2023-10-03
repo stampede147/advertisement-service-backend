@@ -1,7 +1,7 @@
 package com.evgeniykudashov.adservice.mapper;
 
 import com.evgeniykudashov.adservice.dto.response.EditLayoutStepResponseDto;
-import com.evgeniykudashov.adservice.model.EditLayoutStep;
+import com.evgeniykudashov.adservice.model.advertisementEdit.EditLayoutStep;
 import org.mapstruct.Mapper;
 
 import java.util.List;

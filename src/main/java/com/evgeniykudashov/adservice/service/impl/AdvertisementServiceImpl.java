@@ -9,6 +9,7 @@ import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
 import com.evgeniykudashov.adservice.repository.CategoryRepository;
+import com.evgeniykudashov.adservice.repository.ImageEntityRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 
@@ -35,6 +37,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final CategoryRepository categoryRepository;
 
+    private final ImageEntityRepository imageEntityRepository;
+
     private final AdvertisementMapper advertisementMapper;
 
     private final Converter<Principal, Long> principalConverter;
@@ -46,12 +50,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started createAdvertisement(Principal, AdvertisementRequestDto) method");
         log.debug("Provided parameter dto: {}, principal : {}", dto, principal);
 
+
         Advertisement advertisement = advertisementMapper.toAdvertisement(dto,
                 LocalDate.now(),
                 AdvertisementStatus.CREATED,
                 userRepository.getReferenceById(principalConverter.convert(principal)),
-                categoryRepository.getReferenceById(dto.getCategoryId())
+                categoryRepository.getReferenceById(dto.getCategoryId()),
+                dto.getImages().stream()
+                        .map(imageEntityRepository::getReferenceById)
+                        .collect(Collectors.toList())
         );
+
+
         return advertisementRepository.save(advertisement).getId();
     }
 
@@ -77,6 +87,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public PageDto<AdvertisementResponseDto> getPageByUserId(long userId, Pageable pageable) {
         log.trace("Started getPageByUserId(long, Pageable) method");
         log.debug("Provided parameters userId: {}, pageable: {}", userId, pageable);
+
+
         return advertisementMapper.toPageDto(advertisementRepository.findAllBySellerId(userId, pageable));
     }
 
@@ -86,8 +98,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started getPageByPrincipal(Principal, Pageable) method");
         log.debug("Provided parameters principal: {}, pageable: {}", principal, pageable);
 
-        Page<Advertisement> advertisements =
-                advertisementRepository.findAllBySellerId(principalConverter.convert(principal), pageable);
+        Page<Advertisement> advertisements = advertisementRepository.findAllBySellerId(principalConverter.convert(principal), pageable);
+
         return advertisementMapper.toPageDto(advertisements);
     }
 
@@ -97,11 +109,30 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.trace("Started getOneByAdvertisementId(long) method");
         log.debug("Provided parameters advertisementId: {}", advertisementId);
 
-
-        return advertisementMapper.toResponseDto(findByAdvertisementId(advertisementId));
+        return advertisementMapper.toResponseDto(findAdvertisementById(advertisementId));
     }
 
-    private Advertisement findByAdvertisementId(long advertisementId) {
+    @Override
+    @Transactional
+    public void activeAdvertisementById(long id) {
+        log.trace("Started activeAdvertisementById(long) method");
+        log.debug("Provided parameters id: {}", id);
+
+        findAdvertisementById(id).setStatus(AdvertisementStatus.ACTIVE);
+    }
+
+    @Override
+    @Transactional
+    public void hideAdvertisementById(long id) {
+        log.trace("Started hideAdvertisementById(long) method");
+        log.debug("Provided parameters id: {}", id);
+
+        findAdvertisementById(id).setStatus(AdvertisementStatus.HIDDEN);
+
+    }
+
+
+    private Advertisement findAdvertisementById(long advertisementId) {
         log.trace("called findByAdvertisementId(long) method");
         log.debug("provided parameter advertisementId: {}", advertisementId);
 

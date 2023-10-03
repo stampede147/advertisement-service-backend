@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ImageEntityMapper.class)
 @Setter(onMethod_ = @Autowired)
 public abstract class UserMapper {
 
@@ -22,5 +22,6 @@ public abstract class UserMapper {
                                 String password,
                                 Role role);
 
+    @Mapping(target = "image")
     public abstract UserResponseDto toUserResponseDto(User user);
 }

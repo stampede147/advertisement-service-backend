@@ -1,2 +1,8 @@
-package com.evgeniykudashov.adservice.service;public interface CategoryService {
+package com.evgeniykudashov.adservice.service;
+
+import com.evgeniykudashov.adservice.dto.response.CategoryResponseDto;
+
+public interface CategoryService {
+
+    CategoryResponseDto getRootCategory();
 }

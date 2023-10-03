@@ -3,7 +3,7 @@ package com.evgeniykudashov.adservice.mapper;
 
 import com.evgeniykudashov.adservice.dto.response.EditLayoutResponseDto;
 import com.evgeniykudashov.adservice.dto.response.NavigationResponseDto;
-import com.evgeniykudashov.adservice.model.EditLayoutStep;
+import com.evgeniykudashov.adservice.model.advertisementEdit.EditLayoutStep;
 import com.evgeniykudashov.adservice.model.category.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

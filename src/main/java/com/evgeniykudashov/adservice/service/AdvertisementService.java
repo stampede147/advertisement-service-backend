@@ -9,7 +9,7 @@ import java.security.Principal;
 
 public interface AdvertisementService {
 
-    public long createAdvertisementByPrincipal(Principal principal, AdvertisementRequestDto dto);
+    long createAdvertisementByPrincipal(Principal principal, AdvertisementRequestDto dto);
 
     void removeAdvertisementById(long advertisementId);
 
@@ -19,5 +19,8 @@ public interface AdvertisementService {
 
     AdvertisementResponseDto getOneByAdvertisementId(long advertisementId);
 
+    void activeAdvertisementById(long id);
+
+    void hideAdvertisementById(long id);
 
 }

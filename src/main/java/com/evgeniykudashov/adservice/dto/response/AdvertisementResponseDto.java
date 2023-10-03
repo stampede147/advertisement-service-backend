@@ -1,7 +1,6 @@
 package com.evgeniykudashov.adservice.dto.response;
 
 
-import com.evgeniykudashov.adservice.model.advertisement.AdvertisementLocation;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.persistence.EnumType;
@@ -11,9 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.boot.model.process.internal.UserTypeResolution;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -27,6 +26,8 @@ public class AdvertisementResponseDto {
 
     String description;
 
+    AdvertisementCategoryResponseDto category;
+
     @Parameter(description = "the price of advertisement")
     long price;
 
@@ -38,6 +39,8 @@ public class AdvertisementResponseDto {
 
     LocalDate startTime;
 
-    UserResponseDto seller;
+    AdvertisementUserResponseDto seller;
+
+    List<ImageEntityResponseDto> images;
 
 }

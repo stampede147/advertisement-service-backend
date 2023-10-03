@@ -2,20 +2,25 @@ package com.evgeniykudashov.adservice.model.advertisement;
 
 
 import com.evgeniykudashov.adservice.model.category.Category;
+import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "advertisements")
+@BatchSize(size = 10)
 public class Advertisement {
 
     @Id
@@ -50,23 +55,10 @@ public class Advertisement {
     @JoinColumn(name = "user_seller_id", nullable = false)
     private User seller;
 
-    public Advertisement(Long id,
-                         Category category,
-                         String title,
-                         String description,
-                         double price,
-                         LocalDate startTime,
-                         AdvertisementLocation location,
-                         AdvertisementStatus status,
-                         User seller) {
-        this.id = id;
-        this.category = category;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.startTime = startTime;
-        this.location = location;
-        this.status = status;
-        this.seller = seller;
-    }
+    @ManyToMany
+    @JoinTable(name = "advertisements_images",
+            joinColumns = @JoinColumn(name = "advertisement_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id"))
+    private List<ImageEntity> images;
+
 }

@@ -24,4 +24,6 @@ public class UserResponseDto {
     public LocalDate birthdate;
 
     public String email;
+
+    public ImageEntityResponseDto image;
 }

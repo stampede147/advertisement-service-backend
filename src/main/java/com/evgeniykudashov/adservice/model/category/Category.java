@@ -23,14 +23,11 @@ public class Category {
 
     private String title;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Category> children;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
     private Category parent;
-
-
-
 
 }

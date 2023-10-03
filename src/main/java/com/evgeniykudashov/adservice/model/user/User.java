@@ -1,6 +1,7 @@
 package com.evgeniykudashov.adservice.model.user;
 
 
+import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -40,6 +42,10 @@ public class User implements Serializable {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private ImageEntity image;
 
     public User(long id,
                 @NonNull String firstName,

@@ -2,6 +2,7 @@ package com.evgeniykudashov.adservice.model.advertisement;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 
 @Getter
@@ -10,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "advertisement_location")
+@BatchSize(size = 10)
 public class AdvertisementLocation {
 
     @Id
