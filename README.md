@@ -10,7 +10,8 @@ This project - **Advertisement service** - is **REST API** application which pro
 
 # Future features
 + Possibility to leave review for advertisement
- 
++ Advertisement searching system
+
 # Dependencies
 + Java 17
 + Maven
