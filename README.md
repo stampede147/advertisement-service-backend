@@ -2,9 +2,9 @@
 This project - **Advertisement service** - is **REST API** application which provides ability to **sell/buy items**
 
 ## Features
-+ Advertisement Creating/Updating/Deleting/Finding
-+ User Creating/Updating/Deleting
-+ Authorization by JWT token
++ Creating/Updating/Deleting/Finding for **Advertisement**
++ Creating/Updating/Deleting for **User**
++ Authorization by **JWT** token
 + User chatting about advertisements
 + Saving and loading images
 
