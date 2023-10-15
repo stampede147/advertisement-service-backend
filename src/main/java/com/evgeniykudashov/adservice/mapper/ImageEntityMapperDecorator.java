@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @Mapper(componentModel = "spring")
@@ -27,9 +28,9 @@ public abstract class ImageEntityMapperDecorator extends ImageEntityMapper {
 
         ImageEntityResponseDto imageEntityResponseDto = imageEntityMapper.toResponseDto(imageEntity);
 
-        imageEntityResponseDto.setLink(MvcUriComponentsBuilder.fromMethodName(ImageController.class, "getImage", imageEntity.getId())
-                .build()
-                .toString());
+        UriComponentsBuilder builder = MvcUriComponentsBuilder.fromMethodName(ImageController.class, "getImage", imageEntity.getId());
+
+        imageEntityResponseDto.setLink(builder.build().toString());
 
         return imageEntityResponseDto;
     }

@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementCategoryResponseDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
+import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.category.Category;
@@ -25,7 +26,6 @@ import java.util.List;
 @Setter(onMethod_ = @Autowired)
 public abstract class AdvertisementMapper {
 
-    private CategoryMapper categoryMapper;
 
     @Mapping(target = "title", source = "dto.title")
     @Mapping(target = "id", ignore = true)
@@ -39,6 +39,12 @@ public abstract class AdvertisementMapper {
 
     @Mapping(target = "category", source = "category", qualifiedByName = "categoryToAdvertisementCategoryResponseDto")
     public abstract AdvertisementResponseDto toResponseDto(Advertisement advertisement);
+
+    public abstract List<AdvertisementResponseDto> toResponseDto(List<Advertisement> advertisements);
+
+    public AdvertisementResponseDto toResponseDto(ViewedAdvertisement viewedAdvertisement) {
+        return this.toResponseDto(viewedAdvertisement.getAdvertisement());
+    }
 
     public abstract PageDto<AdvertisementResponseDto> toPageDto(Page<Advertisement> advertisementsPage);
 

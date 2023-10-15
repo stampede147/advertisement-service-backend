@@ -7,27 +7,19 @@ import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.chat.Chat;
 import com.evgeniykudashov.adservice.model.chat.ChatStatus;
 import com.evgeniykudashov.adservice.model.user.User;
-import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
-import com.evgeniykudashov.adservice.repository.UserRepository;
-import jakarta.persistence.MapsId;
 import lombok.Setter;
-import org.hibernate.mapping.Collection;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Mapper(componentModel = "spring",
         uses = {
                 AdvertisementMapper.class,
-                UserMapper.class
+                UserMapper.class,
+
         })
 @Setter(onMethod_ = @Autowired)
 public abstract class ChatMapper {
