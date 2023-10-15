@@ -28,7 +28,7 @@ This project - **Advertisement service** - is **REST API** application which pro
   
   Deployment by **Docker** consists of ***building*** and ***Containerizing an application***
 
-  > The default port for the application is **8080**, and for connecting to the database - **3306** (to change it look at docker-compose.yml and DockerFile)
+  > The default port for the application is **8080**, and for connecting to the database - **3306** (to change it look at docker-compose.yml and Dockerfile)
 
 **Building**
 
