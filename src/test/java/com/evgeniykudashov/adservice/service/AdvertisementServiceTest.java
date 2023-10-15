@@ -2,7 +2,7 @@ package com.evgeniykudashov.adservice.service;
 
 import com.evgeniykudashov.adservice.exception.servicelayer.NotFoundEntityException;
 import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
-import com.evgeniykudashov.adservice.service.impl.AdvertisementServiceImpl;
+import com.evgeniykudashov.adservice.service.impl.SearchAdvertisementServiceImpl;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -29,7 +29,7 @@ class AdvertisementServiceTest {
 //    AdvertisementMapperProxy advertisementMapper;
 
     @InjectMocks
-    AdvertisementServiceImpl sut;
+    SearchAdvertisementServiceImpl sut;
 
     @Disabled
     @Test

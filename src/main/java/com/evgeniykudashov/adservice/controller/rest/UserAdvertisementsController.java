@@ -5,7 +5,7 @@ import com.evgeniykudashov.adservice.controller.ControllerDomainConstants;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
-import com.evgeniykudashov.adservice.service.AdvertisementService;
+import com.evgeniykudashov.adservice.service.AuthorizedUserAdvertisementService;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,7 +30,7 @@ import java.security.Principal;
 @RequestMapping(value = "/api/v1/user/advertisements")
 public class UserAdvertisementsController {
 
-    private final AdvertisementService advertisementService;
+    private final AuthorizedUserAdvertisementService advertisementService;
 
     @Operation(tags = {ControllerDomainConstants.USER, ControllerDomainConstants.ADVERTISEMENT},
             security = @SecurityRequirement(name = "jwt authentication"),
@@ -51,8 +51,9 @@ public class UserAdvertisementsController {
             security = @SecurityRequirement(name = "jwt authentication"),
             parameters = @Parameter(name = "advertisement", description = "the id of advertisement"))
     @DeleteMapping(path = "/{advertisementId}")
-    public void deleteAdvertisement(@PathVariable long advertisementId) {
-        advertisementService.removeAdvertisementById(advertisementId);
+    public void deleteAdvertisement(Principal principal,
+                                    @PathVariable long advertisementId) {
+        advertisementService.removeAdvertisementById(principal, advertisementId);
     }
 
     @Operation(tags = {ControllerDomainConstants.USER, ControllerDomainConstants.ADVERTISEMENT},
@@ -61,20 +62,30 @@ public class UserAdvertisementsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageDto<? extends AdvertisementResponseDto>> onGetAll(Principal principal,
                                                                                 @ParameterObject @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(advertisementService.getPageByPrincipal(principal, pageable));
+        return ResponseEntity.ok(advertisementService.getAdvertisementPage(principal, pageable));
     }
 
 
     @PostMapping("/{id}/active")
-    public ResponseEntity<Void> makeAdvertisementActive(@PathVariable Long id) {
-        advertisementService.activeAdvertisementById(id);
+    public ResponseEntity<Void> makeAdvertisementActive(Principal principal,
+                                                        @PathVariable Long id) {
+        advertisementService.activateAdvertisementById(principal, id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/hidden")
-    public ResponseEntity<Void> makeAdvertisementHidden(@PathVariable Long id) {
-        advertisementService.hideAdvertisementById(id);
+    public ResponseEntity<Void> makeAdvertisementHidden(Principal principal, @PathVariable Long id) {
+
+        advertisementService.hideAdvertisementById(principal, id);
+
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/viewed")
+    public ResponseEntity<?> getViewedAdvertisement(Principal principal,
+                                                    @PageableDefault(size = 5) Pageable pageable) {
+
+        return ResponseEntity.ok(advertisementService.getViewedAdvertisements(principal, pageable));
+    }
 }

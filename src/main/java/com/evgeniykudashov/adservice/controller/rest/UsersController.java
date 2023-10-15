@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.controller.rest;
 
 import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.service.ImageService;
 import com.evgeniykudashov.adservice.service.UserService;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +30,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsersController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final ImageService imageService;
 
     @Operation(description = "creates user",
             tags = "User",
