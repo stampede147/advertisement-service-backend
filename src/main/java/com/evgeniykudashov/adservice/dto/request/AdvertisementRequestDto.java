@@ -4,6 +4,7 @@ import com.evgeniykudashov.adservice.validation.CreateConstraint;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
@@ -38,6 +39,6 @@ public class AdvertisementRequestDto {
     @PositiveOrZero(groups = {CreateConstraint.class})
     Long categoryId;
 
-    @NotNull(groups = {CreateConstraint.class})
+    @NotEmpty(groups = {CreateConstraint.class})
     List<String> images;
 }
