@@ -28,20 +28,9 @@ public class MessageRequestDto {
     })
     long messageId;
 
-    @Positive(message = "chat id should be positive",
-            groups = {CreateConstraint.class, UpdateConstraint.class})
-    long chatId;
+    Long chatId;
 
     @NotEmpty(message = "body should not be empty",
             groups = {CreateConstraint.class, UpdateConstraint.class})
     String body;
-
-    @Positive(message = "sender id should be positive",
-            groups = {CreateConstraint.class, UpdateConstraint.class})
-    long senderId;
-
-    @NotNull(message = "status should not be empty",
-            groups = {CreateConstraint.class, UpdateConstraint.class})
-    MessageStatus status;
-
 }

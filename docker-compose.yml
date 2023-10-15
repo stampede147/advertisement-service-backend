@@ -2,12 +2,13 @@ version: "3.9"
 
 services:
   adservice-backend:
+    build: .
     image: adservice-backend
     container_name: adservice-backend
     restart: unless-stopped
     depends_on:
       database:
-        condition: service_completed_successfully
+        condition: service_healthy
     networks:
       - database_network
     ports:
@@ -23,6 +24,10 @@ services:
       - database_network
     ports:
       - "3306:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=0000 --execute=\"use services;\""
+      timeout: 5s
+      retries: 10
 
 networks:
   database_network:

@@ -5,14 +5,16 @@ import com.evgeniykudashov.adservice.dto.response.ChatResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import org.springframework.data.domain.Pageable;
 
+import java.security.Principal;
+
 public interface ChatService {
 
-    long create(ChatRequestDto dto);
+    long create(ChatRequestDto dto, Principal principal);
 
     void remove(long chatId);
 
-    PageDto<ChatResponseDto> findAllByUserId(long userId, Pageable pageable);
+    PageDto<ChatResponseDto> findAllByPrincipal(Principal principal, Pageable pageable);
 
-    ChatResponseDto findById(long chatId);
+    ChatResponseDto getByChatId(Principal principal, long chatId);
 }
 

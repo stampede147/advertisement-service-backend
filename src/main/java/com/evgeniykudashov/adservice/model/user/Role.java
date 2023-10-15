@@ -19,6 +19,8 @@ public enum Role implements GrantedAuthority {
         return authority;
     }
 
+
+
     public static class Constants {
         private static final String USER = "USER";
         private static final String ADMIN = "ADMIN";
@@ -26,4 +28,5 @@ public enum Role implements GrantedAuthority {
         public static final String ROLE_USER = ROLE_PREFIX + USER;
         public static final String ROLE_ADMIN = ROLE_PREFIX + ADMIN;
     }
+
 }

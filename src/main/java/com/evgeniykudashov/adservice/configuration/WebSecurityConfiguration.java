@@ -21,8 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
-
 
 @Configuration
 @EnableWebSecurity
@@ -42,11 +40,12 @@ public class WebSecurityConfiguration {
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .securityContext().and()
                 .authorizeHttpRequests(r -> {
-                    r.requestMatchers("/api/v1/advertisements/**").authenticated();
-                    r.requestMatchers("/api/v1/users/**").authenticated();
                     r.requestMatchers("/api/v1/chats/**").authenticated();
                     r.requestMatchers("/api/v1/chat-messages/**").authenticated();
+                    r.requestMatchers("/api/v1/user/**").authenticated();
                     r.requestMatchers("/api/v1/authentications/**").anonymous();
+                    r.requestMatchers("/api/v1/users/**").anonymous();
+                    r.requestMatchers("/api/v1/advertisements/**").permitAll();
                     r.anyRequest().permitAll();
                     })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
@@ -57,12 +56,14 @@ public class WebSecurityConfiguration {
                     config.addAllowedHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN);
                     config.addAllowedOrigin("http://localhost:3000");
                     config.addExposedHeader(HttpHeaders.COOKIE);
-                    config.addAllowedHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS);
                     config.addAllowedHeader(HttpHeaders.CONTENT_TYPE);
                     config.addAllowedHeader(HttpHeaders.AUTHORIZATION);
-//                    config.setAllowedHeaders(List.of(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION, HttpHeaders.LOCATION));
+                    config.addAllowedHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS);
                     config.addAllowedHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS);
+
                     config.addAllowedMethod("*");
+
+                    config.addExposedHeader(HttpHeaders.LOCATION);
                     source.registerCorsConfiguration("/**", config);
 
                     cors.configurationSource(source);

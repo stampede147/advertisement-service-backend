@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -19,5 +21,11 @@ public class ChatResponseAdvertisementDto {
 
     @Parameter(description = "The title of advertisement")
     String title;
+
+    String price;
+
+    List<ImageEntityResponseDto> images;
+
+    UserResponseDto seller;
 
 }

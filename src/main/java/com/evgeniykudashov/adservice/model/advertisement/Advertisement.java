@@ -1,79 +1,63 @@
 package com.evgeniykudashov.adservice.model.advertisement;
 
+
+import com.evgeniykudashov.adservice.model.category.Category;
+import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DiscriminatorOptions;
-import org.hibernate.annotations.Immutable;
 
-import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-@NoArgsConstructor()
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@SuperBuilder
-
-@SecondaryTable(name = "addresses",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "advertisement_id"),
-        uniqueConstraints = @UniqueConstraint(columnNames = "advertisement_id"))
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "advertisements")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorOptions(force = true)
-@DiscriminatorColumn(name = "type")
 @BatchSize(size = 10)
-public class Advertisement implements Serializable {
+public class Advertisement {
 
-    public static final String DISCRIMINATOR_COLUMN = "type";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "advertisement_id")
-    @EqualsAndHashCode.Include
-    private long id;
+    @Column(name = "advertisement_id", nullable = false)
+    private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Column(nullable = false)
     private String title;
 
+    @Column(length = 2048, nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false)
-    @Immutable
-    private User owner;
+    private double price;
+
+    @Column(nullable = false)
+    private LocalDate startTime;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", nullable = false)
+    private AdvertisementLocation location;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     private AdvertisementStatus status;
 
-    @Column(table = "addresses")
-    private Address address;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_seller_id", nullable = false)
+    private User seller;
 
-    private long price;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = DISCRIMINATOR_COLUMN, updatable = false, insertable = false)
-    private AdvertisementType type;
-
-    private LocalDate createdAt;
-
-    public Advertisement(long id,
-                         @NonNull String title,
-                         @NonNull String description,
-                         @NonNull User owner,
-                         @NonNull AdvertisementStatus status,
-                         @NonNull Address address,
-                         long price,
-                         @NotNull AdvertisementType type) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.owner = owner;
-        this.status = status;
-        this.address = address;
-        this.price = price;
-        this.type = type;
-    }
+    @ManyToMany()
+    @JoinTable(name = "advertisements_images",
+            joinColumns = @JoinColumn(name = "advertisement_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id"))
+    private List<ImageEntity> images;
 }

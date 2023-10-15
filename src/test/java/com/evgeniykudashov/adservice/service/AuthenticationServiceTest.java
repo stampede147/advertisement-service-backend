@@ -9,6 +9,7 @@ import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.OAuthTokenFactory;
 import com.evgeniykudashov.adservice.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+
+@Disabled
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {

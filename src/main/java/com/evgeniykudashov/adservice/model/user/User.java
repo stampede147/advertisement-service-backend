@@ -1,15 +1,16 @@
 package com.evgeniykudashov.adservice.model.user;
 
 
+import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -29,10 +30,6 @@ public class User implements Serializable {
 
     private String lastName;
 
-    private LocalDate birthdate;
-
-    private String email;
-
     @Column(unique = true)
     private String username;
 
@@ -41,19 +38,19 @@ public class User implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private ImageEntity image;
+
     public User(long id,
                 @NonNull String firstName,
                 @NonNull String lastName,
-                @NonNull LocalDate birthdate,
-                @NonNull String email,
                 @NonNull String username,
                 @NonNull String password,
                 @NonNull Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;

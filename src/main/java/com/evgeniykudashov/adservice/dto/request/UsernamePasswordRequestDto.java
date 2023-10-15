@@ -16,8 +16,6 @@ public class UsernamePasswordRequestDto {
             message = "password length should be minimum 4 and maximum 19, and consist of latin letters and digits")
     public String username;
 
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9]{4,}$",
-            message = "password length should be minimum 4 and consist of latin letters and digits")
     public String password;
 
     public UsernamePasswordRequestDto(@JsonProperty(required = true) String username,

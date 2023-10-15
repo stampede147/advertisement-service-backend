@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Range;
 
-import java.util.Set;
-
 
 @FieldDefaults(level = AccessLevel.PUBLIC)
 @Data
@@ -23,21 +21,17 @@ public class ChatRequestDto {
             @Range(min = 0, max = 0, groups = CreateConstraint.class, message = "chat id should be zero"),
             @Range(min = 1, groups = UpdateConstraint.class, message = "chat id should be positive")
     })
+    @Parameter(required = false)
     long chatId;
 
     @Positive(message = "advertisement id should be positive",
             groups = {CreateConstraint.class, UpdateConstraint.class})
+    @Parameter(required = true)
     Long advertisementId;
 
-    @Parameter(description = "participants of this chat")
-    @Positive(message = "user id should be positive",
-            groups = {CreateConstraint.class, UpdateConstraint.class})
-    Set<Long> userIds;
-
-    public ChatRequestDto(@JsonProperty(required = true) Long advertisementId,
-                          @JsonProperty(required = true) Set<Long> userIds) {
+    public ChatRequestDto(@JsonProperty(required = false) long chatId,
+                          @JsonProperty(required = true) Long advertisementId) {
+        this.chatId = chatId;
         this.advertisementId = advertisementId;
-        this.userIds = userIds;
     }
-
 }

@@ -4,17 +4,15 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
-
 
 @FieldDefaults(level = AccessLevel.PUBLIC)
 @Data
 public class ChatResponseDto {
 
-    long chatId;
+    long id;
 
-    ChatResponseAdvertisementDto advertisement;
+    AdvertisementResponseDto advertisement;
 
-    Set<ChatResponseUserDto> participants;
+    UserResponseDto buyer;
 
 }

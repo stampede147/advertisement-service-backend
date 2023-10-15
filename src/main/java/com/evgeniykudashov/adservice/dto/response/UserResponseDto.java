@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PUBLIC)
 public class UserResponseDto {
 
-    public long userId;
+    public long id;
 
     public String firstName;
 
@@ -24,4 +24,6 @@ public class UserResponseDto {
     public LocalDate birthdate;
 
     public String email;
+
+    public ImageEntityResponseDto image;
 }

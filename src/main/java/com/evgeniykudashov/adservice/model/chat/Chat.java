@@ -34,13 +34,9 @@ public class Chat implements Serializable {
     @Immutable
     private Advertisement advertisement;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "chats_users",
-            joinColumns = @JoinColumn(name = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", updatable = false))
-    @Immutable
-    @BatchSize(size = 10)
-    private Set<User> participants;
+    @OneToOne
+    @JoinColumn(name = "user_buyer_id")
+    private User buyer;
 
     @Enumerated(EnumType.STRING)
     private ChatStatus status;
@@ -49,11 +45,11 @@ public class Chat implements Serializable {
 
     public Chat(long id,
                 @NonNull Advertisement advertisement,
-                @NonNull Set<User> participants,
+                @NonNull User buyer,
                 @NonNull LocalDate createdAt) {
         this.id = id;
         this.advertisement = advertisement;
-        this.participants = participants;
+        this.buyer = buyer;
         this.createdAt = createdAt;
     }
 }

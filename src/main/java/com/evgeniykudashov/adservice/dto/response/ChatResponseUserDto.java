@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 public class ChatResponseUserDto {
 
     @Parameter(description = "the ID of user-participant")
-    long userId;
+    long id;
 
     String firstName;
 

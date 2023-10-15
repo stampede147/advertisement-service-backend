@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         validatePassword(dto.getPassword(), user.getPassword());
 
-        return factory.createToken(user.getUsername(), Collections.singleton(user.getRole()));
+        return factory.createToken(Long.toString(user.getId()), Collections.singleton(user.getRole()));
     }
 
     private User findUserByUsername(String username) {
@@ -55,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
             PasswordMismatchException exception = new PasswordMismatchException("provided password is wrong");
-            log.error("Unexpected exception: {}", exception);
+            log.error("Problems with validating password", exception);
             throw exception;
         }
     }

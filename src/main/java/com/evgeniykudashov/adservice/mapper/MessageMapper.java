@@ -4,8 +4,11 @@ package com.evgeniykudashov.adservice.mapper;
 import com.evgeniykudashov.adservice.dto.request.MessageRequestDto;
 import com.evgeniykudashov.adservice.dto.response.MessageResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
+import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
+import com.evgeniykudashov.adservice.model.chat.Chat;
 import com.evgeniykudashov.adservice.model.chat.Message;
 import com.evgeniykudashov.adservice.model.chat.statuses.MessageStatus;
+import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.ChatRepository;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import lombok.Setter;
@@ -26,13 +29,15 @@ public abstract class MessageMapper {
     protected ChatRepository chatRepository;
 
     @Mapping(target = "id", expression = "java(dto.getMessageId())")
-    @Mapping(target = "chat", expression = "java(chatRepository.getReferenceById(dto.getChatId()))")
-    @Mapping(target = "sender", expression = "java(userRepository.getReferenceById(dto.getSenderId()))")
     @Mapping(target = "status", expression = "java(status)")
     @Mapping(target = "createdAt", expression = "java(createdAt)")
+    @Mapping(target = "sender", expression = "java(sender)")
+    @Mapping(target = "chat", expression = "java(chat)")
     public abstract Message toMessage(MessageRequestDto dto,
                                       LocalDateTime createdAt,
-                                      MessageStatus status);
+                                      MessageStatus status,
+                                      User sender,
+                                      Chat chat);
 
     @Mapping(target = "messageId", source = "id")
     @Mapping(target = "chatId", expression = "java(chatMessage.getChat().getId())")
