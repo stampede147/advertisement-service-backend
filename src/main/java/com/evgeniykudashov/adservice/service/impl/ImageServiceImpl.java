@@ -17,10 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,62 +31,82 @@ import java.util.UUID;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    private final static String PATH_IMAGE_LOCATION = "static/images/";
     private final ImageEntityRepository imageEntityRepository;
+
     private final ImageEntityMapper imageEntityMapper;
+
     private final List<String> supportedContentTypes = new ArrayList<>();
-    private final Path root = Paths.get(PATH_IMAGE_LOCATION);
+
+
+    private static Path resolveFilePath(Path path, String id, String contentType) {
+
+        String filename = resolveFilenameForPath(id, contentType);
+
+        return path.resolve(filename);
+    }
+
+    private static String resolveFilenameForPath(String id, String contentType) {
+        return String.format("%s.%s", id, contentType.substring(contentType.lastIndexOf("/") + 1));
+    }
 
     @PostConstruct
     public void init() throws IOException {
         supportedContentTypes.add(MediaType.IMAGE_JPEG_VALUE);
         supportedContentTypes.add(MediaType.IMAGE_PNG_VALUE);
 
-        Files.createDirectories(Path.of(PATH_IMAGE_LOCATION));
-
     }
 
-    /**
-     * @param file that has to be saved
-     * @throws IOException
-     */
-    public Path saveImageInPath(String filename, Path path, MultipartFile file) throws IOException {
+    @Override
+    @Transactional
+    public ImageEntityResponseDto saveImage(MultipartFile image) throws IOException {
 
-        if (file.getContentType() == null) {
-            throw new RuntimeException("file content type is null");
+        validateFile(image);
+
+        String id = UUID.randomUUID().toString();
+
+        Path path = saveImage(image, id);
+
+        ImageEntity savedEntity = saveEntity(id, path);
+
+        return imageEntityMapper.toResponseDto(savedEntity);
+    }
+
+    private Path saveImage(MultipartFile file, String id) throws IOException {
+        Path path = resolvePath();
+
+        //creating directory if not exists
+        File directory = path.toFile();
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
 
-        Path filePath = path.resolve(filename
-                .concat(".")
-                .concat(file.getContentType() // extension
-                        .substring(file.getContentType().lastIndexOf("/") + 1)));
+        Path filePath = resolveFilePath(path, id, file.getContentType());
 
         Files.copy(file.getInputStream(), filePath);
 
         return filePath;
     }
 
+    private ImageEntity saveEntity(String id, Path path) {
+        ImageEntity entity = imageEntityMapper.toImageEntity(id, path.toUri().toString());
 
-    @Override
-    @Transactional
-    public ImageEntityResponseDto saveImage(MultipartFile file) throws IOException {
+        imageEntityRepository.save(entity);
+        return entity;
+    }
+
+    private Path resolvePath() {
+        return Path.of("static/images/")
+                .resolve(LocalDate.now().toString());
+    }
+
+    private void validateFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new RuntimeException("provided file is empty");
         }
 
-        if (supportedContentTypes.stream().noneMatch(type -> type.equals(file.getContentType()))) {
+        if (!supportedContentTypes.contains(file.getContentType())) {
             throw new RuntimeException("provided file is not supported");
         }
-
-        String imageName = UUID.randomUUID().toString();
-
-        Path path = saveImageInPath(imageName, root, file);
-
-        ImageEntity imageEntity = imageEntityMapper.toImageEntity(imageName, path.toUri().toString());
-
-        ImageEntity save = imageEntityRepository.save(imageEntity);
-
-        return imageEntityMapper.toResponseDto(save);
     }
 
     @Override
