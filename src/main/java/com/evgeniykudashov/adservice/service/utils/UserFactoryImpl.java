@@ -30,7 +30,7 @@ public class UserFactoryImpl implements UserFactory {
 
         user.setRole(Role.USER);
 
-        user.setImageEntity(imageEntitySupplier.get());
+        user.setImage(imageEntitySupplier.get());
 
         return user;
     }
