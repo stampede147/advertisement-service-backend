@@ -55,10 +55,9 @@ public class Advertisement {
     @JoinColumn(name = "user_seller_id", nullable = false)
     private User seller;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "advertisements_images",
             joinColumns = @JoinColumn(name = "advertisement_id"),
             inverseJoinColumns = @JoinColumn(name = "image_id"))
     private List<ImageEntity> images;
-
 }
