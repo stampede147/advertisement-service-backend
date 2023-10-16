@@ -34,7 +34,7 @@ This project - **Advertisement service** - is **REST API** application which pro
 
   For build application you need to write at project root:
   
-    ./mwnw build
+    ./mwnw clean install
 
 **Containerizing an application**
 
