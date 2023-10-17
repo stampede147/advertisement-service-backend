@@ -11,6 +11,7 @@ import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.repository.*;
 import com.evgeniykudashov.adservice.service.AuthorizedUserAdvertisementService;
+import com.evgeniykudashov.adservice.service.factory.AdvertisementFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +47,8 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
 
     private final Converter<Principal, Long> principalConverter;
 
+    private final AdvertisementFactory factory;
+
     @Override
     @Transactional
     @PreAuthorize("isFullyAuthenticated()")
@@ -54,18 +56,25 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
         log.trace("Started createAdvertisement(Principal, AdvertisementRequestDto) method");
         log.debug("Provided parameter dto: {}, principal : {}", dto, principal);
 
-        Advertisement advertisement = advertisementMapper.toAdvertisement(dto,
-                LocalDate.now(),
-                AdvertisementStatus.CREATED,
-                userRepository.getReferenceById(principalConverter.convert(principal)),
-                categoryRepository.getReferenceById(dto.getCategoryId()),
-                dto.getImages().stream()
-                        .map(imageEntityRepository::getReferenceById)
-                        .collect(Collectors.toList())
-        );
+        Advertisement advertisement = factory.createAdvertisement(() -> advertisementMapper.toAdvertisement(dto),
+                () -> userRepository.getReferenceById(principalConverter.convert(principal)),
+                () -> categoryRepository.getReferenceById(dto.getCategoryId()),
+                () -> dto.getImages().stream().map(imageEntityRepository::getReferenceById).collect(Collectors.toList()));
 
 
         return advertisementRepository.save(advertisement).getId();
+    }
+
+    @Override
+    @Transactional
+    @PreAuthorize("isFullyAuthenticated()")
+    public void hideAdvertisementById(Principal principal, long id) {
+        log.trace("Started hideAdvertisementById(long) method");
+        log.debug("Provided parameters id: {}", id);
+
+        this.findByAdvertisementIdAndSellerId(id, principalConverter.convert(principal))
+                .setStatus(AdvertisementStatus.HIDDEN);
+
     }
 
     @Override
@@ -114,15 +123,16 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     }
 
     @Override
-    @Transactional
-    @PreAuthorize("isFullyAuthenticated()")
-    public void hideAdvertisementById(Principal principal, long id) {
-        log.trace("Started hideAdvertisementById(long) method");
-        log.debug("Provided parameters id: {}", id);
+    public void addViewedAdvertisementById(Principal principal, long advertisementId) {
 
-        this.findByAdvertisementIdAndSellerId(id, principalConverter.convert(principal)).
-                setStatus(AdvertisementStatus.HIDDEN);
+        Long userId = principalConverter.convert(principal);
+        long itemId = advertisementId;
 
+        ViewedAdvertisement viewedAdvertisement = new ViewedAdvertisement();
+        viewedAdvertisement.setAdvertisement(advertisementRepository.getReferenceById(itemId));
+        viewedAdvertisement.setUser(userRepository.getReferenceById(userId));
+
+        viewedAdvertisementRepository.save(viewedAdvertisement);
     }
 
     @EventListener(condition = "#event.principal != null")
@@ -131,19 +141,6 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
         log.debug("Provided parameters event: {}", event);
 
         this.addViewedAdvertisementById(event.getPrincipal(), event.getAdvertisementId());
-    }
-
-    @Override
-    public void addViewedAdvertisementById(Principal principal, long advertisementId) {
-        Long userId = principalConverter.convert(principal);
-        long itemId = advertisementId;
-
-
-        ViewedAdvertisement viewedAdvertisement = new ViewedAdvertisement();
-        viewedAdvertisement.setAdvertisement(advertisementRepository.getReferenceById(itemId));
-        viewedAdvertisement.setUser(userRepository.getReferenceById(userId));
-
-        viewedAdvertisementRepository.save(viewedAdvertisement);
     }
 
     @Override

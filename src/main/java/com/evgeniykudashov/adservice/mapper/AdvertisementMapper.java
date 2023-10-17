@@ -7,10 +7,7 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.category.Category;
-import com.evgeniykudashov.adservice.model.image.ImageEntity;
-import com.evgeniykudashov.adservice.model.user.User;
 import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,24 +15,16 @@ import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CategoryMapper.class, ImageEntityMapperDecorator.class})
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class, ImageEntityMapper.class, UserMapper.class})
 @Setter(onMethod_ = @Autowired)
 public abstract class AdvertisementMapper {
 
 
-    @Mapping(target = "title", source = "dto.title")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "images", source = "images")
-    public abstract Advertisement toAdvertisement(AdvertisementRequestDto dto,
-                                                  LocalDate startTime,
-                                                  AdvertisementStatus status,
-                                                  User seller,
-                                                  Category category,
-                                                  List<ImageEntity> images);
+    public abstract Advertisement toAdvertisement(AdvertisementRequestDto dto);
 
     @Mapping(target = "category", source = "category", qualifiedByName = "categoryToAdvertisementCategoryResponseDto")
     public abstract AdvertisementResponseDto toResponseDto(Advertisement advertisement);
