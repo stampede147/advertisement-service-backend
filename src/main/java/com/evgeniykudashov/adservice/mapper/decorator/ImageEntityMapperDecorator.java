@@ -1,7 +1,8 @@
-package com.evgeniykudashov.adservice.mapper;
+package com.evgeniykudashov.adservice.mapper.decorator;
 
 import com.evgeniykudashov.adservice.controller.rest.ImageController;
 import com.evgeniykudashov.adservice.dto.response.ImageEntityResponseDto;
+import com.evgeniykudashov.adservice.mapper.ImageEntityMapper;
 import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

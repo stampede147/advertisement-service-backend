@@ -4,6 +4,7 @@ package com.evgeniykudashov.adservice.mapper;
 import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementUserResponseDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.mapper.decorator.UserMapperDecorator;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.Setter;
 import org.mapstruct.DecoratedWith;
