@@ -72,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private Path saveImage(MultipartFile file, String id) throws IOException {
-        Path path = resolvePath();
+        Path path = getPath();
 
         //creating directory if not exists
         File directory = path.toFile();
@@ -90,11 +90,12 @@ public class ImageServiceImpl implements ImageService {
     private ImageEntity saveEntity(String id, Path path) {
         ImageEntity entity = imageEntityMapper.toImageEntity(id, path.toUri().toString());
 
-        imageEntityRepository.save(entity);
-        return entity;
+        ImageEntity saved = imageEntityRepository.save(entity);
+
+        return saved;
     }
 
-    private Path resolvePath() {
+    private Path getPath() {
         return Path.of("static/images/")
                 .resolve(LocalDate.now().toString());
     }
