@@ -1,9 +1,10 @@
-package com.evgeniykudashov.adservice.mapper;
+package com.evgeniykudashov.adservice.mapper.decorator;
 
 import com.evgeniykudashov.adservice.controller.rest.StaticFilePathController;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementUserResponseDto;
 import com.evgeniykudashov.adservice.dto.response.ImageEntityResponseDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
+import com.evgeniykudashov.adservice.mapper.UserMapper;
 import com.evgeniykudashov.adservice.model.user.User;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
