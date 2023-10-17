@@ -1,8 +1,5 @@
-package com.evgeniykudashov.adservice.service.utils;
+package com.evgeniykudashov.adservice.service.factory;
 
-import com.evgeniykudashov.adservice.dto.request.UserRequestDto;
-import com.evgeniykudashov.adservice.mapper.UserMapper;
-import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.Role;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +16,16 @@ public class UserFactoryImpl implements UserFactory {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserMapper userMapper;
-
     @Override
-    public User createUser(UserRequestDto userDto, Supplier<ImageEntity> imageEntitySupplier) {
+    public User createUser(Supplier<User> userSupplier) {
 
-        User user = userMapper.toUser(userDto);
+        User user = userSupplier.get();
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         user.setRole(Role.USER);
 
-        user.setImage(imageEntitySupplier.get());
+        user.setImage(null);
 
         return user;
     }
