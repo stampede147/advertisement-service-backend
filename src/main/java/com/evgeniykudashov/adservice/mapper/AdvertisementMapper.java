@@ -24,6 +24,7 @@ public abstract class AdvertisementMapper {
 
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "images", ignore = true)
     public abstract Advertisement toAdvertisement(AdvertisementRequestDto dto);
 
     @Mapping(target = "category", source = "category", qualifiedByName = "categoryToAdvertisementCategoryResponseDto")

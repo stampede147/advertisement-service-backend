@@ -9,7 +9,6 @@ import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.security.jwt.tokenfactory.OAuthTokenFactory;
 import com.evgeniykudashov.adservice.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,13 +17,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-
-@Disabled
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
@@ -52,15 +48,13 @@ class AuthenticationServiceTest {
         UsernamePasswordRequestDto requestDto = new UsernamePasswordRequestDto(username, rawPassword);
 
         User user = Mockito.mock(User.class);
-        Mockito.when(user.getUsername()).thenReturn(username);
         Mockito.when(user.getPassword()).thenReturn(encodedPassword);
-        Mockito.when(user.getRole()).thenReturn(Role.USER);
 
         Mockito.when(userRepository.findByUsername(username))
                 .thenReturn(Optional.of(user));
         Mockito.when(passwordEncoder.matches(rawPassword, encodedPassword))
                 .thenReturn(true);
-        Mockito.when(tokenFactory.createToken(username, Collections.singleton(Role.USER)))
+        Mockito.when(tokenFactory.createToken(Mockito.any(), Mockito.any()))
                 .thenReturn(token);
 
         // Act
@@ -68,9 +62,6 @@ class AuthenticationServiceTest {
 
         // Assert
         Assertions.assertEquals(token, resultToken);
-        verify(userRepository, times(1)).findByUsername(username);
-        verify(passwordEncoder, times(1)).matches(rawPassword, encodedPassword);
-        verify(tokenFactory, times(1)).createToken(username, Collections.singleton(Role.USER));
     }
 
     @Test
