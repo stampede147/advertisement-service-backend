@@ -1,7 +1,6 @@
 package com.evgeniykudashov.adservice.controller.rest;
 
 
-import com.evgeniykudashov.adservice.controller.ControllerDomainConstants;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
@@ -32,7 +31,7 @@ public class UserAdvertisementsController {
 
     private final AuthorizedUserAdvertisementService advertisementService;
 
-    @Operation(tags = {ControllerDomainConstants.USER, ControllerDomainConstants.ADVERTISEMENT},
+    @Operation(tags = {"User", "Advertisement"},
             security = @SecurityRequirement(name = "jwt authentication"),
             description = "Creates a new advertisement owned by the authenticated user.")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +55,7 @@ public class UserAdvertisementsController {
         advertisementService.removeAdvertisementById(principal, advertisementId);
     }
 
-    @Operation(tags = {ControllerDomainConstants.USER, ControllerDomainConstants.ADVERTISEMENT},
+    @Operation(tags = {"User", "Advertisement"},
             security = @SecurityRequirement(name = "jwt authentication"),
             description = "Returns paged array of advertisements owned by the authenticated user.")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
