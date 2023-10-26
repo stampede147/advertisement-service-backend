@@ -54,8 +54,8 @@ public class JwtAuthenticationController {
     }
 
     @Operation(description = "Provides authentication details")
-    @ApiResponse(responseCode = "204",
-            description = "(NO CONTENT) provides API refresh token in cookie and access token in response body",
+    @ApiResponse(responseCode = "200",
+            description = "(OK) provides API refresh token in cookie and access token in response body",
             headers = @Header(
                     name = HttpHeaders.SET_COOKIE,
                     description = "provides refresh token for re-authentication, after " + REFRESH_TOKEN_COOKIE + "=",
@@ -74,8 +74,8 @@ public class JwtAuthenticationController {
     }
 
     @Operation(description = "Provides authentication details by refresh procedure")
-    @ApiResponse(responseCode = "204",
-            description = "(NO CONTENT) provides API refresh token in cookie and access token in response body",
+    @ApiResponse(responseCode = "200",
+            description = "(OK) provides API refresh token in cookie and access token in response body",
             headers = @Header(
                     name = HttpHeaders.SET_COOKIE,
                     description = "provides refresh token for re-authentication, after " + REFRESH_TOKEN_COOKIE + "=",
