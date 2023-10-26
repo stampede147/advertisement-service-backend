@@ -4,7 +4,7 @@ This project - **Advertisement service** - is **REST API** application which pro
 ## Features
 + Creating/Updating/Deleting/Finding for **Advertisement**
 + Creating/Updating/Deleting for **User**
-+ Authorization by **JWT** token
++ Authorization with access **JWT** token (and refresh token to retrieve new access token)
 + User chatting about advertisements
 + Saving and loading images
 
