@@ -5,11 +5,13 @@ import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.model.category.Category;
 import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.User;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 
+@Component
 public class AdvertisementFactoryImpl implements AdvertisementFactory {
 
     @Override

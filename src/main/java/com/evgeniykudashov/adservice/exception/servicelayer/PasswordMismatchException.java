@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
         reason = "provided wrong password")
 public class PasswordMismatchException extends ServiceLayerException {
 
+    public PasswordMismatchException() {
+    }
+
     public PasswordMismatchException(String message) {
         super(message);
     }
