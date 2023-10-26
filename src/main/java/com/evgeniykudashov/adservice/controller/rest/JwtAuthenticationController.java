@@ -9,52 +9,87 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Cookie;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Tag(name = "Authentication", description = "provides API about authentication")
 
 @RestController
-@RequestMapping(value = "/api/v1/authentications",
+@RequestMapping(value = "/api/v1/authentications/jwt",
 
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor(onConstructor_ = @Autowired)
 public class JwtAuthenticationController {
 
-    public static final String ACCESS_TOKEN = "access_token";
+    public static final String REFRESH_TOKEN_COOKIE = "refresh";
+
+    private final long refreshTokenLifeMillis;
 
     protected AuthenticationService authenticationService;
 
+    @Autowired
+    public JwtAuthenticationController(@Value("${application.security.jwt.refreshLifeMillis}") long refreshTokenLifeMillis,
+                                       AuthenticationService authenticationService) {
+        this.refreshTokenLifeMillis = refreshTokenLifeMillis;
+        this.authenticationService = authenticationService;
+    }
+
+    private static String getRefreshTokenCookieSettings(String refreshToken, long refreshTokenLifeMillis) {
+        return ResponseCookie.from(REFRESH_TOKEN_COOKIE, refreshToken)
+                .httpOnly(true)
+                .sameSite("strict")
+                .maxAge(Duration.ofMillis(refreshTokenLifeMillis))
+                .path("/api/v1/authentications/jwt")
+                .build()
+                .toString();
+    }
+
     @Operation(description = "Provides authentication details")
     @ApiResponse(responseCode = "204",
-            description = "(NO CONTENT) provides API access token in cookie",
+            description = "(NO CONTENT) provides API refresh token in cookie and access token in response body",
             headers = @Header(
                     name = HttpHeaders.SET_COOKIE,
-                    description = "provides jwt token for authentication, after " + ACCESS_TOKEN + "=",
-                    schema = @Schema(
-                            example = ACCESS_TOKEN + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
+                    description = "provides refresh token for re-authentication, after " + REFRESH_TOKEN_COOKIE + "=",
+                    schema = @Schema(example = REFRESH_TOKEN_COOKIE + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
             ))
-    @PostMapping("/jwt")
-    public ResponseEntity<Void> createJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
-        return ResponseEntity.noContent()
+    @PostMapping("")
+    public ResponseEntity<String> provideJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
+
+        String accessToken = authenticationService.generateJwtToken(dto);
+
+        String refreshToken = authenticationService.generateRefreshToken(accessToken);
+
+        return ResponseEntity.ok()
                 .headers(headers -> headers.add(HttpHeaders.SET_COOKIE,
-                        ResponseCookie.from(ACCESS_TOKEN, authenticationService.generateJwtToken(dto))
-//                                .httpOnly(true)
-//                                .secure(true)
-                                .sameSite("strict")
-                                .path("/")
-                                .build()
-                                .toString()))
-                .build();
+                        getRefreshTokenCookieSettings(refreshToken, this.refreshTokenLifeMillis)))
+                .body(accessToken);
+    }
+
+    @Operation(description = "Provides authentication details")
+    @ApiResponse(responseCode = "204",
+            description = "(NO CONTENT) provides API refresh token in cookie and access token in response body",
+            headers = @Header(
+                    name = HttpHeaders.SET_COOKIE,
+                    description = "provides refresh token for re-authentication, after " + REFRESH_TOKEN_COOKIE + "=",
+                    schema = @Schema(example = REFRESH_TOKEN_COOKIE + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
+            ))
+    @PostMapping(path = "/refresh")
+    public ResponseEntity<?> provideJwtAuthentication(@CookieValue(name = REFRESH_TOKEN_COOKIE)
+                                                      @NotEmpty String refreshTokenRaw) {
+
+        String accessToken = authenticationService.generateAccessToken(refreshTokenRaw, LocalDateTime.now());
+
+        return ResponseEntity.ok()
+                .headers(headers -> headers.add(HttpHeaders.SET_COOKIE, getRefreshTokenCookieSettings(this.authenticationService.generateRefreshToken(accessToken), this.refreshTokenLifeMillis)))
+                .body(accessToken);
     }
 }
