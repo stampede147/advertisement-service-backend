@@ -62,19 +62,18 @@ public class JwtAuthenticationController {
                     schema = @Schema(example = REFRESH_TOKEN_COOKIE + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
             ))
     @PostMapping("")
-    public ResponseEntity<String> provideJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
+    public ResponseEntity<String> refreshJwtAuthentication(@RequestBody @Valid UsernamePasswordRequestDto dto) {
 
         String accessToken = authenticationService.generateJwtToken(dto);
 
         String refreshToken = authenticationService.generateRefreshToken(accessToken);
 
         return ResponseEntity.ok()
-                .headers(headers -> headers.add(HttpHeaders.SET_COOKIE,
-                        getRefreshTokenCookieSettings(refreshToken, this.refreshTokenLifeMillis)))
+                .headers(headers -> headers.add(HttpHeaders.SET_COOKIE, getRefreshTokenCookieSettings(refreshToken, this.refreshTokenLifeMillis)))
                 .body(accessToken);
     }
 
-    @Operation(description = "Provides authentication details")
+    @Operation(description = "Provides authentication details by refresh procedure")
     @ApiResponse(responseCode = "204",
             description = "(NO CONTENT) provides API refresh token in cookie and access token in response body",
             headers = @Header(
@@ -83,7 +82,7 @@ public class JwtAuthenticationController {
                     schema = @Schema(example = REFRESH_TOKEN_COOKIE + "=eyJhbGciO9.eyJzdWIY5MDE3NTQ1NH0.e2iEpdV0K8IZV48")
             ))
     @PostMapping(path = "/refresh")
-    public ResponseEntity<?> provideJwtAuthentication(@CookieValue(name = REFRESH_TOKEN_COOKIE)
+    public ResponseEntity<?> refreshJwtAuthentication(@CookieValue(name = REFRESH_TOKEN_COOKIE)
                                                       @NotEmpty String refreshTokenRaw) {
 
         String accessToken = authenticationService.generateAccessToken(refreshTokenRaw, LocalDateTime.now());

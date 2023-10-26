@@ -67,6 +67,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return this.refreshTokenFactory.create(() -> userRepository.getReferenceById(userId));
     }
 
+    private static void checkExpireTime(LocalDateTime currentTime, LocalDateTime expireTime) {
+        if (currentTime.isAfter(expireTime)) {
+            throw new ExpiredRefreshTokenException();
+        }
+    }
+
     @Override
     @Transactional
     public String generateAccessToken(@NonNull String refreshTokenId, @NonNull LocalDateTime callTime) throws IllegalArgumentException {
@@ -75,22 +81,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         try {
             return generateAccessToken(UUID.fromString(refreshTokenId), callTime);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalRefreshTokenException(e);
+        } catch (IllegalArgumentException ie) {
+            throw new IllegalRefreshTokenException(ie);
+        } catch (NotFoundEntityException ne) {
+            throw new NotFoundRefreshTokenException(ne);
         }
 
     }
 
-    public String generateAccessToken(UUID tokenId, LocalDateTime currentTime) throws IllegalArgumentException {
+    public String generateAccessToken(UUID tokenId, LocalDateTime currentTime)
+            throws IllegalArgumentException, NotFoundEntityException {
 
-        RefreshToken refreshToken = refreshTokenRepository.findById(tokenId)
-                .orElseThrow(NotFoundRefreshTokenException::new);
+        RefreshToken refreshToken = this.refreshTokenRepository.findById(tokenId)
+                .orElseThrow(NotFoundEntityException::new);
 
-        if (currentTime.isAfter(refreshToken.getExpiresAt())) {
-            throw new ExpiredRefreshTokenException();
-        }
+        checkExpireTime(currentTime, refreshToken.getExpiresAt());
 
-        refreshTokenRepository.delete(refreshToken);
+        this.refreshTokenRepository.delete(refreshToken);
 
         return generateAccessTokenInternal(refreshToken.getUser());
 
