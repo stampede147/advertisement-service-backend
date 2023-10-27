@@ -17,12 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +33,7 @@ public class ImageServiceImpl implements ImageService {
 
     private final ImageEntityMapper imageEntityMapper;
 
-    private final List<String> supportedContentTypes = new ArrayList<>();
+    private final List<String> supportedContentTypes = List.of(MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE);
 
 
     private static Path resolveFilePath(Path path, String id, String contentType) {
@@ -51,36 +49,36 @@ public class ImageServiceImpl implements ImageService {
 
     @PostConstruct
     public void init() throws IOException {
-        supportedContentTypes.add(MediaType.IMAGE_JPEG_VALUE);
-        supportedContentTypes.add(MediaType.IMAGE_PNG_VALUE);
-
+        createDirectoryIfNotExists(getPath());
     }
+
+    private void createDirectoryIfNotExists(Path directory) {
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create directory: " + directory, e);
+            }
+        }
+    }
+
 
     @Override
     @Transactional
     public ImageEntityResponseDto saveImage(MultipartFile image) throws IOException {
-
         validateFile(image);
 
         String id = UUID.randomUUID().toString();
-
-        Path path = saveImage(image, id);
+        Path path = saveImageToFile(image, id);
 
         ImageEntity savedEntity = saveEntity(id, path);
 
         return imageEntityMapper.toResponseDto(savedEntity);
     }
 
-    private Path saveImage(MultipartFile file, String id) throws IOException {
-        Path path = getPath();
+    private Path saveImageToFile(MultipartFile file, String filename) throws IOException {
 
-        //creating directory if not exists
-        File directory = path.toFile();
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        Path filePath = resolveFilePath(path, id, file.getContentType());
+        Path filePath = resolveFilePath(getPath(), filename, file.getContentType());
 
         Files.copy(file.getInputStream(), filePath);
 
@@ -115,7 +113,15 @@ public class ImageServiceImpl implements ImageService {
     public Resource findById(@NonNull String id) {
         return imageEntityRepository.findById(id)
                 .map(ImageEntity::getLocation)
-                .map(UrlResource::from)
+                .map(this::createUrlResource)
                 .orElseThrow(NotFoundEntityException::new);
+    }
+
+    private Resource createUrlResource(String location) {
+        try {
+            return new UrlResource(location);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create URL resource for location: " + location, e);
+        }
     }
 }
