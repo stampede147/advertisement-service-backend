@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
 
     private final ImageEntityMapper imageEntityMapper;
 
-    private final List<String> supportedContentTypes = new ArrayList<>();
+    private final List<String> supportedContentTypes = List.of(MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE);
 
 
     private static Path resolveFilePath(Path path, String id, String contentType) {
