@@ -126,4 +126,12 @@ public class ImageServiceImpl implements ImageService {
                 .map(UrlResource::from)
                 .orElseThrow(NotFoundEntityException::new);
     }
+
+    private Resource createUrlResource(String location) {
+        try {
+            return new UrlResource(location);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create URL resource for location: " + location, e);
+        }
+    }
 }
