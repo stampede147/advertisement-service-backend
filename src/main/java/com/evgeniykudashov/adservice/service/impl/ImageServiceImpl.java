@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,7 +53,16 @@ public class ImageServiceImpl implements ImageService {
         supportedContentTypes.add(MediaType.IMAGE_JPEG_VALUE);
         supportedContentTypes.add(MediaType.IMAGE_PNG_VALUE);
 
+    private void createDirectoryIfNotExists(Path directory) {
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create directory: " + directory, e);
+            }
+        }
     }
+
 
     @Override
     @Transactional
