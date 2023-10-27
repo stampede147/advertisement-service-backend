@@ -123,7 +123,7 @@ public class ImageServiceImpl implements ImageService {
     public Resource findById(@NonNull String id) {
         return imageEntityRepository.findById(id)
                 .map(ImageEntity::getLocation)
-                .map(UrlResource::from)
+                .map(this::createUrlResource)
                 .orElseThrow(NotFoundEntityException::new);
     }
 
