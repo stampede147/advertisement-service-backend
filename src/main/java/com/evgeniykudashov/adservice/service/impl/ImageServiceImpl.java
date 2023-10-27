@@ -50,8 +50,8 @@ public class ImageServiceImpl implements ImageService {
 
     @PostConstruct
     public void init() throws IOException {
-        supportedContentTypes.add(MediaType.IMAGE_JPEG_VALUE);
-        supportedContentTypes.add(MediaType.IMAGE_PNG_VALUE);
+        createDirectoryIfNotExists(getPath());
+    }
 
     private void createDirectoryIfNotExists(Path directory) {
         if (!Files.exists(directory)) {
