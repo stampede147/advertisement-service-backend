@@ -5,6 +5,7 @@ import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementCategoryResponseDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
+import com.evgeniykudashov.adservice.dto.response.ReviewAdvertisementResponse;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.category.Category;
@@ -37,6 +38,9 @@ public abstract class AdvertisementMapper {
     }
 
     public abstract PageDto<AdvertisementResponseDto> toPageDto(Page<Advertisement> advertisementsPage);
+
+    @Mapping(target = "seller", source = "advertisement.seller.firstName")
+    public abstract ReviewAdvertisementResponse toReviewAdvertisementResponse(Advertisement advertisement);
 
     @Named(value = "categoryToAdvertisementCategoryResponseDto")
     public AdvertisementCategoryResponseDto categoryToAdvertisementCategoryResponseDto(Category category) {
