@@ -26,7 +26,7 @@ class AuthenticationControllerUnitTest {
         UsernamePasswordRequestDto dto = Mockito.mock(UsernamePasswordRequestDto.class);
 
         // Act
-        ResponseEntity<?> jwtAuthentication = sut.provideJwtAuthentication(dto);
+        ResponseEntity<?> jwtAuthentication = sut.refreshJwtAuthentication(dto);
 
         // Assert
         Assertions.assertNotNull(jwtAuthentication);
