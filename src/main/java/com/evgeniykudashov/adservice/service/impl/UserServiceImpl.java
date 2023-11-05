@@ -7,7 +7,6 @@ import com.evgeniykudashov.adservice.mapper.UserMapper;
 import com.evgeniykudashov.adservice.model.user.User;
 import com.evgeniykudashov.adservice.repository.UserRepository;
 import com.evgeniykudashov.adservice.service.UserService;
-import com.evgeniykudashov.adservice.service.factory.UserFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserFactory userFactory;
-
     private final UserMapper mapper;
 
     private final Converter<Principal, Long> principalConverter;
@@ -40,7 +37,7 @@ public class UserServiceImpl implements UserService {
         log.trace("Started create(Us erRequestDto) method");
         log.debug("Provided parameter dto: {}", dto);
 
-        User user = userFactory.createUser(() -> mapper.toUser(dto));
+        User user = mapper.toUser(dto, null);
 
         return userRepository.save(user)
                 .getId();

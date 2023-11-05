@@ -6,28 +6,41 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementUserResponseDto;
 import com.evgeniykudashov.adservice.dto.response.UserResponseDto;
 import com.evgeniykudashov.adservice.mapper.decorator.UserMapperDecorator;
 import com.evgeniykudashov.adservice.model.user.User;
+import com.evgeniykudashov.adservice.repository.ImageEntityRepository;
+import com.evgeniykudashov.adservice.service.factory.UserFactory;
 import lombok.Setter;
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring", uses = ImageEntityMapper.class)
+@Mapper(componentModel = "spring",
+        uses = {ImageEntityMapper.class, UserFactory.class},
+        builder = @Builder(disableBuilder = true))
 @Setter(onMethod_ = @Autowired)
 @DecoratedWith(UserMapperDecorator.class)
 public abstract class UserMapper {
 
+    protected UserFactory userFactory;
 
-    //    @Mapping(target = "password", source = "encodedPassword")
-//    @Mapping(target = "role", source = "role")
-//    @Mapping(target = "imageEntity", source = "image")
+    @Mapping(target = "image", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "role", ignore = true)
     @Mapping(target = "id", ignore = true)
-    public abstract User toUser(UserRequestDto dto);
+    public abstract User toUser(UserRequestDto dto, ImageEntityRepository imageEntityRepository);
 
+    @Mapping(target = "image", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    protected abstract User mapUser(@MappingTarget User user, UserRequestDto dto);
 
     @Mapping(target = "image", source = "image")
     public abstract UserResponseDto toUserResponseDto(User user);
 
-
     public abstract AdvertisementUserResponseDto toAdvertisementUserResponseDto(User user);
+
+    @ObjectFactory
+    protected User createUser(UserRequestDto dto) {
+
+        return dto == null ? null : userFactory.createUser(dto.getPassword());
+    }
 }

@@ -12,9 +12,12 @@ public interface AdvertisementFactory {
 
 
     Advertisement createAdvertisement(Supplier<Advertisement> advertisementSupplier,
-                                             Supplier<User> sellerSupplier,
-                                             Supplier<Category> categorySupplier,
-                                             Supplier<List<ImageEntity>> imagesSupplier);
+                                      Supplier<User> sellerSupplier,
+                                      Supplier<Category> categorySupplier,
+                                      Supplier<List<ImageEntity>> imagesSupplier);
 
+    default Advertisement createAdvertisement() {
+        return createAdvertisement(Advertisement::new, () -> null, () -> null, () -> null);
+    }
 
 }

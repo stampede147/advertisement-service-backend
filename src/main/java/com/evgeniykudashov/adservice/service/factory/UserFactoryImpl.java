@@ -1,5 +1,6 @@
 package com.evgeniykudashov.adservice.service.factory;
 
+import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.Role;
 import com.evgeniykudashov.adservice.model.user.User;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +18,13 @@ public class UserFactoryImpl implements UserFactory {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(Supplier<User> userSupplier) {
+    public User createUser(Supplier<User> userSupplier, String rawPassword, Role role, ImageEntity image) {
 
         User user = userSupplier.get();
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        user.setRole(Role.USER);
-
-        user.setImage(null);
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        user.setRole(role);
+        user.setImage(image);
 
         return user;
     }
