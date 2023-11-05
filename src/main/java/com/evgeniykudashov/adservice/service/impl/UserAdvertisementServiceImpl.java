@@ -11,7 +11,6 @@ import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
 import com.evgeniykudashov.adservice.repository.*;
 import com.evgeniykudashov.adservice.service.AuthorizedUserAdvertisementService;
-import com.evgeniykudashov.adservice.service.factory.AdvertisementFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -47,7 +45,6 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
 
     private final Converter<Principal, Long> principalConverter;
 
-    private final AdvertisementFactory factory;
 
     @Override
     @Transactional
@@ -56,13 +53,14 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
         log.trace("Started createAdvertisement(Principal, AdvertisementRequestDto) method");
         log.debug("Provided parameter dto: {}, principal : {}", dto, principal);
 
-        Advertisement advertisement = factory.createAdvertisement(() -> advertisementMapper.toAdvertisement(dto),
-                () -> userRepository.getReferenceById(principalConverter.convert(principal)),
-                () -> categoryRepository.getReferenceById(dto.getCategoryId()),
-                () -> dto.getImages().stream().map(imageEntityRepository::getReferenceById).collect(Collectors.toList()));
+        Advertisement advertisement = advertisementMapper.toAdvertisement(dto,
+                principalConverter.convert(principal),
+                userRepository,
+                imageEntityRepository,
+                categoryRepository);
 
-
-        return advertisementRepository.save(advertisement).getId();
+        return advertisementRepository.save(advertisement)
+                .getId();
     }
 
     @Override
