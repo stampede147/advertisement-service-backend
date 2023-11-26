@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.dto.response;
 
-import com.evgeniykudashov.adservice.service.QuerySuggestStrategy;
+import com.evgeniykudashov.adservice.service.strategy.QuerySuggestStrategy;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;

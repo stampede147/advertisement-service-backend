@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.service;
+package com.evgeniykudashov.adservice.service.strategy;
 
 import com.evgeniykudashov.adservice.controller.rest.AdvertisementsController;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.evgeniykudashov.adservice.service.ViewedAdvertisementQuerySuggestStrategyImpl.ORDER;
+import static com.evgeniykudashov.adservice.service.strategy.ViewedAdvertisementQuerySuggestStrategyImpl.ORDER;
 
 @RequiredArgsConstructor
 @Component

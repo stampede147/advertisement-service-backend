@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.service;
+package com.evgeniykudashov.adservice.service.strategy;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

@@ -1,4 +1,4 @@
-package com.evgeniykudashov.adservice.service;
+package com.evgeniykudashov.adservice.service.strategy;
 
 import com.evgeniykudashov.adservice.controller.rest.AdvertisementsController;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.evgeniykudashov.adservice.service.AdvertisementKeywordQuerySuggestStrategyImpl.ORDER;
+import static com.evgeniykudashov.adservice.service.strategy.AdvertisementKeywordQuerySuggestStrategyImpl.ORDER;
 
 @RequiredArgsConstructor
 @Component
