@@ -31,6 +31,10 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     @Query("select a from Advertisement a where a.title like %:title%")
     Page<Advertisement> findAllByTitle(String title, Pageable pageable);
 
+    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, attributePaths = {"category"})
+    @Query("select a from Advertisement a where a.title like %:title%")
+    List<Advertisement> findAllByTitleContains(String title, Pageable pageable);
+
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, attributePaths = {"location", "images", "category", "seller"})
     @Query("select a from Advertisement a where a.title like %:title% and a.category.id=:categoryId")
     Page<Advertisement> findAllByTitleAndCategoryId(String title, long categoryId, Pageable pageable);
