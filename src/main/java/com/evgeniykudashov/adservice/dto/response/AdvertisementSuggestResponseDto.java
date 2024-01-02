@@ -1,6 +1,6 @@
 package com.evgeniykudashov.adservice.dto.response;
 
-import com.evgeniykudashov.adservice.service.strategy.QuerySuggestStrategy;
+import com.evgeniykudashov.adservice.service.suggestion.Suggestion;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,6 @@ import java.util.List;
 public class AdvertisementSuggestResponseDto {
 
     @JsonInclude
-    List<QuerySuggestStrategy.Suggestion> results;
-
+    List<Suggestion> suggestions;
 
 }

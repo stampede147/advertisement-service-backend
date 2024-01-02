@@ -11,8 +11,6 @@ import org.springframework.context.ConfigurableApplicationContext;
         SecurityAutoConfiguration.class,
 })
 public class Main {
-
-
     @SneakyThrows
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(Main.class, args);
