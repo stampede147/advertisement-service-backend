@@ -13,13 +13,14 @@ import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "advertisements")
+@Table(name = "advertisements", indexes = @Index(columnList = "title"))
 @BatchSize(size = 10)
 public class Advertisement {
 
@@ -60,4 +61,16 @@ public class Advertisement {
             joinColumns = @JoinColumn(name = "advertisement_id"),
             inverseJoinColumns = @JoinColumn(name = "image_id"))
     private List<ImageEntity> images;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Advertisement that)) return false;
+        return Double.compare(that.getPrice(), getPrice()) == 0 && Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getStartTime(), that.getStartTime()) && getStatus() == that.getStatus();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getDescription(), getPrice(), getStartTime(), getStatus());
+    }
 }

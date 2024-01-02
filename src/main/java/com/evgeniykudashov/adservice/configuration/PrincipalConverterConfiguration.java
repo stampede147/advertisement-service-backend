@@ -19,7 +19,6 @@ public class PrincipalConverterConfiguration {
 
         private final static Pattern numberPattern = Pattern.compile("\\b\\d+\\b");
 
-
         @Override
         public Long convert(Principal source) {
             String name = source.getName();
@@ -28,6 +27,4 @@ public class PrincipalConverterConfiguration {
                     : null;
         }
     }
-
-
 }

@@ -47,6 +47,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
             "where va.user.id = :userId " +
             "group by  va.advertisement " +
             "order by max(va.id) desc")
-    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, attributePaths = {"seller", "location"})
+    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, attributePaths = {"seller", "location", "category"})
     List<Advertisement> findViewedAdvertisementsByUserId(long userId, Pageable pageable);
+
 }

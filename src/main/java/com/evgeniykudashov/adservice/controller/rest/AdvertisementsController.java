@@ -48,17 +48,9 @@ public class AdvertisementsController {
 
     @GetMapping(params = {"title", "categoryId"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findAdvertisements(@RequestParam("title") String title,
-                                                @RequestParam(value = "categoryId", required = false) Long categoryId,
+                                                @RequestParam("categoryId") long categoryId,
                                                 @PageableDefault @ParameterObject Pageable pageable) {
 
         return ResponseEntity.ok(advertisementService.findAdvertisementsByNameAndCategoryId(title, categoryId, pageable));
     }
-
-    @GetMapping(params = "title", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAdvertisements(@RequestParam("title") String title,
-                                                @PageableDefault @ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(advertisementService.findAdvertisementsByName(title, pageable));
-
-    }
-
 }

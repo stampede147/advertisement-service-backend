@@ -5,13 +5,8 @@ import com.evgeniykudashov.adservice.dto.response.AdvertisementSuggestResponseDt
 import com.evgeniykudashov.adservice.service.AdvertisementSuggestQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @RestController
@@ -23,7 +18,8 @@ public class AdvertisementSuggestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public AdvertisementSuggestResponseDto suggestAdvertisement(@RequestBody AdvertisementSuggestRequestDto requestDto,
-                                                                @PageableDefault(size = 8) Pageable pageable) {
-        return advertisementSuggestService.suggestAdvertisements(requestDto, pageable);
+                                                                @RequestParam(defaultValue = "8") int size) {
+
+        return advertisementSuggestService.suggestAdvertisements(requestDto, size);
     }
 }
