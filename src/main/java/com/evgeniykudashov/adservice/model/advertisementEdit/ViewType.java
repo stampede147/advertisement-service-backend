@@ -8,7 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ViewType {
 
-    IMAGE_UPLOADER("imageUploader");
+    IMAGE_UPLOADER("imageUploader"),
+    DESCRIPTION("description"),
+    HIDDEN("hidden"),
+    PRICE("price");
 
 
     @JsonValue

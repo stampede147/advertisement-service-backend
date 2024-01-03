@@ -19,5 +19,6 @@ public class ViewConfig {
     @Enumerated(value = EnumType.STRING)
     private ViewSize size;
 
-    private String type;
+    @Enumerated(value = EnumType.STRING)
+    private ViewType type;
 }
