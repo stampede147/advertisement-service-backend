@@ -9,7 +9,9 @@ import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
-import com.evgeniykudashov.adservice.repository.*;
+import com.evgeniykudashov.adservice.repository.AdvertisementRepository;
+import com.evgeniykudashov.adservice.repository.UserRepository;
+import com.evgeniykudashov.adservice.repository.ViewedAdvertisementRepository;
 import com.evgeniykudashov.adservice.service.AuthorizedUserAdvertisementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +39,6 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
 
     private final UserRepository userRepository;
 
-    private final CategoryRepository categoryRepository;
-
-    private final ImageEntityRepository imageEntityRepository;
-
     private final AdvertisementMapper advertisementMapper;
 
     private final Converter<Principal, Long> principalConverter;
@@ -53,11 +51,7 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
         log.trace("Started createAdvertisement(Principal, AdvertisementRequestDto) method");
         log.debug("Provided parameter dto: {}, principal : {}", dto, principal);
 
-        Advertisement advertisement = advertisementMapper.toAdvertisement(dto,
-                principalConverter.convert(principal),
-                userRepository,
-                imageEntityRepository,
-                categoryRepository);
+        Advertisement advertisement = advertisementMapper.toAdvertisement(dto, principal);
 
         return advertisementRepository.save(advertisement)
                 .getId();
