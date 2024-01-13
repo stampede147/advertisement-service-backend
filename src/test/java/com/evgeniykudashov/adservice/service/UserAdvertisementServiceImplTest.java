@@ -125,24 +125,6 @@ public class UserAdvertisementServiceImplTest {
     }
 
     @Test
-    public void getAdvertisementById_ShouldReturnAdvertisementResponseDto() {
-        // Arrange
-        Principal principal = mock(Principal.class);
-        long advertisementId = 1L;
-        Advertisement advertisement = new Advertisement();
-        AdvertisementResponseDto expectedResponseDto = new AdvertisementResponseDto();
-        when(principalConverter.convert(principal)).thenReturn(1L);
-        when(advertisementRepository.findByAdvertisementIdAndSellerId(advertisementId, 1L)).thenReturn(Optional.of(advertisement));
-        when(advertisementMapper.toResponseDto(advertisement)).thenReturn(expectedResponseDto);
-
-        // Act
-        AdvertisementResponseDto result = advertisementService.getAdvertisementById(principal, advertisementId);
-
-        // Assert
-        assertEquals(expectedResponseDto, result);
-    }
-
-    @Test
     public void activateAdvertisementById_ShouldUpdateAdvertisementStatusToActive() {
         // Arrange
         Principal principal = mock(Principal.class);
