@@ -3,6 +3,7 @@ package com.evgeniykudashov.adservice.service;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
+import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
@@ -43,7 +44,7 @@ public class UserAdvertisementServiceImplTest {
     private UserRepository userRepository;
 
     @Mock
-    private GenericAdvertisementMapper advertisementMapper;
+    private AdvertisementMapper advertisementMapper;
 
     @Mock
     private Converter<Principal, Long> principalConverter;
