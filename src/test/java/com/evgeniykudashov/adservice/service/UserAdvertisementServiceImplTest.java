@@ -3,7 +3,6 @@ package com.evgeniykudashov.adservice.service;
 import com.evgeniykudashov.adservice.dto.request.AdvertisementRequestDto;
 import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.dto.response.PageDto;
-import com.evgeniykudashov.adservice.mapper.AdvertisementMapper;
 import com.evgeniykudashov.adservice.model.ViewedAdvertisement;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.model.advertisement.AdvertisementStatus;
@@ -44,7 +43,7 @@ public class UserAdvertisementServiceImplTest {
     private UserRepository userRepository;
 
     @Mock
-    private AdvertisementMapper advertisementMapper;
+    private GenericAdvertisementMapper advertisementMapper;
 
     @Mock
     private Converter<Principal, Long> principalConverter;
@@ -62,8 +61,8 @@ public class UserAdvertisementServiceImplTest {
         AdvertisementRequestDto dto = Mockito.mock(AdvertisementRequestDto.class);
         Advertisement advertisement = Mockito.mock(Advertisement.class);
 
-        when(factory.createAdvertisement(any(), any(), any(), any()))
-                .thenReturn(advertisement);
+//        when(factory.createAdvertisement(any(), any(), any(), any()))
+//                .thenReturn(advertisement);
         when(advertisementRepository.save(advertisement))
                 .thenReturn(advertisement);
 
