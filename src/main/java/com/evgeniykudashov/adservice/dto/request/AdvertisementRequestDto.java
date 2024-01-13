@@ -1,6 +1,8 @@
 package com.evgeniykudashov.adservice.dto.request;
 
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 import com.evgeniykudashov.adservice.validation.CreateConstraint;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
@@ -14,12 +16,15 @@ import lombok.experimental.FieldDefaults;
 import java.util.List;
 
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PUBLIC)
 public class AdvertisementRequestDto {
+
+    AdvertisementType type;
 
     @Size(min = 1, max = 255, groups = {CreateConstraint.class})
     String title;
