@@ -49,7 +49,8 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     @PreAuthorize("isFullyAuthenticated()")
     public long createAdvertisementByPrincipal(Principal principal, AdvertisementRequestDto dto) {
         log.trace("Started createAdvertisement(Principal, AdvertisementRequestDto) method");
-        log.debug("Provided parameter dto: {}, principal : {}", dto, principal);
+        log.debug("provided value [Principal] - {}", principal);
+        log.debug("provided value [AdvertisementRequestDto] - {}", dto);
 
         Advertisement advertisement = advertisementMapper.toAdvertisement(dto, principal);
 
@@ -61,8 +62,9 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     @Transactional
     @PreAuthorize("isFullyAuthenticated()")
     public void hideAdvertisementById(Principal principal, long id) {
-        log.trace("Started hideAdvertisementById(long) method");
-        log.debug("Provided parameters id: {}", id);
+        log.trace("Started hideAdvertisementById(Principal, long) method");
+        log.debug("provided value [Principal] - {}", principal);
+        log.debug("provided value [long] - {}", id);
 
         this.findByAdvertisementIdAndSellerId(id, principalConverter.convert(principal))
                 .setStatus(AdvertisementStatus.HIDDEN);
@@ -73,8 +75,9 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     @Transactional
     @PreAuthorize("isFullyAuthenticated()")
     public void removeAdvertisementById(Principal principal, long advertisementId) {
-        log.trace("Started method removeAdvertisementById(long)");
-        log.debug("Provided parameter advertisementId: {}", advertisementId);
+        log.trace("calling method removeAdvertisementById(Principal, long)");
+        log.debug("provided value [Principal] - {}", principal);
+        log.debug("provided value [long] - {}", advertisementId);
 
         Advertisement advertisement = this.findByAdvertisementIdAndSellerId(advertisementId, principalConverter.convert(principal));
 
@@ -85,8 +88,9 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     @Override
     @Transactional(readOnly = true)
     public PageDto<AdvertisementResponseDto> getAdvertisementPage(Principal principal, Pageable pageable) {
-        log.trace("Started getPageByPrincipal(Principal, Pageable) method");
-        log.debug("Provided parameters principal: {}, pageable: {}", principal, pageable);
+        log.trace("calling method getPageByPrincipal(Principal, Pageable)");
+        log.debug("provided value [Principal] - {}", principal);
+        log.debug("provided value [Pageable] - {}", pageable);
 
         Page<Advertisement> advertisements = advertisementRepository.findAdvertisementsBySellerId(principalConverter.convert(principal), pageable);
 
@@ -107,8 +111,9 @@ public class UserAdvertisementServiceImpl implements AuthorizedUserAdvertisement
     @Transactional
     @PreAuthorize("isFullyAuthenticated()")
     public void activateAdvertisementById(Principal principal, long id) {
-        log.trace("Started activeAdvertisementById(long) method");
-        log.debug("Provided parameters id: {}", id);
+        log.trace("Calling method activeAdvertisementById(Principal, long)");
+        log.debug("provided value [Principal] - {}", principal);
+        log.debug("provided value [long] - {}", id);
 
         this.findByAdvertisementIdAndSellerId(id, principalConverter.convert(principal))
                 .setStatus(AdvertisementStatus.ACTIVE);

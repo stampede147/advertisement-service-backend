@@ -7,6 +7,7 @@ import com.evgeniykudashov.adservice.dto.response.ReviewAdvertisementResponse;
 import com.evgeniykudashov.adservice.mapper.internalmapping.AdvertisementMapperHandler;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
 import com.evgeniykudashov.adservice.service.factory.AdvertisementFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Primary
 @Component
+@Slf4j
 public class AdvertisementMapperImpl implements AdvertisementMapper {
 
     private final AdvertisementFactory factory;
@@ -32,6 +34,8 @@ public class AdvertisementMapperImpl implements AdvertisementMapper {
 
     @Override
     public Advertisement toAdvertisement(AdvertisementRequestDto dto, Principal principal) {
+        log.info("started method toAdvertisement(AdvertisementRequestDto, Principal)");
+        log.debug("provided parameters: {} and {}", dto, principal);
 
         Advertisement advertisement = factory.createAdvertisementForType(dto.getType(), principal);
 
@@ -42,6 +46,8 @@ public class AdvertisementMapperImpl implements AdvertisementMapper {
 
     @Override
     public AdvertisementResponseDto toResponseDto(Advertisement advertisement) {
+        log.info("started method toResponseDto(Advertisement)");
+        log.debug("provided parameters: {}", advertisement);
 
         AdvertisementResponseDto responseDto = factory.createAdvertisementResponseDtoForType(advertisement.getType());
 
