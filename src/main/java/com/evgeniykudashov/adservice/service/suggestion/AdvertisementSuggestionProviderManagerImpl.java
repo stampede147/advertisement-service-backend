@@ -26,12 +26,10 @@ public class AdvertisementSuggestionProviderManagerImpl implements SuggestionPro
             return data;
         }
 
-        final int INIT_SIZE = data.size();
+        final int initSize = data.size();
 
-        List<Suggestion> suggestions = providers.get(index)
-                .findSuggestions(query, remainingElementSize);
-        data.addAll(suggestions);
+        data.addAll(providers.get(index).findSuggestions(query, remainingElementSize));
 
-        return doSuggestInternal(query, remainingElementSize - data.size() + INIT_SIZE, index + 1, data);
+        return doSuggestInternal(query, remainingElementSize - (data.size() - initSize), index + 1, data);
     }
 }
