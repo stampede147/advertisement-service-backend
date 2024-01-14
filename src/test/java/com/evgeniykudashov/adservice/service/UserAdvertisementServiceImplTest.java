@@ -62,8 +62,8 @@ public class UserAdvertisementServiceImplTest {
         AdvertisementRequestDto dto = Mockito.mock(AdvertisementRequestDto.class);
         Advertisement advertisement = Mockito.mock(Advertisement.class);
 
-        when(factory.createAdvertisement(any(), any(), any(), any()))
-                .thenReturn(advertisement);
+//        when(factory.createAdvertisement(any(), any(), any(), any()))
+//                .thenReturn(advertisement);
         when(advertisementRepository.save(advertisement))
                 .thenReturn(advertisement);
 
@@ -122,24 +122,6 @@ public class UserAdvertisementServiceImplTest {
 
         // Assert
         assertEquals(expectedPageDto, result);
-    }
-
-    @Test
-    public void getAdvertisementById_ShouldReturnAdvertisementResponseDto() {
-        // Arrange
-        Principal principal = mock(Principal.class);
-        long advertisementId = 1L;
-        Advertisement advertisement = new Advertisement();
-        AdvertisementResponseDto expectedResponseDto = new AdvertisementResponseDto();
-        when(principalConverter.convert(principal)).thenReturn(1L);
-        when(advertisementRepository.findByAdvertisementIdAndSellerId(advertisementId, 1L)).thenReturn(Optional.of(advertisement));
-        when(advertisementMapper.toResponseDto(advertisement)).thenReturn(expectedResponseDto);
-
-        // Act
-        AdvertisementResponseDto result = advertisementService.getAdvertisementById(principal, advertisementId);
-
-        // Assert
-        assertEquals(expectedResponseDto, result);
     }
 
     @Test

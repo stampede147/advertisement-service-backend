@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-
 @Slf4j
 @Service
 public class SearchAdvertisementServiceImpl implements SearchAdvertisementService {

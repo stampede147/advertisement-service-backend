@@ -1,6 +1,7 @@
 package com.evgeniykudashov.adservice.model.advertisement;
 
 
+import com.evgeniykudashov.adservice.configuration.HibernateConfig;
 import com.evgeniykudashov.adservice.model.category.Category;
 import com.evgeniykudashov.adservice.model.image.ImageEntity;
 import com.evgeniykudashov.adservice.model.user.User;
@@ -9,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +21,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "advertisements", indexes = @Index(columnList = "title"))
-@BatchSize(size = 10)
+@DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Advertisement {
 
     @Id
@@ -61,6 +62,10 @@ public class Advertisement {
             joinColumns = @JoinColumn(name = "advertisement_id"),
             inverseJoinColumns = @JoinColumn(name = "image_id"))
     private List<ImageEntity> images;
+
+    @Column(nullable = false, updatable = false, insertable = false)
+    @Convert(converter = HibernateConfig.AdvertisementTypeAttributeConverter.class)
+    private AdvertisementType type;
 
     @Override
     public boolean equals(Object o) {

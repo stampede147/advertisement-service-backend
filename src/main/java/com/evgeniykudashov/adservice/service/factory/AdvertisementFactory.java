@@ -1,23 +1,14 @@
 package com.evgeniykudashov.adservice.service.factory;
 
+import com.evgeniykudashov.adservice.dto.response.AdvertisementResponseDto;
 import com.evgeniykudashov.adservice.model.advertisement.Advertisement;
-import com.evgeniykudashov.adservice.model.category.Category;
-import com.evgeniykudashov.adservice.model.image.ImageEntity;
-import com.evgeniykudashov.adservice.model.user.User;
+import com.evgeniykudashov.adservice.model.advertisement.AdvertisementType;
 
-import java.util.List;
-import java.util.function.Supplier;
+import java.security.Principal;
 
 public interface AdvertisementFactory {
 
+    Advertisement createAdvertisementForType(AdvertisementType type, Principal principal);
 
-    Advertisement createAdvertisement(Supplier<Advertisement> advertisementSupplier,
-                                      Supplier<User> sellerSupplier,
-                                      Supplier<Category> categorySupplier,
-                                      Supplier<List<ImageEntity>> imagesSupplier);
-
-    default Advertisement createAdvertisement() {
-        return createAdvertisement(Advertisement::new, () -> null, () -> null, () -> null);
-    }
-
+    AdvertisementResponseDto createAdvertisementResponseDtoForType(AdvertisementType type);
 }
